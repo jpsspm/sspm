@@ -3,4 +3,4 @@ Simple Script Packages Manager  written in bash for linux-based OS built from sc
 
 # Home Page
 
-www.jpsspm.github.io/sspm
+https://jpsspm.github.io/sspm/
