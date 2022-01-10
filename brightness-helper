@@ -1,0 +1,85 @@
+#!/usr/bin/bash
+
+
+#### user brightness controle utility
+#############################################
+
+#####################################################################################################################################################
+# Copyright (C) 2022 Free Software Foundation, Inc. written by joe packar <joepackar@gmail.com>, 2022.                                              #
+                                                                                                                                                    #
+# This program is free software; you can redistribute it and/or modify it under the terms of the GNU General                                        #
+# Public License as published by the Free Software Foundation; either version 3, or (at your option) any later version.                             #
+                                                                                                                                                    #
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of                    #
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.                                        #
+                                                                                                                                                    #
+# You should have received a copy of the GNU General Public License along with this program.  If not, see <https://www.gnu.org/licenses/>.          #
+#####################################################################################################################################################
+
+
+# in some case in a "BLFS" system it will be difficult for non-root users to ajust brightness 
+# this tool can be a good optionnal solution  (you always need root access to run this)
+
+# Depend on :    bash    polkit    xfce4-power-manager 
+		
+
+PKEXEC_DBINDIR='/usr/bin'
+XFCE_PM_DBINDIR='/usr/bin'   ## where xfce4-power-manager (xfpm-power-backlight-helper) binary are installed
+                             ## if nothing like this '--sbindir=/usr/bin' was passed to configure when xfce4-power-manager
+                             ## was built then the default helper bindir is '/usr/sbin' or '/sbin'
+MAX_BRIGHTNESS="$($XFCE_PM_DBINDIR/xfpm-power-backlight-helper --get-max-brightness)"
+CURRENT_BRIGHTNESS="$($XFCE_PM_DBINDIR/xfpm-power-backlight-helper --get-brightness)"
+
+
+
+case "$@" in
+-h|--help)
+printf '\nSimple quick brightness ajuster v1.0\n\nOptions:\n%6s++%12sSet to Max\n%6s--%12sSet to Min\n%6s-%13sDecrease from 10\n%6s+%13sIncrease from 10
+%20sDecrease to 0\n%6s+2/-60%8sDecrease/increase [number]\n%6s-h|--help%5sPrint this help\n\n\n%4swritten by joe packar\n'
+esac
+
+
+
+                          if [[ "$@" ]]; then
+                              if [[ "$@" =~ [![:punct:]] ]]; then
+                              PUNCT="$(tr -d -c '[:punct:]' <<< "$@")"
+                              VAL="$(tr -d '[:punct:]' <<< "$@")"
+                              if [[ $VAL ]]; then
+                               case $PUNCT in
+                                 +) if [[ $(($VAL + $CURRENT_BRIGHTNESS)) -lt $MAX_BRIGHTNESS ]]; then 
+                                    $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness $(($VAL + $CURRENT_BRIGHTNESS)); fi ;;
+                                 -) if [[ $CURRENT_BRIGHTNESS != 0 && $VAL != 0 ]]; then
+                                    if [[ $VAL -lt $CURRENT_BRIGHTNESS ]]; then
+                                    $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness $(($CURRENT_BRIGHTNESS - $VAL))
+                                    else $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness 0
+                                    fi
+                                    fi ;;
+                                 *) exit ;;
+                               esac
+                               else
+                               case $PUNCT in
+                                 ++|+++) $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness $MAX_BRIGHTNESS ;;
+                                 +)  while [[ $CURRENT_BRIGHTNESS -lt $MAX_BRIGHTNESS ]]; do
+                                 $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness $(($CURRENT_BRIGHTNESS + 10)) ; exit
+                                 done  ;;
+                                 --|---) $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness 0 ;;
+                                 -)  while [[ $CURRENT_BRIGHTNESS -gt 0 ]]; do
+                               if [[ $CURRENT_BRIGHTNESS -le 5 ]]; then $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness 0 ; exit
+                               else $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness $(($CURRENT_BRIGHTNESS - 10)) ; exit
+                               fi
+                               done
+                               ;;
+                               esac
+                               fi
+                              else
+                              [[ "$@" -le $MAX_BRIGHTNESS ]] && BRIGHTNESS_VAL="$@" || BRIGHTNESS_VAL="$MAX_BRIGHTNESS"
+                              $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness $BRIGHTNESS_VAL
+                              fi
+                          else
+                            $PKEXEC_DBINDIR/pkexec $XFCE_PM_DBINDIR/xfpm-power-backlight-helper --set-brightness 0
+                          fi
+
+
+
+
+
