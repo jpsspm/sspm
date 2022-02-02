@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SSPM</title>
+  <style>
+     body  {height: auto;
+            background-size: auto;
+            background-color: black;
+            background-repeat: no-repeat;
+            padding: auto;
+            background-image: url("data/bg0.png");
+            }
+    
+    section {top: 18em;
+              max-height: 50em;
+              padding-top: 4px;
+              padding-left: 30px;
+              width: auto;
+              max-width: 800px;
+              margin: auto;
+              overflow-wrap: break-word;
+              position: relative;
+              border: 2px solid darkgrey;
+              border-radius: 15px;
+              background-color:rgba(0, 0, 0, 0.2)
+              }
+              
+    .section1 {top: 20em;
+              height: auto;
+              width: auto;
+              max-width: 800px;
+              margin: auto;
+              overflow-wrap: break-word;
+              position: relative;
+              }
+
+              
+              
+    section2 {top:25em;
+              left: 7rem;
+              height: auto;
+              padding:15px;
+              max-width: 850px;
+              width: auto;
+              overflow: wrap;
+              position: relative;
+              }         
+        
+
+       
+       section h3                               {font-size: 30px;}
+       section ul li                            {color: white;}
+       section .link                            {color: DodgerBlue;text-decoration: none;} 
+       section .link:hover                      {text-decoration: underline;}
+       section ul li .strong                    {color: rgb(255, 189, 60);opacity: 70%;}           
+       
+       div.section1 .h3_1       {font-size: 37px;color: rgba(94, 48, 77, 1);margin-bottom: -5px;}
+       div.section1 .sp1        {}
+       div.section1 p .link                            {color: rgb(54, 0, 171);text-decoration: none;padding-left: 6px;padding-right: 6px;border-radius: 15px;} 
+       div.section1 p .link:hover                      {color: rgb(255, 189, 60);background: none;text-decoration: underline;}
+        
+        div.section1 .h3_2       {font-size: 37px;text-align: right;margin-bottom: -8px;letter-spacing: 3px;}                                  
+        div.section1 div.sp2     {text-align: right;border: 2px -4px lightblue;border-width: small;border-radius: 15px;width: auto;background-color: rgba(47, 100, 120, 0.4);}
+        div.section1 div.sp2 p   {padding-right: 10px;padding-left: 10px;padding-top: 2px;padding-bottom: 2px; font-size: 18px;}
+       
+       
+       
+       
+       section2 p.fake_term                     {background-color: rgba(0, 0, 0, 0.5);font-size: 15px;width: 400px;color: rgba(255, 255, 255, 0.8);}
+       section2 p.fake_term .user_style         {color: rgba(0, 213, 48, 0.8);font-size: 15.5px;}
+       section2 p span.buildfile_style          {color: black;font-style: normal;}
+       section2 .h3_6                           {font-size: 37px;color: rgba(94, 48, 77, 1);margin-bottom: -10px;}
+       section2 p.text3                         {color: #ffd135;font-size: 30px;max-width: 850px;font-style: italic;text-transform: capitalize;opacity: 40%;}
+       
+        
+       p      {color: white;}
+       footer {background-color: #333;margin-left: -10px;padding-bottom: -10px;overflow: hidden;position: absolute;  bottom: -100rem;width: 100%;}
+       footer p {float: left;display: block;text-align: left;padding-left: 10px;padding-right: 10px;background-color: #83a6bf;color: black;}
+       
+    
+  </style>
+</head> 
+ 
+<body>
+
+
+
+
+
+
+<section>
+    <h3>Introduction</h3>
+  
+    <p>
+    sspm is a package manager inspired from 'makepkg' and the 'LFS' project.</br>
+    <span class="normal">it's a simple script written in bash, that you can use to build, install and manage your packages </span>
+    </p>
+
+      <h3>Releases</h3>
+    
+    <p> the latest version is <a class="link" href="data/index_avalable_soon.html" target="_blank"><strong>1.0.0</strong></a>,&ensp;released on ..., 2022.</p> 
+           
+      
+      <h3>Suported OS</h3>
+      
+     <p> This software is designed for linux-based systems built from source ( or if you want to build one )
+       </p>
+             
+      <h3>Contacts</h3>
+      
+      <ul>
+         <li>bugs report &ensp;----->&emsp;<a class="link" href="https://github.com/jpsspm/sspm/issues/" target="_blank"><strong>github</strong></a></li>
+         <li>email&emsp;&emsp;&emsp;----->&emsp;<a><strong class="strong">joepackar</strong>&ensp;domain: <strong class="strong">gmail.com</strong></a></li>
+      </ul>
+</section>
+
+
+
+<div class="section1">
+   <h3 class="h3_1">Why sspm ? </h3> 
+   <p class="sp1">sspm for simple script package manager</p>
+   
+      <h3 class=h3_2>Releases history </h3> 
+          <div class="sp2">
+          <p>v1.0.0&ensp;------&ensp;released on ... 2022<br>
+          sha256&ensp;:&ensp;d25d511137c2c219eaf5264442925566efa91b1c179d4d4518bf64a3dd75c7fc
+          </p>
+          </div>
+          
+          
+      <h3 class=h3_3>Release note </h3> 
+       <p >   
+         due to caracteres manipulation issues the script is language hardcoded<br />
+         the futur releases will include a <strong class="lang">fr</strong> and an <strong class="lang">en</strong> version 
+       </p>
+      
+
+      <h3 class=h3_4>See also </h3>
+       <p>
+         the pkgbuild files examples &ensp;------&ensp; <a class="link" href="https://github.com/jpsspm/sspm/releases/" target="_blank">1.0.0</a><br />
+         this is given by way of an example only,<br> 
+         to see pkgbuild files filling methods and may be outdated 
+         denpending on the date you are downloading the file.
+       </p>
+       
+      <h3 class=h3_5>License </h3> 
+       <p>GNU GPL v3+ or any later of your choise </p>             
+            
+</div>
+
+
+
+<section2 id="section2">
+     <h3 class="h3_6">NOTE:</h3>
+     <p class="text2">build file name: this <span class="buildfile_style">pkgbuild</span> or this <span class="buildfile_style">pkgbuild_foo</span> is right</p>
+      <p class="fake_term">
+      <strong class="user_style">packar@pc:~/build$</strong> ls<br>
+      pkgbuild_e2fsprogs&ensp;&emsp;pkgbuild_sassc</br>
+      pkgbuild_elfutils&emsp;&emsp;&emsp;pkgbuild_pm-utils</br>
+      pkgbuild_ell &ensp;&emsp;&emsp;&emsp;&emsp;pkgbuild_findutils</br>
+      pkgbuild_file&emsp;&emsp;&emsp;&emsp;&ensp;pkgbuild_procps</br>
+      pkgbuild_glibc &ensp;&emsp;&emsp;&emsp;pkgbuild_psmisc</br>
+      pkgbuild_rrdtool&emsp;&emsp;&emsp;pkgbuild_gcc</br>
+      pkgbuild_gawk&ensp;&emsp;&emsp;&emsp;pkgbuild_flex</br>
+      pkgbuild_expat&ensp;&emsp;&emsp;&emsp;pkgbuild_rustc</br>
+      pkgbuild_guile &ensp;&emsp;&emsp;&emsp;pkgbuild_fribidi</br>
+      <strong class="user_style">packar@pc:~/build$</strong> sspm --destdir='../packages' -ib<br>
+      </p>
+      <p class="text2"> and will ask you which package to build.</p>
+     <p class="text3">do not use comments in '<span class="buildfile_style">pkgbuild</span>' files unless it's a file comment such as with the cat command<br>
+     because the bash comment sign is used as maker by the software while reading the file<br> see pkgbuild files examples to learn more.<br>
+    </p>
+</section2>
+
+
+
+
+<footer>
+  <p>Author: Joe Packar</p>
+  <p><strong>joepackar</strong>&ensp;domain: <strong>gmail.com</strong></p>
+  <p>Last edited: 2/2/2022 12:08:19</p>
+</footer>
+
+
+
+
+</body>
+</html>
+
+
