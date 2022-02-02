@@ -1,0 +1,42 @@
+sspm is Licensed under GPLv3+: GNU GPL version 3 or later
+################################################################
+
+
+sspm is non-dependency support yet, since we must start somewhere.
+
+
+
+The exit issue :
+    making the script to exit at any error means that you cannot run a make test
+    in the build process because some errors are 'normal' if we can say that
+    (for example if certain dependencies are not available yet)
+    
+    in a graphical terminal you just need to be carefull,
+    you can scroll up to check if the process did not encounter an error
+    
+    the program does not really exit if there is an error
+    
+    
+    
+sspm is a local package manager does not fetch anything from internet
+means you must have downloaded all the necessary source files in a directory
+and point "SRC" to that directory
+
+
+
+
+
+############################################################################
+the project was born in 2020
+not less than : 305 days of work
+your opinions: will determine if I must continue || exit   
+############################################################################
+
+
+
+
+
+
+
+SORRY FOR MY ENGLISH
+I USED ALL THE CPU OF MY BRAIN TO PRODUCE THE BEST POSSIBLE TRANSLATION I CAN
