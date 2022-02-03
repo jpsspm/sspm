@@ -8,8 +8,15 @@
     
     
      <style>
-     body {background-color: #C0C0C0;}
-     p   {color: grey;font-size:48px;font-style:italic;}
+     body            {background-color: #C0C0C0;}
+     p.h1            {color: grey;font-size:48px;font-style:italic;margin-bottom: 5px;}
+     p.h2            {color: grey;font-size:22px;font-style:italic;}
+     div.pkgbf       {font-size: 10px; background: rgb(158, 146, 110);padding-left: 5px;padding-right: 5px;max-width:30em}
+     #file0          {top: 15em; right: 6em;position: absolute;}
+     #file1          {top: 15em; right: 42em;position: absolute;}
+     #file2          {top: 20em; left: 10em;position: absolute;}
+     #file3          {top: 47em; left: 46em;position: absolute;}
+     div.footer_text {position: absolute;bottom:-30em;}
      </style>
     
     
@@ -18,7 +25,133 @@
 
 <body>
   
-    <p> will be coming soon! </p>
+    <p class="h1"> will be coming soon! </p>
+    <p class=h2>here are a few examples:</p>
+    
+    
+    
+    <div class="pkgbf" id="file0">
+    <p> cat  pkgbuild_autoconf2.13</br></br>
+        pkgname=autoconf2.13</br>
+        pkgver=1</br>
+        pkgrev=1</br>
+        pkgdesc="description here..."</br>
+        url="url here"</br>
+        groups=add</br>
+        depends=()</br>
+        makedepend=(js)</br>
+        packager=""</br>
+        tfext=</br></br></br>
+        build() {</br>
+        patch -Np1 -i <strong>$SRC</strong>/autoconf-2.13-consolidated_fixes-1.patch</br>
+        mv -v autoconf.texi autoconf213.texi</br>
+        rm -v autoconf.info</br></br>
+        ./configure --prefix=/usr --program-suffix=2.13</br>
+        make</br>
+        make check</br>
+        make DESTDIR=<strong>$pkgdir</strong> install</br></br>
+        install -v -m644 autoconf213.info <strong>$pkgdir</strong>/usr/share/info</br>
+        install-info --info-dir=<strong>$pkgdir</strong>/usr/share/info autoconf213.info</br>
+        }</br>
+    </p>
+    </div>
+    
+       <div class="pkgbf" id="file1">
+       <p> cat  pkgbuild_libpeas</br></br>
+        pkgname=libpeas</br>
+        pkgver=1.30.0</br>
+        pkgrev=1</br>
+        pkgdesc="moteur de greffons basé sur gobject etc..."</br>
+        url="https://download.gnome.org/sources/libpeas/"</br>
+        groups=add</br>
+        depends=(gobject-introspection gtk3)</br>
+        makedepend=(gedit)</br>
+        packager=you</br>
+        tfext=tar.gz</br></br></br>
+        build() {</br></br>
+        mkdir build</br>
+        cd &emsp;&ensp;build</br>
+        meson --prefix=/usr --buildtype=release ..</br>
+        ninja</br>
+        ninja test</br>
+        DESTDIR=<strong>$pkgdir</strong> ninja install</br></br>
+        }</br>
+        </p>
+        </div>
+        
+        
+        
+       <div class="pkgbf" id="file2">
+       <p> cat  pkgbuild</br></br>
+        pkgname=pm-utils</br>
+        pkgver=1.4.1</br>
+        pkgrev=</br>
+        pkgdesc="description here"</br>
+        url="https://pm-utils.freedesktop.org/releases"</br>
+        groups=add</br>
+        depends=(xmlto)</br>
+        makedepend=()</br>
+        packager=</br>
+        tfext=</br></br>
+        build() {</br>
+        ./configure --prefix=/usr&emsp;&ensp;&emsp;&emsp;\</br>
+         &emsp;&emsp;&emsp;&emsp;&emsp;--sysconfdir=/etc&emsp;&ensp;\</br>
+         &emsp;&emsp;&emsp;&emsp;&emsp;--docdir=/usr/share/doc/pm-utils-1.4.1</br>
+        make</br>
+        make DESTDIR=<strong>$pkgdir</strong> install</br></br>
+        install -v -m644 man/*.1 <strong>$pkgdir</strong>/usr/share/man/man1</br>
+        install -v -m644 man/*.8 <strong>$pkgdir</strong>/usr/share/man/man8</br></br>
+        <em>ln -sfv pm-action.8 /usr/share/man/man8/pm-suspend.8</br>
+        ln -sfv pm-action.8 /usr/share/man/man8/pm-hibernate.8</br>
+        ln -sfv pm-action.8 /usr/share/man/man8/pm-suspend-hybrid.8</br></em>
+        }
+        </p>
+        </div>
+        
+        
+       <div class="pkgbf" id="file3">
+       <p> cat  pkgbuild_bluez</br></br>
+           pkgname=bluez</br>
+           pkgver=5.63</br>
+           pkgrev=1</br>
+           pkgdesc=""</br>
+           url="https://www.kernel.org/pub/linux/bluetooth/"</br>
+           groups=</br>
+           depends=(dbus glib libical)</br>
+           makedepend=()</br>
+           packager=""</br>
+           tfext=tar.xz</br></br>
+           build() {</br>
+           ./configure --prefix=/usr&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--sysconfdir=/etc&emsp;&emsp;&emsp;&ensp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--localstatedir=/var&emsp;&emsp;&ensp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--disable-manpages&emsp;&emsp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--enable-library</br>
+            make</br>
+            make DESTDIR=<strong>$pkgdir</strong> install</br></br>
+            ln -svf ../libexec/bluetooth/bluetoothd /usr/sbin</br>
+            install -v -dm755 <strong>$pkgdir</strong>/etc/bluetooth</br>
+            install -v -m644 src/main.conf <strong>$pkgdir</strong>/etc/bluetooth/main.conf</br></br>
+            cat > <strong>$pkgdir</strong>/etc/bluetooth/rfcomm.conf << EOF</br>
+            # start rfcomm.conf</br>
+            # ... subsystem in the Linux kernel.</br>
+            # Use one line per command</br>
+            # See the rfcomm man page for options</br>
+            </br></br>
+            # End</br>
+            EOF</br></br>
+            }
+        </p>
+        </div>
+        
+        <div class=footer_text>
+        <p>these examples are based on the&ensp;'BLFS PROJECT'&ensp;if you are building a&ensp;LFS/BLFS&ensp;system
+        I strongly encourage you to follow the official instructions of the project </br>
+        you simply need to fill the instructions in 'pkgbuild' files
+        </p>
+        </div>
+        
+    
           
 </body>
 </html>
