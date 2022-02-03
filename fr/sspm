@@ -651,7 +651,7 @@ esac
 ############ * si vous executez ce script en tant qu'utilisateur 'non-root' le script tentera d'accerder au repertoire de configuration par defaut                                                 #
 ############   qui est '~/.config/nom_du_script' sauf si vous indiquez un autre repertoire dans 'PM_CONFDIR'                                                                                       #
 ############   dans les deux cas ce dernier sera cree s'il n'existe pas ( assurez vous d'avoir les droits d'ecriture necessaires dans l'arborescence que vous indiquez dans 'PM_CONFDIR' )         #
-############ * puis un tube restreint a l'utilisateur sera cree pour des besoins de syncronisation ( au cas ou vous lancez plusieurs instances de ce script dans des terminaux differents )        #
+############ * puis un tube restreint a l'utilisateur sera cree pour des besoins de synchronisation ( au cas ou vous lancez plusieurs instances de ce script dans des terminaux differents )        #
 ############ * enfin si 'PM_CONFDIR' a ete definie sa valeur sera sauvegarder dans ce script                                                 voir apres ce bloc pour plus d'informations           #
 ####################################################################################################################################################################################################
 #  si 'sudo' est installe et que vous utilises la commande avec des options ou une configuration particuliere vous devez ajuster ce bloc de codes ci-dessous pour qu'il correspond a vous besoins  #
@@ -2190,7 +2190,7 @@ find $TMP -iname tif.* -delete
 
 remove_pkg () {
 ## de base la base de donnees est protegee en ecriture,
-## la logiquement veut que seul le proprietaire pourra modifier ces attributs. 
+## la logique veut que seul le proprietaire pourra modifier ces attributs. 
 ## si l'on est proprietaire ou qu'on peut s'attribuer ses droits continuer sinon erreur
 ##############################################################################################
 [[ -n $DEBUG_MODE && $DEBUG_MODE = y ]] && set -x
