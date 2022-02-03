@@ -35,7 +35,7 @@
 #       sspm est principalement inspire du 'livre lfs' et de 'makepkg'
 #
 #       attention le fonctionnement de certaines commandes depend parfois des commentaires ecrits apres
-#       une autre commande (ex: root:# command -f quelque_chose  # fin du bloc) 
+#       une autre commande (ex: command -f quelque_chose  # fin du bloc) 
 #       le commentaire "fin du bloc" peut etre utilise comme repere par une autre commande, etc...
 #       on modifie seulement si on sait et on est sure de ce que l'on fait.
 
