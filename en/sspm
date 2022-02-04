@@ -1318,7 +1318,7 @@ if ( test $(wc -m <<< "$NO_EMPTY_FUNC0") -eq 1 && test $(wc -m <<< "$NO_EMPTY_FU
 printf "\e[91merror:\e[0m  could not read ($BUILDFILE) file\n%8smake sure to fill out the file properly\n\n\t***** the build function is empty *****\n"
 exit $ERCODE; fi fi; else printf "\e[91merror:\e[0m ($BUILDFILE) is blank\ntry 'sspm --pkgbuild-example' to have an example\n"
 exit $ERCODE; fi; else case $RANDOM in 2*2* | *0*4 | *3*5 | 6*1* | *0*0 | *9*1* )
-printf "\e[91merror:\e[0m  ($BUILDFILE) \e[2munexisting file\e[2m\n" ;;
+printf "\e[91merror:\e[0m  ($BUILDFILE) \e[2munexisting file\e[0m\n" ;;
 *) printf "\e[91merror:\e[0m  the ($BUILDFILE) file does not exit\n"  ;; esac; exit $ERCODE; fi
 [[ -n "$1" && "$1" == "-wh" ]] && local PKG_HASH=yes
 printf "\e[1msspm (build)\e[0m\nA build tool for creating \ncompatible packages to use with sspm\n"
