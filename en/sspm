@@ -1710,7 +1710,7 @@ while true; do
 [[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" && "$RANDOM" =~ "3" ]] && printf "\v\v\veverything is ok,%2s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "3"$ && ! "$RANDOM" =~ "7" ]] && printf "\v\v\v$TGT_PKG_NAME: ok\v\n***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "5"$ && ! "$RANDOM" =~ "0" ]] && printf "\v\v\v$TGT_PKG_NAME has been created successfully\v\n%15s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
-[[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m was created successfully\v\n" && break
+[[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m successfully created\v\n" && break
 [[ "$RANDOM" =~ ^"8" || "$RANDOM" =~ ^"6" ]] && [[ "$RANDOM" =~ "8"$ || "$RANDOM" =~ "5"$ ]] &&  printf "\v\v\vdone\v\n" && break
 [[ "$RANDOM" =~ "1"$ && "$RANDOM" =~ "6" ]] && printf "\v\v\v<<<%1sdone, $TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
 [[ "$RANDOM" =~ "42"$ ]] && printf "\v\v\v<<<%1sdone, build time%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
@@ -1724,7 +1724,7 @@ while true; do
 [[ "$RANDOM" =~ "06"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m has been successfully created\v\n%11s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
 [[ "$RANDOM" =~ "0" && "$RANDOM" =~ "5" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m created\v\n%8s<<<%1s$TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
 [[ "$RANDOM" =~ "9" && ! "$RANDOM" =~ "2" ]] && printf "\v\v\vdone\v\n" && break
-[[ "$RANDOM" =~ ^"6" ]] && printf "\v\v\v\e[94m$TGT_PKG_NAME\e[0m was created successfully\v\n" && break
+[[ "$RANDOM" =~ ^"6" ]] && printf "\v\v\v\e[94m$TGT_PKG_NAME\e[0m ok\v\n" && break
 [[ "$RANDOM" =~ ^"1" && "$RANDOM" =~ "1" ]] && printf "\v\v\v\e[94m$TGT_PKG_NAME\e[0m successfully created\v\n" && break
 [[ "$RANDOM" =~ ^"5" ]] && printf "\v\v\veverything is ok,%2s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "0"$ ]] && printf "\v\v\v\e[36m$TGT_PKG_NAME\e[0m created successfully\v\n" && break
