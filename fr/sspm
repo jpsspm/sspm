@@ -86,7 +86,7 @@ fi
 
 # Verification des dependances de sspm
 if ( ! type awk bsdtar chattr find sha256sum ps sed tar which zstd &>/dev/null ); then
-LINE="$(cat "$SCRIPTFILE" | grep -E "^PKGDTB_DIGIT0|^local PKGDTB_DIGIT0")"
+LINE="$(cat "$(realpath -q $0)" | grep -E "^PKGDTB_DIGIT0|^local PKGDTB_DIGIT0")"
 if [[ "$LINE" == 'PKGDTB_DIGIT0=("")' || "$LINE" == 'PKGDTB_DIGIT0=()' \
 || "$LINE" == 'PKGDTB_DIGIT0=' || "$LINE" == 'local PKGDTB_DIGIT0=("")' \
 || "$LINE" == 'local PKGDTB_DIGIT0=()' || "$LINE" == 'local PKGDTB_DIGIT0=' ]]; then
@@ -180,8 +180,8 @@ TEMP='/tmp'; BASHRC='.bashrc'
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerreur: 'e2fsprogs' impossible d'acc"$e_acute"der au fichier source\n"; exit 1; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
-               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && mkdir -pv $TEMP/"$CD_DIR"build && \
-               cd $TEMP/"$CD_DIR"build && ../configure --prefix=/usr --bindir=/bin --with-root-prefix="" \
+               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && mkdir -pv $TEMP/$CD_DIR/build && \
+               cd $TEMP/$CD_DIR/build && ../configure --prefix=/usr --bindir=/bin --with-root-prefix="" \
                --enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck && \
                make && make install; cd $TEMP && rm -r $CD_DIR; rm -fv $DESTDIR/usr/lib/{libcom_err,libe2p,libext2fs,libss}.a;
                SLINK0="$(find $DESTDIR -name "libcom_err.so.*" -type l -print | head -1)"
@@ -214,7 +214,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 
 
-SSPM_VER=1.0.0
+SSPM_VER=
 TMP="/tmp"
 TAG="pkg"
 PIPE="/dev/ilpc"
