@@ -1532,11 +1532,9 @@ if [[ -n $C_TYPE_FILE && $C_TYPE_FILE = zip ]]; then
    [[ ${CD_DIR0%%/*} == ${CD_DIR1%%/*} ]] && local CD_DIR=${CD_DIR0%%/*}
    elif [[ $EXTOOL = bsdtar ]]; then
    local CD_DIR="$($TAR -tf "$PKG_SRC" 2>/dev/null | head -1)"
-   local CD_DIR="${CD_DIR//\/}"
    fi
 else
 local CD_DIR="$(tar -tf "$PKG_SRC" 2>/dev/null | head -1)"
-local CD_DIR="${CD_DIR//\/}"
 fi
 
 [[ "$CD_DIR" =~ /$ ]] && local CD_DIR="${CD_DIR%?}" || [[ ! "$CD_DIR" =~ \/ ]] || local CD_DIR="$(dirname "$CD_DIR")" 
