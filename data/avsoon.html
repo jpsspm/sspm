@@ -16,6 +16,7 @@
      #file1          {top: 15em; right: 42em;position: absolute;}
      #file2          {top: 20em; left: 10em;position: absolute;}
      #file3          {top: 47em; left: 46em;position: absolute;}
+     #file4          {top: 65em; left: 5em;position: absolute;}
      div.footer_text {position: absolute;bottom:-30em;}
      </style>
     
@@ -143,6 +144,25 @@
             }
         </p>
         </div>
+
+
+        <div class="pkgbf" id="file4">
+         <p> cat  pkgbuild_pygments</br></br>
+         pkgname=pygments</br>
+         pkgver=2.11.0</br>
+         pkgrev=</br>
+         pkgdesc="general syntax highlighter written in python"</br>
+         url=""</br>
+         groups=add</br>
+         depends=()</br>
+         makedepend=(gtk-doc)</br>
+         packager=
+         tfext=</br></br>
+         build() {</br>
+         python3 setup.py install --optimize=1 --root=<strong>$pkgdir</strong></br>
+         }
+          </p>
+         </div>
         
         <div class=footer_text>
         <p>these examples are based on the&ensp;'BLFS PROJECT'&ensp;if you are building a&ensp;LFS/BLFS&ensp;system
