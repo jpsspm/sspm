@@ -230,7 +230,6 @@ COMMENT4="files"
 COMMENT5="found"
 COMMENT6="installed"
 COMMENT7="and"
-COMMENT8="including"
 COMMENT9="total"
 COMMENT10="size"
 LV_COMPRESS="compression-level=22"
@@ -1950,7 +1949,7 @@ local ALL_FOUND_DIRS=$(COUNT $(printf "%s" "$(find . -type d \! -iname "." \! \(
 local ALL_FOUND_FILES=$(COUNT $(printf "%s" "$(find . -type f,l \! \( -iname "$FILES_SHA" -o -iname "$PKG_INSTALL" -o -iname "$BUILDFILE" \))"))
 local PKG_SIZE="$(printf "%s" "$(find . -type f,l,d \! -iname "." \! \( -iname "$FILES_SHA" -o -iname "$PKG_INSTALL" -o -iname "$BUILDFILE" -o -iname "bin" -o -iname "boot" -o -iname "color" -o -iname "cache" -o -iname "dev" -o -iname "etc" -o -iname "lib" -o -iname "lib64" -o -iname "home" -o -iname "mnt" -o -iname "opt" -o -iname "srv" -o -iname "sbin" -o -iname "usr" -o -iname "var" -o -iname "sysconfig" -o -iname "firmware" -o -iname "media" -o -iname "floppy" -o -iname "cdrom" -o -iname "include" -o -iname "local" -o -iname "locate" -o -iname "log" -o -iname "mail" -o -iname "opt" -o -iname "pkgconfig" -o -iname "proc" -o -iname "spool" -o -iname "share" -o -iname "sys" -o -iname "dict" -o -iname "doc" -o -iname "info" -o -iname "man" -o -iname "man1" -o -iname "man2" -o -iname "man3" -o -iname "man4" -o -iname "man5" -o -iname "man6" -o -iname "man7" -o -iname "man8" -o -iname "misc" -o -iname "run" -o -iname "root" -o -iname "tmp" -o -iname "lock" -o -iname "terminfo" -o -iname "zoneinfo" \))" | du -cah | tail -1 | cut -f 1)B"
 shopt -u nullglob dotglob
-printf "%s\n" "printf '$COMMENT10[\e[91m$PKG_SIZE\e[0m]; $COMMENT9 $COMMENT5[\e[91m$ALL_FOUND\e[0m], $COMMENT8 $COMMENT3[\e[91m$ALL_FOUND_DIRS\e[0m] $COMMENT7 $COMMENT4[\e[91m$ALL_FOUND_FILES\e[0m]\n'" >> $FAKEROOT/realpath && printf "}  ########################## paquet $pkgname" >> $FAKEROOT/realpath && rm -f $FAKEROOT/realpath.bck;
+printf "%s\n" "printf '$COMMENT10[\e[91m$PKG_SIZE\e[0m]; $COMMENT9 $COMMENT5[\e[91m$ALL_FOUND\e[0m], $COMMENT3[\e[91m$ALL_FOUND_DIRS\e[0m] $COMMENT7 $COMMENT4[\e[91m$ALL_FOUND_FILES\e[0m]\n'" >> $FAKEROOT/realpath && printf "}  ########################## paquet $pkgname" >> $FAKEROOT/realpath && rm -f $FAKEROOT/realpath.bck;
 
 
 ## group/type of the package
@@ -2197,7 +2196,7 @@ case $REP in [yY]|'')  printf "\n" ;; [nN]|*) printf "\n" && exit ;; esac
 else printf "sspm: '$1' not installed\n"; exit $ERCODE; fi
 local FILES="$($DTBFILE0 "$1"_pth|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"\
 |sed '/'$COMMENT0'\|'$COMMENT1'\|'$COMMENT2'\|^'$COMMENT10.*$COMMENT9.*$COMMENT5'/d'\
-|sed -e 's/\'$SYMBOLE'\|'$COMMENT0'\|'$COMMENT1'\|'$COMMENT2'\|'$COMMENT3'\|'$COMMENT4'\|'$COMMENT5'\|'$COMMENT6'\|'$COMMENT7'\b\|'$COMMENT8'\|\[[^]]*\]//g' \
+|sed -e 's/\'$SYMBOLE'\|'$COMMENT0'\|'$COMMENT1'\|'$COMMENT2'\|'$COMMENT3'\|'$COMMENT4'\|'$COMMENT5'\|'$COMMENT6'\|'$COMMENT7'\b\|\[[^]]*\]//g' \
 | tr '\t' ' ')" 
 
              #### if set ignore the directory with its contents
