@@ -55,7 +55,7 @@ fi
 
 # dependencies check
 if ( ! type awk bsdtar chattr find sha256sum ps sed tar which zstd &>/dev/null ); then
-LINE="$(cat "$SCRIPTFILE" | grep -E "^PKGDTB_DIGIT0|^local PKGDTB_DIGIT0")"
+LINE="$(cat "$(realpath -q $0)" | grep -E "^PKGDTB_DIGIT0|^local PKGDTB_DIGIT0")"
 if [[ "$LINE" == 'PKGDTB_DIGIT0=("")' || "$LINE" == 'PKGDTB_DIGIT0=()' \
 || "$LINE" == 'PKGDTB_DIGIT0=' || "$LINE" == 'local PKGDTB_DIGIT0=("")' \
 || "$LINE" == 'local PKGDTB_DIGIT0=()' || "$LINE" == 'local PKGDTB_DIGIT0=' ]]; then
@@ -65,7 +65,7 @@ et \e[4me2fsprogs\e[0m\nin a temporary directory to make sspm work\n\n\e[2m%1sth
 %1sthese both variables in your shell:\n ex: export \e[0m\e[1mSOURCES\e[0m\e[2m='/dir/containing/sources'\n\
 %1sex: export \e[0m\e[1mDESTDIR\e[0m\e[2m='/dir/to_install/temp_packages'\n%1sthen rerun your command\n\n\
 %1smake sure that you have these source files\n%1swith the following versions or later: \
-libarchive v3.5.2, zstd v1.5.0\n%1spkg-config v0.29.2, which v2.21, procps-ng v3.3.17 et e2fsprogs v1.46.4\n\n\
+libarchive v3.5.2, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v3.3.17 et e2fsprogs v1.46.5\n\n\
 %1sif you have already installed these packages, update and re-export\n\
 %1sthe 'PATH' variable in your shell or simply source the .bashrc file\n%1sfor these packages to be visible in the environment\e[0m\n\n"
 [[ ! -v "SOURCES" && -v "DESTDIR" ]] && printf "%1splease initialize the '\e[91mSOURCES\e[0m' variable\n\n" && exit 1
@@ -149,8 +149,8 @@ TEMP='/tmp'; BASHRC='.bashrc'
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerror: 'e2fsprogs' can't access the source file\n"; exit 1; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
-               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && mkdir -pv $TEMP/"$CD_DIR"build && \
-               cd $TEMP/"$CD_DIR"build && ../configure --prefix=/usr --bindir=/bin --with-root-prefix="" \
+               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && mkdir -pv $TEMP/$CD_DIR/build && \
+               cd $TEMP/$CD_DIR/build && ../configure --prefix=/usr --bindir=/bin --with-root-prefix="" \
                --enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck && \
                make && make install; cd $TEMP && rm -r $CD_DIR; rm -fv $DESTDIR/usr/lib/{libcom_err,libe2p,libext2fs,libss}.a;
                SLINK0="$(find $DESTDIR -name "libcom_err.so.*" -type l -print | head -1)"
@@ -183,7 +183,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 
 
-SSPM_VER=1.0.0
+SSPM_VER=
 TMP="/tmp"
 TAG="pkg"
 PIPE="/dev/ilpc"
