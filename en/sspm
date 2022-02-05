@@ -36,7 +36,7 @@
 #
 #
 #
-#        attention some commands sometimes depends on comments written before/after another one 
+#        attention some commands sometimes depends on comments written before/after other commands 
 #        (ex: command -f something  # end of block)
 #        the comment 'end of block' can be used as reper by another command, and so on...
 #        modify only if you know and are sure of what you are doing.
