@@ -183,7 +183,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 
 
-SSPM_VER=
+SSPM_VER=1.0.1
 TMP="/tmp"
 TAG="pkg"
 PIPE="/dev/ilpc"
@@ -223,12 +223,12 @@ DIALOG=
 PARSEID="# parse options"
 OPTIONS="--options"
 COMMENT0="Package:"
-COMMENT1="Directories"
-COMMENT2="Files"
+COMMENT1="directories"
+COMMENT2="files"
 COMMENT3="folders"
 COMMENT4="files"
 COMMENT5="found"
-COMMENT6="installed"
+COMMENT6="Installed"
 COMMENT7="and"
 COMMENT9="total"
 COMMENT10="size"
@@ -1718,10 +1718,10 @@ fi
 local RANDOM="$RANDOM"
 
 while true; do
-[[ "$RANDOM" =~ ^"9" && "$RANDOM" =~ "2" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m successfully build\v\n%10s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
+[[ "$RANDOM" =~ ^"9" && "$RANDOM" =~ "2" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m successfull built\v\n%10s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "8" && "$RANDOM" =~ "1"$ ]] && printf "\v\v\v\e[2m$TGT_PKG_NAME\e[0m\e[90m has been created successfully\v\n%10s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"9" && "$RANDOM" =~ "0" ]] && printf "\v\v\v\e[94m$TGT_PKG_NAME\e[0m created\v\n%10s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
-[[ "$RANDOM" =~ ^"9" ]] && printf "\v\v\v\e[2m$TGT_PKG_NAME\e[0m\e[90m successfully build\e[0m\v\n" && break
+[[ "$RANDOM" =~ ^"9" ]] && printf "\v\v\v\e[2m$TGT_PKG_NAME\e[0m\e[90m successfull built\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" && "$RANDOM" =~ "3" ]] && printf "\v\v\veverything is ok,%2s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "3"$ && ! "$RANDOM" =~ "7" ]] && printf "\v\v\v$TGT_PKG_NAME: ok\v\n***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "5"$ && ! "$RANDOM" =~ "0" ]] && printf "\v\v\v$TGT_PKG_NAME has been created successfully\v\n%15s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
@@ -1734,7 +1734,7 @@ while true; do
 [[ "$RANDOM" =~ ^"3" ]] && printf "\v\v\v\e[94m$pkgname\e[0m successfully created\v\n%3s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
 [[ "$RANDOM" =~ ^"4" && "$RANDOM" =~ "4" ]] && printf "\v\v\v\e[94mdone\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"1" && "$RANDOM" =~ "2"$ ]] && printf "\v\v\v\e[90mcreated: \e[0m\e[2m$TGT_PKG_NAME\e[0m\v\n" && break
-[[ "$RANDOM" =~ ^"7" && "$RANDOM" =~ "4" ]] && printf "\v\v\vsuccessfully built package\v\n%1s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
+[[ "$RANDOM" =~ ^"7" && "$RANDOM" =~ "4" ]] && printf "\v\v\vsuccessfull built package\v\n%1s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "5" && "$RANDOM" =~ "8" ]] && printf "\v\v\v\e[90mcreated package: \e[0m\e[2m$TGT_PKG_NAME\e[0m\n\e[90min%13s:%1s\e[0m\e[2m$(cat <<< "${build_time[@]}")\e[0m\v\n" && break
 [[ "$RANDOM" =~ "06"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m has been successfully created\v\n%11s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
 [[ "$RANDOM" =~ "0" && "$RANDOM" =~ "5" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m created\v\n%8s<<<%1s$TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
@@ -1943,14 +1943,14 @@ local makedepend=$(grep --binary-files=text -i "makedepend=" $BUILDFILE | cut -d
 ################ this removes caracteres to make "temproot" dir as a root
 find . -type f,l -exec realpath {} \; | sort -u | cut -c 23- | sed '/'$BUILDFILE'\|'$PKG_INSTALL'\|'$FILES_SHA'/d' | sed '/^$/d' > $FAKEROOT/realpath.bck
 ###### sorting package data
-local fonction_name=""$pkgname"_pth() {    ######################### paquet $pkgname"
+local fonction_name=""$pkgname"_pth() {    ######################### package $pkgname"
           printf "%s\n" "$fonction_name" > $FAKEROOT/realpath && \
-          printf "%s\n" "printf '$COMMENT0 $pkgname\n$COMMENT1 $COMMENT6\n'"  >> $FAKEROOT/realpath
+          printf "%s\n" "printf '$COMMENT0 $pkgname\n$COMMENT6 $COMMENT1\n'"  >> $FAKEROOT/realpath
 find . -type d \! -name "." -print0 | while IFS= read -r -d '' line; do
 parentdir_name="$(basename $line)"
 if [[ -n $parentdir_name && ! "${sysdirs[@]}" =~ $parentdir_name ]]; then
 printf "%s\n" "printf '  \e[96m$line\e[0m\n'" | sed 's/.\//\//' >> $FAKEROOT/realpath && continue
-else continue; fi; done; printf "%s\n" "printf '$COMMENT2 $COMMENT6\n'" >> $FAKEROOT/realpath
+else continue; fi; done; printf "%s\n" "printf '$COMMENT6 $COMMENT2\n'" >> $FAKEROOT/realpath
 while IFS= read -r line; do
 ######## ignore warnings if you list a package paths for example with the package 'ruby' 
 #################### this last contains some caracteres which are not easy to manipulate with the printf command
@@ -1962,7 +1962,7 @@ local ALL_FOUND_DIRS=$(COUNT $(printf "%s" "$(find . -type d \! -iname "." \! \(
 local ALL_FOUND_FILES=$(COUNT $(printf "%s" "$(find . -type f,l \! \( -iname "$FILES_SHA" -o -iname "$PKG_INSTALL" -o -iname "$BUILDFILE" \))"))
 local PKG_SIZE="$(printf "%s" "$(find . -type f,l,d \! -iname "." \! \( -iname "$FILES_SHA" -o -iname "$PKG_INSTALL" -o -iname "$BUILDFILE" -o -iname "bin" -o -iname "boot" -o -iname "color" -o -iname "cache" -o -iname "dev" -o -iname "etc" -o -iname "lib" -o -iname "lib64" -o -iname "home" -o -iname "mnt" -o -iname "opt" -o -iname "srv" -o -iname "sbin" -o -iname "usr" -o -iname "var" -o -iname "sysconfig" -o -iname "firmware" -o -iname "media" -o -iname "floppy" -o -iname "cdrom" -o -iname "include" -o -iname "local" -o -iname "locate" -o -iname "log" -o -iname "mail" -o -iname "opt" -o -iname "pkgconfig" -o -iname "proc" -o -iname "spool" -o -iname "share" -o -iname "sys" -o -iname "dict" -o -iname "doc" -o -iname "info" -o -iname "man" -o -iname "man1" -o -iname "man2" -o -iname "man3" -o -iname "man4" -o -iname "man5" -o -iname "man6" -o -iname "man7" -o -iname "man8" -o -iname "misc" -o -iname "run" -o -iname "root" -o -iname "tmp" -o -iname "lock" -o -iname "terminfo" -o -iname "zoneinfo" \))" | du -cah | tail -1 | cut -f 1)B"
 shopt -u nullglob dotglob
-printf "%s\n" "printf '$COMMENT10[\e[91m$PKG_SIZE\e[0m]; $COMMENT9 $COMMENT5[\e[91m$ALL_FOUND\e[0m], $COMMENT3[\e[91m$ALL_FOUND_DIRS\e[0m] $COMMENT7 $COMMENT4[\e[91m$ALL_FOUND_FILES\e[0m]\n'" >> $FAKEROOT/realpath && printf "}  ########################## paquet $pkgname" >> $FAKEROOT/realpath && rm -f $FAKEROOT/realpath.bck;
+printf "%s\n" "printf '$COMMENT10[\e[91m$PKG_SIZE\e[0m]; $COMMENT9 $COMMENT5[\e[91m$ALL_FOUND\e[0m], $COMMENT3[\e[91m$ALL_FOUND_DIRS\e[0m] $COMMENT7 $COMMENT4[\e[91m$ALL_FOUND_FILES\e[0m]\n'" >> $FAKEROOT/realpath && printf "}  ########################## package $pkgname" >> $FAKEROOT/realpath && rm -f $FAKEROOT/realpath.bck;
 
 
 ## group/type of the package
@@ -2028,7 +2028,7 @@ if [[ -f "$DTBFILE0" ]]; then
 [ ! -w "$DTBFILE0" ] && chattr -i $DTBFILE0
 cp $DTBFILE0 "$DTBFILE0.bck"
 if $DTBFILE0 "$pkgname"_pth &>/dev/null; then
-sed -i "/"$pkgname"_pth/,/paquet "$pkgname"/d ; /^$/d" $DTBFILE0
+sed -i "/"$pkgname"_pth/,/package "$pkgname"/d ; /^$/d" $DTBFILE0
 else
 $DTBFILE0 "$pkgname"_pth 2>&1
    if [[ $? != $dtb_ercode ]]; then
@@ -2261,7 +2261,7 @@ local FILES="$($DTBFILE0 "$1"_pth|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|
 ### database update
 [ ! -w "$DTBFILE0" ] && chattr -i $DTBFILE0 && local PERM1=ro
 cp $DTBFILE0 "$DTBFILE0.bck"
-sed -i "/"$1"_pth/,/paquet "$1"/d" $DTBFILE0 && sed -i '/^$/d' $DTBFILE0
+sed -i "/"$1"_pth/,/package "$1"/d" $DTBFILE0 && sed -i '/^$/d' $DTBFILE0
 sed -i 's/^}.*/&\n\n/' $DTBFILE0; sed -i '/'"$PARSEID"'/i\\' $DTBFILE0
 local SPCLINE="$(( $(grep -n '^#-*-#$' $DTBFILE0 |tail -1|cut -f1 -d':') + 1 ))"
 local LINE_STAT="$(head -n $SPCLINE $DTBFILE0|tail -1)"
@@ -2627,5 +2627,4 @@ sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="on"/' "$SCRIPTFILE"; printf "\e
 elif [[ "$DIALOG" = "on" ]]; then sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"
 printf "\e[90msuccess message disabled\e[0m\n"; elif [[ -z "$DIALOG" ]]; then
 sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"; printf "\e[90msuccess message disable\e[0m\n"; fi fi fi
-
 
