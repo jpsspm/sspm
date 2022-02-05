@@ -1480,6 +1480,21 @@ local PKG_SRC="$SRC/${pkgname}-${pkgver}.$tfext"
 fi
 if [[ -z "$REFIND" || (( -n "$REFIND" && "$REFIND" = 'YES' )) ]]; then
 local PKG_SRC_MATCH=(${PKG_SRC%%.*}*)
+
+if [[ ${#PKG_SRC_MATCH[@]} -gt 0 ]]; then
+if [[ "${PKG_SRC_MATCH[@]}" =~ "docs" || "${PKG_SRC_MATCH[@]}" =~ "html" \
+|| "${PKG_SRC_MATCH[@]}" =~ "fixe" || "${PKG_SRC_MATCH[@]}" =~ "patch" \
+|| "${PKG_SRC_MATCH[@]}" =~ "fhs" ]]
+    then local PKG_SRC_MATCH1=()
+    for psm in ${PKG_SRC_MATCH[@]}; do
+    [[ "$psm" = *"docs"* || "$psm" = *"html"* || "$psm" = *"fixe"* || "$psm" = *"patch"* || "$psm" = *"fhs"* ]] || \
+    local PKG_SRC_MATCH1+=("$psm")
+    done
+    local PKG_SRC_MATCH=(${PKG_SRC_MATCH1[@]})
+    unset PKG_SRC_MATCH1
+fi
+fi
+
 if [[ ${#PKG_SRC_MATCH[@]} -gt 1 ]]; then
 local PKG_SRC_MATCH="$(tr '[:space:]' '\n' <<< "${PKG_SRC_MATCH[@]}" | sort -Vr | head -n1)"
 fi
