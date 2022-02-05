@@ -183,7 +183,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 
 
-SSPM_VER=1.0.1
+SSPM_VER=
 TMP="/tmp"
 TAG="pkg"
 PIPE="/dev/ilpc"
