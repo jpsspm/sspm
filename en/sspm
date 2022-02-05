@@ -1735,7 +1735,7 @@ while true; do
 [[ "$RANDOM" =~ ^"4" && "$RANDOM" =~ "4" ]] && printf "\v\v\v\e[94mdone\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"1" && "$RANDOM" =~ "2"$ ]] && printf "\v\v\v\e[90mcreated: \e[0m\e[2m$TGT_PKG_NAME\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"7" && "$RANDOM" =~ "4" ]] && printf "\v\v\vsuccessfully built package\v\n%1s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
-[[ "$RANDOM" =~ "5" && "$RANDOM" =~ "8" ]] && printf "\v\v\v\e[90mcreated package: \e[0m\e[2m$TGT_PKG_NAME\e[0m\n\e[90min%9s:%1s\e[0m\e[2m$(cat <<< "${build_time[@]}")\e[0m\v\n" && break
+[[ "$RANDOM" =~ "5" && "$RANDOM" =~ "8" ]] && printf "\v\v\v\e[90mcreated package: \e[0m\e[2m$TGT_PKG_NAME\e[0m\n\e[90min%13s:%1s\e[0m\e[2m$(cat <<< "${build_time[@]}")\e[0m\v\n" && break
 [[ "$RANDOM" =~ "06"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m has been successfully created\v\n%11s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
 [[ "$RANDOM" =~ "0" && "$RANDOM" =~ "5" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m created\v\n%8s<<<%1s$TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
 [[ "$RANDOM" =~ "9" && ! "$RANDOM" =~ "2" ]] && printf "\v\v\vdone\v\n" && break
