@@ -17,6 +17,7 @@
      #file2          {top: 20em; left: 10em;position: absolute;}
      #file3          {top: 47em; left: 46em;position: absolute;}
      #file4          {top: 65em; left: 5em;position: absolute;}
+     #file5          {top: 75em; right: 9em;position: absolute;}
      div.footer_text {position: absolute;bottom:-30em;}
      </style>
     
@@ -163,6 +164,39 @@
          }
           </p>
          </div>
+
+
+        <div class="pkgbf" id="file5">
+          <p> cat  pkgbuild_bzip2</br></br>
+           pkgname=bzip2</br>
+           pkgver=1.0.8</br>
+           pkgrev=1</br>
+           pkgdesc='programs for compressing and decompressing files'</br>
+           url='https://www.sourceware.org/pub/bzip2'</br>
+           groups=base</br>
+           depends=()</br>
+           makedepend=()</br>
+           packager=</br>
+           tfext=tar.gz</br>
+           build() {</br></br>
+           patch -Np1 -i <strong>$SRC</strong>/bzip2-1.0.8-install_docs-1.patch</br>
+           sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile</br>
+           sed -i "s@(PREFIX)/man@(PREFIX)/share/man@g" Makefile</br></br>
+           make -f Makefile-libbz2_so</br>
+           make clean</br>
+           make</br>
+           make PREFIX=<strong>$pkgdir</strong>/usr install</br></br>
+           cp -av libbz2.so.* <strong>$pkgdir</strong>/usr/lib</br>
+           ln -sv libbz2.so.1.0.8 <strong>$pkgdir</strong>/usr/lib/libbz2.so</br>
+           cp -v bzip2-shared <strong>$pkgdir</strong>/usr/bin/bzip2</br>
+           for i in $pkgdir/usr/bin/{bzcat,bunzip2}; do</br>
+           ln -sfv bzip2 $i</br>
+           done</br>
+           rm -fv <strong>$pkgdir</strong>/usr/lib/libbz2.a</br>
+           }
+          </p>
+         </div>
+
         
         <div class=footer_text>
         <p>these examples are based on the&ensp;'BLFS PROJECT'&ensp;if you are building a&ensp;LFS/BLFS&ensp;system
