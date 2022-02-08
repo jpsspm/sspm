@@ -2660,18 +2660,18 @@ commande=(); variable=()
 if [[ -n "$commande" ]]; then
 if [[ $commande == 'e' || $commande == 'f' ]]; then
 arg="$([ $commande = 'e' ] && printf '%s-p'; [ $commande = 'f' ] && printf '%s-pi')"
-if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then pkg_infos $arg $file
+if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then pkg_infos $arg $file
 else printf "\e[91merreur \e[0mde syntaxe\e[0m\n\e[90mindiquez uniquement le nom du paquet\e[0m\n\e[90met assurez vous que\
 %1sce dernier ne contient pas de caract"$e_grave"res sp"$e_acute"ciaux\e[0m\n"; exit $ERCODE; fi
-else if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then if [ -d "$extra_0" ]; then pkg_infos $arg $file $extra_0
+else if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then if [ -d "$extra_0" ]; then pkg_infos $arg $file $extra_0
 else printf "%serreur:  '$extra_0' n'est pas un r"$e_acute"pertoire ou n'existe pas\n"; exit $ERCODE; fi
 else printf "\e[91merreur \e[0mde syntaxe\e[0m\n\e[90mindiquez uniquement le nom du paquet\e[0m\n\
 \e[90met assurez vous que ce dernier ne contient pas de caract"$e_grave"res sp"$e_acute"ciaux\e[0m\n"
 exit $ERCODE; fi  fi else printf "erreur:  veillez indiquer le nom d'un paquet\n"; exit $ERCODE; fi
-elif [[ $commande == 'r' ]]; then if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then remove_pkg $file
+elif [[ $commande == 'r' ]]; then if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then remove_pkg $file
 else printf "\e[91merreur \e[0mde syntaxe\e[0m\n\e[90mindiquez uniquement le nom du paquet\e[0m\n\e[90met assurez vous que\
 %1sce dernier ne contient pas de caract"$e_grave"res sp"$e_acute"ciaux\e[0m\n"; exit $ERCODE; fi
-else if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then if [ -d "$extra_0" ]; then remove_pkg $file $extra
+else if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then if [ -d "$extra_0" ]; then remove_pkg $file $extra
 else printf "%serreur:  '$extra_0' n'est pas un r"$e_acute"pertoire ou n'existe pas\n"; exit $ERCODE; fi
 else printf "\e[91merreur \e[0mde syntaxe\e[0m\n\e[90mindiquez uniquement le nom du paquet\e[0m\n\
 \e[90met assurez vous que ce dernier ne contient pas de caract"$e_grave"res sp"$e_acute"ciaux\e[0m\n"
