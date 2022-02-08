@@ -1016,7 +1016,7 @@ else
 printf "$(basename $SCRIPTFILE): '$2' package not found\n"; exit $ERCODE 
 fi
 elif [ "$1" = '-pi' ]; then
-  local LINE="$(sed -n -e "/\(^{$2\)/p" $DTBFILE1|rev|sed 's/\((.}\)/( }/'|rev)"
+  local LINE="$(sed -n -e "/\(^{$2}\)/p" $DTBFILE1|rev|sed 's/\((.}\)/( }/'|rev)"
 if test -n "$LINE"; then
   local DEPPART="$(cut -d' ' -f2- <<< $LINE)"
   local LINE="$(cut -d' ' -f1 <<< $LINE)"
