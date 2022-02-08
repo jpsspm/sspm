@@ -2548,15 +2548,15 @@ commande=(); variable=()
 if [[ -n "$commande" ]]; then
 if [[ $commande == 'e' || $commande == 'f' ]]; then
 arg="$([ $commande = 'e' ] && printf '%s-p'; [ $commande = 'f' ] && printf '%s-pi')"
-if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then pkg_infos $arg $file
+if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then pkg_infos $arg $file
 else printf "syntax \e[91merror\e[0m\n\e[90mplease enter a name\nmake sure it does not contain special characters\e[0m\n"; exit $ERCODE; fi
-else if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then if [ -d "$extra_0" ]; then pkg_infos $arg $file $extra_0
+else if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then if [ -d "$extra_0" ]; then pkg_infos $arg $file $extra_0
 else printf "%serror:  '$extra_0' is not a directory or does not exist\n"; exit $ERCODE; fi
 else printf "syntax \e[91merror\e[0m\n\e[90mplease enter a name\nmake sure it does not contain special characters\e[0m\n"
 exit $ERCODE; fi  fi else printf "error:  enter a package name\n"; exit $ERCODE; fi
-elif [[ $commande == 'r' ]]; then if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then remove_pkg $file
+elif [[ $commande == 'r' ]]; then if [ -n "$file" ]; then if [ -z "$extra_0" ]; then if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then remove_pkg $file
 else printf "syntax \e[91merror\e[0m\n\e[90mplease enter a package name\nand make sure it does not contain special characters\e[0m\n"; exit $ERCODE; fi
-else if [[ ! "$file" == *['!'@#\$%^\&*()_+./]* ]]; then if [ -d "$extra_0" ]; then remove_pkg $file $extra
+else if [[ ! "$file" == *['!'@#\$%^\&*()/]* ]]; then if [ -d "$extra_0" ]; then remove_pkg $file $extra
 else printf "%serror:  '$extra_0' is not a directory or does not exist\n"; exit $ERCODE; fi
 else printf "syntax \e[91merror\e[0m\n\e[90mplease enter a package name\nand make sure it does not contain special characters\e[0m\n"
 exit $ERCODE; fi  fi else printf "error:  enter a package name\n"; exit $ERCODE; fi
