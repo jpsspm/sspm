@@ -213,8 +213,8 @@ TEXT3="architecture"
 TEXT4="build on"
 TEXT5="build at"
 TEXT6="type"
-TEXT7="depend on"
-TEXT8="make dependence to"
+TEXT7="dependencies"
+TEXT8="required by"
 TEXT9="size"
 TEXT10="packager"
 TEXT11="about"
@@ -1055,8 +1055,8 @@ $TEXT3          = $arch
 $TEXT4              = $builddate
 $TEXT5              = $buildtime
 $TEXT6                  = $pkgtype
-$TEXT7             = $depends
-$TEXT8    = $makedepend
+$TEXT7          = $depends
+$TEXT8           = $makedepend
 $TEXT9                  = $pkgsize
 $TEXT10              = $packager
 
@@ -1146,23 +1146,23 @@ revision%13s: "$pkgrev"\n"; printf "%sdescription%10s: ${pkgdesc[@]}\n"; printf 
 read -p ':: ' val; [[ "$val" = [qQ] ]] && exit; until false; do if [[ ! "$val" =~ [[:cntrl:]] ]]; then groups="$val" && break; else read -p ':: ' val && continue; fi done
 clear; printf "%s\e[90mDependencies, use space or comma as separator (optional)\e[0m\n\n\
 package name%9s: "$pkgname"\nversion%14s: "$pkgver"\nrevision%13s: "$pkgrev"\n"; printf "%sdescription%10s: ${pkgdesc[@]}\n"
-printf "%burl%18s: $url\n"; printf "group%16s: $groups\n"; printf "depend on%12s:\n\n"
+printf "%burl%18s: $url\n"; printf "group%16s: $groups\n"; printf "dependencies%9s:\n\n"
 read -p ':: ' val; [[ "$val" = [qQ] ]] && exit; until false; do if [[ ! "$val" =~ [[:cntrl:]] ]]; then depends="$(tr ',;' ' ' <<< "$val")" && break; else read -p ':: ' val && continue; fi done
-clear; printf "%s\e[90mmake dependence to (optional)\e[0m\n\npackage name%9s: "$pkgname"\nversion%14s: "$pkgver"\n\
+clear; printf "%s\e[90mRequired By (optional)\e[0m\n\npackage name%9s: "$pkgname"\nversion%14s: "$pkgver"\n\
 revision%13s: "$pkgrev"\n"; printf "%sdescription%10s: ${pkgdesc[@]}\n"; printf "%burl%18s: $url\n"
-printf "group%16s: $groups\n"; printf "depend on%12s: $depends\n"; printf "make dependence to%3s:\n\n"
+printf "group%16s: $groups\n"; printf "dependencies%9s: $depends\n"; printf "required by%10s:\n\n"
 read -p ':: ' val; [[ "$val" = [qQ] ]] && exit; until false; do if [[ ! "$val" =~ [[:cntrl:]] ]]; then makedepend="$(tr ',;' ' ' <<< "$val")" && break; else read -p ':: ' val && continue; fi done
 clear; printf "%s\e[90mpackager (optional)\e[0m\n\npackage name%9s: "$pkgname"\nversion%14s: "$pkgver"\n\
 revision%13s: "$pkgrev"\n"; printf "%sdescription%10s: ${pkgdesc[@]}\n"; printf "%burl%18s: $url\n"; printf "group%16s: $groups\n"
-printf "depend on%12s: $depends\n"; printf "make dependence to%3s: $makedepend\n"; printf "packager%13s:\n\n"
+printf "dependencies%9s: $depends\n"; printf "required by%10s: $makedepend\n"; printf "packager%13s:\n\n"
 read -p ':: ' val; [[ "$val" = [qQ] ]] && exit; until false; do if [[ ! "$val" =~ [[:cntrl:]] ]]; then packager="$val" && break; else read -p ':: ' val && continue; fi done
 clear; printf "%s\e[90mSource file extension  'tar.gz'\e[0m\n\npackage name%9s: "$pkgname"\nversion%14s: "$pkgver"\n\
 revision%13s: "$pkgrev"\n"; printf "%sdescription%10s: ${pkgdesc[@]}\n"; printf "%burl%18s: $url\n"; printf "group%16s: $groups\n"
-printf "depend on%12s: $depends\n"; printf "make dependence to%3s: $makedepend\n"; printf "packager%13s: $packager\n"; printf "tfext%16s:\n\n" 
+printf "dependencies%9s: $depends\n"; printf "required by%10s: $makedepend\n"; printf "packager%13s: $packager\n"; printf "tfext%16s:\n\n" 
 read -p ':: ' val; [[ "$val" = [qQ] ]] && exit; until false; do if [[ ! "$val" =~ [[:cntrl:]] ]]; then tfext="$val" && break; else read -p ':: ' val && continue; fi done
 clear; printf "%s\e[90mLeave empty if 'SRC' is already set\e[0m\n\npackage name%9s: "$pkgname"\nversion%14s: "$pkgver"\n\
 revision%13s: "$pkgrev"\n"; printf "%sdescription%10s: ${pkgdesc[@]}\n"; printf "%burl%18s: $url\n"; printf "group%16s: $groups\n"
-printf "depend on%12s: $depends\n"; printf "make dependence to%3s: $makedepend\n"; printf "packager%13s: $packager\n"; printf "tfext%16s: $tfext\nSRC%18s:\n\n" 
+printf "dependencies%9s: $depends\n"; printf "required by%10s: $makedepend\n"; printf "packager%13s: $packager\n"; printf "tfext%16s: $tfext\nSRC%18s:\n\n" 
 read -p ':: ' val; [[ "$val" = [qQ] ]] && exit; until false; do if [[ ! "$val" =~ [[:cntrl:]] ]]; then SRC_DIR="$val" && break; else read -p ':: ' val && continue; fi done
 
                       clear
@@ -1179,7 +1179,7 @@ read -p ':: ' val; [[ "$val" = [qQ] ]] && exit; until false; do if [[ ! "$val" =
                             fi
                                 printf "package name%9s: "$pkgname"\nversion%14s: "$pkgver"\nrevision%13s: "$pkgrev"\n"
                                 printf "%sdescription%10s: ${pkgdesc[@]}\n"; printf "%burl%18s: $url\n"; printf "group%16s: $groups\n"
-                                printf "depend on%12s: $depends\n"; printf "make dependence to%3s: $makedepend\n"
+                                printf "dependencies%9s: $depends\n"; printf "required by%10s: $makedepend\n"
                                 printf "packager%13s: $packager\n"; printf "tfext%16s: $tfext\n"
                                 printf "%bSRC%18s: $SRC_DIR\n\n"
                                 [[ "$build" ]] && printf "%b$build\n" || printf "build%1s()%1s\n{\n"
@@ -2157,7 +2157,7 @@ local PKG_MAKE_DEPEND=("$(cut -d'(' -f3- <<< $LINE1|tr -d '()')")
                                 fi
                                done <<< "$(grep ^'{.*)'$ $DTBFILE1 | grep "\<$1\>")"
 
-## the only one rule if you set a package as type 'base' is to fail its uninstallation if the package make dependence (is required by another package)
+## the only one rule if you set a package as type 'base' is to fail its uninstallation if the package is required by another package
 ## none sspm dependency checking mechanism exist yet
 #######################################################################################################################################################
 if [[ ${#PKG_MAKE_DEPEND[@]} -gt 0 ]]; then
@@ -2200,7 +2200,7 @@ if [[ $RANDOM == [[:digit:]]5* ]]
                       then printf '\\e[31m'
                         else printf '\\e[97m';fi)"
 fi
-printf "\n%5spackage: "$PKG_NAME"  version ($PKG_VER) revision ($PKG_REV) \n%15stype '$PKG_TYPE' \n%15smake dependence to:\n\
+printf "\n%5spackage: "$PKG_NAME"  version ($PKG_VER) revision ($PKG_REV) \n%15stype '$PKG_TYPE' \n%15srequired by:\n\
 %14s\e[3m$COLOR$(cat <<< "${FOUND_PKGMAKE_DEPEND[@]}") \e[0m\n\n%10sfree up  $PKG_SIZE\n\n"
 
 
