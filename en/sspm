@@ -2135,7 +2135,7 @@ local DATE="$(date +%D)" TIME="$(date "+%I:%M %p")"
              exit $ERCODE; fi
              ipc_tool -l
 [[ "$2" ]] || check_dtb -c -r
-if grep -q "^"$1"_pth" $DTBFILE0 && grep -q "^[[:punct:]]"$1"" $DTBFILE1; then
+if grep -q "^"$1"_pth" $DTBFILE0 && grep -q "^{$1}" $DTBFILE1; then
 local LINE="$(sed -n -e "/\(^{$1}\)/p" $DTBFILE1)"
 local LINE0="$(rev <<< "$LINE"|sed 's/\((.}\)/( }/'|rev|cut -d' ' -f1|sed 's/[[:punct:]][[:punct:]][[:punct:]]/ /g; s/^[[:punct:]]\|[[:punct:]]$//g')"
 local LINE1="$(rev <<< "$LINE"|sed 's/\((.}\)/( }/'|rev|cut -d' ' -f2-|sed 's/)(/) (/')"
