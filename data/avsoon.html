@@ -18,7 +18,8 @@
      #file3          {top: 47em; left: 46em;position: absolute;}
      #file4          {top: 65em; left: 5em;position: absolute;}
      #file5          {top: 56em; right: 10em;position: absolute;}
-     div.footer_text {position: absolute;bottom:-30em;}
+     #file6          {top: 70em; right: 6em;position: absolute;}
+     div.footer_text {position: absolute;bottom:-40em;}
      </style>
     
     
@@ -195,6 +196,93 @@
            rm -fv <strong>$pkgdir</strong>/usr/lib/libbz2.a</br>
            }
           </p>
+         </div>
+
+         
+
+         <div class="pkgbf" id="file6">
+          <p> cat  pkgbuild_glibc</br></br>
+          pkgname=glibc</br>
+          pkgver=2.35</br>
+          pkgrev=1</br>
+          pkgdesc="main C library"</br>
+          url="https://www.gnu.org/software/libc/"</br>
+          groups=base</br>
+          depends=(libidn2)</br>
+          makedepend=()</br>
+          packager=</br>
+          tfext=</br></br>
+          build() {</br>
+          patch -Np1 -i $SRC/glibc-2.35-fhs-1.patch</br>
+          mkdir -v build</br>
+          cd       build</br>
+          echo "rootsbindir=/usr/sbin" > configparms</br>
+          ../configure --prefix=/usr                            \</br>
+                       --disable-werror                         \</br>
+                       --enable-kernel=5.16                     \</br>
+                       --enable-stack-protector=strong          \</br>
+                       --with-headers=/usr/include              \</br>
+                       libc_cv_slibdir=/usr/lib</br>
+           make</br>
+           make check</br>
+           touch /etc/ld.so.conf</br>
+           sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile</br>
+           make DESTDIR=$pkgdir install</br>
+           sed '/RTLDLIST=/s@/usr@@g' -i $pkgdir/usr/bin/ldd</br>
+           mkdir -pv $pkgdir/etc/ld.so.conf.d $pkgdir/var/cache/nscd $pkgdir/usr/lib/locale</br>
+           cp -v ../nscd/nscd.conf $pkgdir/etc/nscd.conf</br>
+           install -v -Dm644 ../nscd/nscd.tmpfiles $pkgdir/usr/lib/tmpfiles.d/nscd.conf</br>
+           install -v -Dm644 ../nscd/nscd.service $pkgdir/usr/lib/systemd/system/nscd.service</br></br>
+           localedef -i POSIX --prefix=$pkgdir -f UTF-8 C.UTF-8         2> /dev/null || true</br>
+           localedef -i ja_JP --prefix=$pkgdir -f SHIFT_JIS ja_JP.SIJS  2> /dev/null || true</br>
+           localedef -i cs_CZ --prefix=$pkgdir -f UTF-8 cs_CZ.UTF-8</br>
+           localedef -i de_DE --prefix=$pkgdir -f ISO-8859-1 de_DE</br>
+           localedef -i de_DE@euro --prefix=$pkgdir -f ISO-8859-15 de_DE@euro</br>
+           localedef -i de_DE --prefix=$pkgdir -f UTF-8 de_DE.UTF-8</br>
+           localedef -i el_GR --prefix=$pkgdir -f ISO-8859-7 el_GR</br>
+           localedef -i en_GB --prefix=$pkgdir -f UTF-8 en_GB.UTF-8</br>
+           localedef -i en_US --prefix=$pkgdir -f ISO-8859-1 en_US</br>
+           localedef -i en_US --prefix=$pkgdir -f UTF-8 en_US.UTF-8</br>
+           localedef -i es_MX --prefix=$pkgdir -f ISO-8859-1 es_MX</br>
+           localedef -i fa_IR --prefix=$pkgdir -f UTF-8 fa_IR</br>
+           localedef -i fr_FR --prefix=$pkgdir -f ISO-8859-1 fr_FR</br>
+           localedef -i fr_FR@euro --prefix=$pkgdir -f ISO-8859-15 fr_FR@euro</br>
+           localedef -i fr_FR --prefix=$pkgdir -f UTF-8 fr_FR.UTF-8</br></br>
+           cat > $pkgdir/etc/nsswitch.conf << "EOF"</br>
+           # Begin /etc/nsswitch.conf</br></br>
+           passwd: files</br>
+           group: files</br>
+           shadow: files</br></br>
+           hosts: files dns</br>
+           networks: files</br></br>
+           protocols: files</br>
+           services: files</br>
+           ethers: files</br>
+           rpc: files</br></br>
+           # End /etc/nsswitch.conf</br>
+           EOF</br></br></br>
+           tar -xf $SRC/tzdata2021e.tar.gz</br>
+           ZONEINFO=$pkgdir/usr/share/zoneinfo</br>
+           mkdir -pv $ZONEINFO/{posix,right}</br>
+           for tz in etcetera southamerica northamerica europe africa antarctica asia australasia backward; do</br>
+           zic -L /dev/null   -d $ZONEINFO       ${tz}</br>
+           zic -L /dev/null   -d $ZONEINFO/posix ${tz}</br>
+           zic -L leapseconds -d $ZONEINFO/right ${tz} 2>/dev/null</br>
+           done</br></br>
+           cp -v zone.tab zone1970.tab iso3166.tab $ZONEINFO</br>
+           zic -d $ZONEINFO -p America/New_York</br>
+           unset ZONEINFO</br></br></br>
+           cat > $pkgdir/etc/ld.so.conf << "EOF"</br>
+           # Begin /etc/ld.so.conf</br>
+           /usr/local/lib</br>
+           /opt/lib</br></br>
+           EOF</br></br>
+           cat >> $pkgdir/etc/ld.so.conf << "EOF"</br>
+           # Add an include directory</br>
+           include /etc/ld.so.conf.d/*.conf</br></br>
+           EOF</br></br>
+           }</br></br>
+         </p>           
          </div>
 
         
