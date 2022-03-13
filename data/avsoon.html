@@ -229,7 +229,9 @@
            sed '/test-installation/s@$(PERL)@echo not running@' -i ../Makefile</br>
            make DESTDIR=<strong>$pkgdir</strong> install</br>
            sed '/RTLDLIST=/s@/usr@@g' -i <strong>$pkgdir</strong>/usr/bin/ldd</br>
-           mkdir -pv <strong>$pkgdir</strong>/etc/ld.so.conf.d <strong>$pkgdir</strong>/var/cache/nscd <strong>$pkgdir</strong>/usr/lib/locale</br>
+           mkdir -pv <strong>$pkgdir</strong>/etc/ld.so.conf.d</br> 
+           mkdir -pv <strong>$pkgdir</strong>/var/cache/nscd</br>
+           mkdir -pv <strong>$pkgdir</strong>/usr/lib/locale</br>
            cp -v ../nscd/nscd.conf <strong>$pkgdir</strong>/etc/nscd.conf</br>
            install -v -Dm644 ../nscd/nscd.tmpfiles <strong>$pkgdir</strong>/usr/lib/tmpfiles.d/nscd.conf</br>
            install -v -Dm644 ../nscd/nscd.service <strong>$pkgdir</strong>/usr/lib/systemd/system/nscd.service</br></br>
