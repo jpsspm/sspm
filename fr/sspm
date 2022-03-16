@@ -651,7 +651,7 @@ esac
 ############ * si vous executez ce script en tant qu'utilisateur 'non-root' le script tentera d'accerder au repertoire de configuration par defaut                                                 #
 ############   qui est '~/.config/nom_du_script' sauf si vous indiquez un autre repertoire dans 'PM_CONFDIR'                                                                                       #
 ############   dans les deux cas ce dernier sera cree s'il n'existe pas ( assurez vous d'avoir les droits d'ecriture necessaires dans l'arborescence que vous indiquez dans 'PM_CONFDIR' )         #
-############ * puis un tube restreint a l'utilisateur sera cree pour des besoins de synchronisation ( au cas ou vous lancez plusieurs instances de ce script dans des terminaux differents )        #
+############ * puis un tube restreint a l'utilisateur sera cree pour des besoins de synchronisation ( au cas ou vous lancez plusieurs instances de ce script dans des terminaux differents )       #
 ############ * enfin si 'PM_CONFDIR' a ete definie sa valeur sera sauvegarder dans ce script                                                 voir apres ce bloc pour plus d'informations           #
 ####################################################################################################################################################################################################
 #  si 'sudo' est installe et que vous utilises la commande avec des options ou une configuration particuliere vous devez ajuster ce bloc de codes ci-dessous pour qu'il correspond a vous besoins  #
@@ -670,7 +670,7 @@ esac
                 fi                                                                                                                                                                                 #
                 if [[ $? -ne 0 ]]; then                                                                                                                                                            #
                 printf "assurez-vous d'avoir les droits d'"$e_acute"criture appropri"$e_acute"s sur les r"$e_acute"pertoires parents\n"                                                            #
-                printf "ou d"$e_acute"initialisez cette variable afin d'utiliser le r"$e_acute"pertoire par d"$e_acute"faut '~/.config/$(basename $SCRIPTFILE)'\n\n"                                        #
+                printf "ou d"$e_acute"initialisez cette variable afin d'utiliser le r"$e_acute"pertoire par d"$e_acute"faut '~/.config/$(basename $SCRIPTFILE)'\n\n"                               #
                 printf "\e[91merreur :\e[0m  avort"$e_acute"\n"                                                                                                                                    #
                 exit $ERCODE                                                                                                                                                                       #
                 else                                                                                                                                                                               #
@@ -679,7 +679,7 @@ esac
                 [[ "$PM_CONFDIR" =~ /$ ]] && PM_CONFDIR="${PM_CONFDIR%?}"                                                                                                                          #
                 PIPE="$PM_CONFDIR/ilpc"                                                                                                                                                            #
                 else                                                                                                                                                                               #
-                DEFAULT_USER_CFG_DIR="$HOME/.config/$(basename $SCRIPTFILE)"                                                                                                                                #
+                DEFAULT_USER_CFG_DIR="$HOME/.config/$(basename $SCRIPTFILE)"                                                                                                                       #
                 [[ -d $DEFAULT_USER_CFG_DIR ]] || mkdir -p $DEFAULT_USER_CFG_DIR                                                                                                                   #
                 PIPE="$DEFAULT_USER_CFG_DIR/ilpc"                                                                                                                                                  #
                 fi                                                                                                                                                                                 #
@@ -706,12 +706,12 @@ esac
                 # pour continuer l'execution du script en tant qu'utilisateur non-privilege                                                                                                        #
                                                                                                                                                                                                    #                
                                                                                                                                                                                                    #      
-                if grep -q ^"PERM_PM_CONFDIR=" $SCRIPTFILE; then                                                                                                                                            #
+                if grep -q ^"PERM_PM_CONFDIR=" $SCRIPTFILE; then                                                                                                                                   #
                     if [[ ! "$PM_CONFDIR" =~ ^"$PERM_PM_CONFDIR"$ ]]; then                                                                                                                         #
                       PM_CONFDIR="$(printf "$PM_CONFDIR" | sed 's/\//\\\//g')"                                                                                                                     #
                        if ( type -t sudo &>/dev/null ); then                                                                                                                                       #
                        printf "\n%2s*%1schangement du r"$e_acute"pertoire de configuration\n\n"                                                                                                    #
-                       sudo -k sed -i '/^PERM_PM_CONFDIR=.*/s/PERM_PM_CONFDIR=.*/PERM_PM_CONFDIR="'$PM_CONFDIR'"/' "$SCRIPTFILE"                                                                            #
+                       sudo -k sed -i '/^PERM_PM_CONFDIR=.*/s/PERM_PM_CONFDIR=.*/PERM_PM_CONFDIR="'$PM_CONFDIR'"/' "$SCRIPTFILE"                                                                   #
                        else                                                                                                                                                                        #
                        printf "\e[91merreur:\e[0m  'sudo' non trouv"$e_acute"\nlancez la commande en tant que root\n\n"                                                                            #
                        exit $ERCODE                                                                                                                                                                #
@@ -721,7 +721,7 @@ esac
                     if ( type -t sudo &>/dev/null ); then                                                                                                                                          #
                       printf "\n%2s*%1schangement du r"$e_acute"pertoire de configuration\n\n"                                                                                                     #
                        PM_CONFDIR="$(printf "$PM_CONFDIR" | sed 's/\//\\\//g')"                                                                                                                    #
-                       sudo -k sed -i "/^DTBFILE1=/aPERM_PM_CONFDIR=\"$PM_CONFDIR\"" $SCRIPTFILE                                                                                                            #
+                       sudo -k sed -i "/^DTBFILE1=/aPERM_PM_CONFDIR=\"$PM_CONFDIR\"" $SCRIPTFILE                                                                                                   #
                        else                                                                                                                                                                        #
                        printf "\e[91merreur:\e[0m  'sudo' non trouv"$e_acute"\nlancez la commande en tant que root\n\n"                                                                            #
                       exit $ERCODE                                                                                                                                                                 #
