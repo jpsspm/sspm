@@ -604,7 +604,7 @@ esac
                 fi                                                                                                                                                                                 #
                 if [[ $? -ne 0 ]]; then                                                                                                                                                            #
                 printf "make sure to have write privileges on parents directories\n"                                                                                                               #
-                printf "or unset 'PM_CONFDIR' to use default directory '~/.config/$(basename $SCRIPTFILE)'\n\n"                                                                                             #
+                printf "or unset 'PM_CONFDIR' to use default directory '~/.config/$(basename $SCRIPTFILE)'\n\n"                                                                                    #
                 printf "\e[91merror :\e[0m  aborted\n"                                                                                                                                             #
                 exit $ERCODE                                                                                                                                                                       #
                 else                                                                                                                                                                               #
@@ -613,7 +613,7 @@ esac
                 [[ "$PM_CONFDIR" =~ /$ ]] && PM_CONFDIR="${PM_CONFDIR%?}"                                                                                                                          #
                 PIPE="$PM_CONFDIR/ilpc"                                                                                                                                                            #
                 else                                                                                                                                                                               #
-                DEFAULT_USER_CFG_DIR="$HOME/.config/$(basename $SCRIPTFILE)"                                                                                                                                #
+                DEFAULT_USER_CFG_DIR="$HOME/.config/$(basename $SCRIPTFILE)"                                                                                                                       #
                 [[ -d $DEFAULT_USER_CFG_DIR ]] || mkdir -p $DEFAULT_USER_CFG_DIR                                                                                                                   #
                 PIPE="$DEFAULT_USER_CFG_DIR/ilpc"                                                                                                                                                  #
                 fi                                                                                                                                                                                 #
@@ -639,12 +639,12 @@ esac
                                                                                                                                                                                                    #
                                                                                                                                                                                                    #                
                                                                                                                                                                                                    #      
-                if grep -q ^"PERM_PM_CONFDIR=" $SCRIPTFILE; then                                                                                                                                            #
+                if grep -q ^"PERM_PM_CONFDIR=" $SCRIPTFILE; then                                                                                                                                   #
                     if [[ ! "$PM_CONFDIR" =~ ^"$PERM_PM_CONFDIR"$ ]]; then                                                                                                                         #
                       PM_CONFDIR="$(printf "$PM_CONFDIR" | sed 's/\//\\\//g')"                                                                                                                     #
                        if ( type -t sudo &>/dev/null ); then                                                                                                                                       #
                        printf "\n%2s*%1schanging configuration directory\n\n"                                                                                                                      #
-                       sudo -k sed -i '/^PERM_PM_CONFDIR=.*/s/PERM_PM_CONFDIR=.*/PERM_PM_CONFDIR="'$PM_CONFDIR'"/' "$SCRIPTFILE"                                                                            #
+                       sudo -k sed -i '/^PERM_PM_CONFDIR=.*/s/PERM_PM_CONFDIR=.*/PERM_PM_CONFDIR="'$PM_CONFDIR'"/' "$SCRIPTFILE"                                                                   #
                        else                                                                                                                                                                        #
                        printf "\e[91merror:\e[0m 'sudo' not found.  run this as root\n\n"                                                                                                          #
                        exit $ERCODE                                                                                                                                                                #
@@ -654,7 +654,7 @@ esac
                     if ( type -t sudo &>/dev/null ); then                                                                                                                                          #
                       printf "\n%2s*%1schanging configuration directory\n\n"                                                                                                                       #
                        PM_CONFDIR="$(printf "$PM_CONFDIR" | sed 's/\//\\\//g')"                                                                                                                    #
-                       sudo -k sed -i "/^DTBFILE1=/aPERM_PM_CONFDIR=\"$PM_CONFDIR\"" $SCRIPTFILE                                                                                                            #
+                       sudo -k sed -i "/^DTBFILE1=/aPERM_PM_CONFDIR=\"$PM_CONFDIR\"" $SCRIPTFILE                                                                                                   #
                        else                                                                                                                                                                        #
                        printf "\e[91merror:\e[0m 'sudo' not found.  run this as root\n\n"                                                                                                          #
                       exit $ERCODE                                                                                                                                                                 #
