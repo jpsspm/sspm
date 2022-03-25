@@ -1,0 +1,8 @@
+2022-02-04
+
+         Fix dependencies check var 'LINE' syntax error
+             dependencies build           syntax errors
+             
+2022-03-25
+
+         Updating var 'B_FUNCTION_CMD'
