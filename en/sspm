@@ -1366,7 +1366,7 @@ printf "\e[36mreading build file\e[0m\n"; sleep 0.70
 ## in order to configure accordingly (ex: if the buildfile has "ln" command as configuration: 
 ## then this one will be moved to the install script ...and so on)
 
-local B_FUNCTION_CMD="$(sed -ne '/\(^make.*install\)/,/\(^}.*\)/p' $BDIR/$BUILDFILE | sed '/cat.*EOF\|cat.*eof/,/EOF\|eof/d ; /^#/d ; /\(^make.*install\)\|^#$\|^[[:space:]]\}$\|\(^}.*\)\|^$/d' | tr -d "\"[:space:]'" |cut -d ' ' -f 1)"
+local B_FUNCTION_CMD="$(sed -ne '/\(^make.*install\)\|\(^DESTDIR.*install\)/,/\(^}.*\)/p' $BDIR/$BUILDFILE | sed '/cat.*EOF\|cat.*eof/,/EOF\|eof/d ; /^#/d ; /\(^make.*install\)\|\(^DESTDIR.*install\)\|^#$\|^[[:space:]]\}$\|\(^}.*\)\|^$/d' | tr -d "\"[:space:]'" |cut -d ' ' -f 1)"
 
 
                       if [[ -z $B_FUNCTION_CMD ]] || [[ ! $B_FUNCTION_CMD =~ "ln" && (( $B_FUNCTION_CMD =~ ^[install_]+$ || $B_FUNCTION_CMD =~ ^[mv_]+$ || \
