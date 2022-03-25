@@ -1446,7 +1446,7 @@ printf "\e[36mlecture du fichier de construction\e[0m\n"; sleep 0.70
 ## afin de parametrer en consequence (ex: si le fichier de construction contient la commande "ln": 
 ## alors celle-ci et le reste des commandes seront transferees dans le script d'installation ...etc)
 
-local B_FUNCTION_CMD="$(sed -ne '/\(^make.*install\)/,/\(^}.*\)/p' $BDIR/$BUILDFILE | sed '/cat.*EOF\|cat.*eof/,/EOF\|eof/d ; /^#/d ; /\(^make.*install\)\|^#$\|^[[:space:]]\}$\|\(^}.*\)\|^$/d' | tr -d "\"[:space:]'" |cut -d ' ' -f 1)"
+local B_FUNCTION_CMD="$(sed -ne '/\(^make.*install\)\|\(^DESTDIR.*install\)/,/\(^}.*\)/p' $BDIR/$BUILDFILE | sed '/cat.*EOF\|cat.*eof/,/EOF\|eof/d ; /^#/d ; /\(^make.*install\)\|\(^DESTDIR.*install\)\|^#$\|^[[:space:]]\}$\|\(^}.*\)\|^$/d' | tr -d "\"[:space:]'" |cut -d ' ' -f 1)"
 
 
                       if [[ -z $B_FUNCTION_CMD ]] || [[ ! $B_FUNCTION_CMD =~ "ln" && (( $B_FUNCTION_CMD =~ ^[install_]+$ || $B_FUNCTION_CMD =~ ^[mv_]+$ || \
