@@ -9,6 +9,6 @@ Simple Script Package Manager  written in bash for linux-based OS built from scr
 * sspm --destdir='../dir/dir' -ib *(build install and save package in ... )* 
 * or sspm -bi -o ../some/dir/dir
 
-### Home Page
+### Home Page.
 
 https://jpsspm.github.io/sspm/
