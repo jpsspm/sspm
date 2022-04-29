@@ -423,7 +423,7 @@ DESCRIPTION\n\
             Print 'sspm' installed dependencies versions\n\n\
            info/infos\n\
              Print this page\n\n\
-       Exemples:\n\
+       Examples:\n\
          * sspm -b (with 'pkgbuild' in working directory)\n\
          * sspm -i foo.tar.zst (install foo)\n\
          * sspm -i foo.tar.zst --root /somedir (install foo to root 'somedir')\n\
