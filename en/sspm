@@ -22,7 +22,7 @@
 ###################################################################################################
 
 
-# NOTE: sspm has been designed to assist a full build of a linux-based Operating System from "source",
+# NOTE: sspm has been designed to assist a full build of a linux-based Operating System from "source"
 #       if you are building one or simply using as packages manager, make sure you correctly set the "SRC"
 #       variable in your shell or in the "~/.bashrc" file of your environment or system
 #       (ex: export SRC=/tools/blabla/sources) before building a package.
