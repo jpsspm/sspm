@@ -23,7 +23,7 @@
 
 
 # NOTE: sspm a ete penser pour creer un systeme linux a partir de la "source", si vous en construisez un
-#       ou si vous l'utilisez comme simple gestionnaire de paquets, assurez vous que la variable "SRC".
+#       ou si vous l'utilisez comme simple gestionnaire de paquets, assurez vous que la variable "SRC"
 #       est bien definie dans votre shell ou dans le fichier "~/.bashrc" de votre environnement ou systeme
 #       (ex: export SRC=/tools/blabla/sources) avant de compiler un paquet.
 #       
