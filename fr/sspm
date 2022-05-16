@@ -215,7 +215,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 
 SSPM_VER=
-TMP="/tmp"
+TMP="${PKGBDIR:-/tmp}"
 TAG="pkg"
 PIPE="/dev/ilpc"
 GROUP="sspm"
@@ -395,6 +395,9 @@ Options:
      d$(printf '\xc3\xa9')finir les prochains paquets comme paquets de type 'group'
      voir la section variable d'environnement PKG_GROUP
      pour les valeurs de groupes possible.
+     
+     export PKGBDIR=/somedir
+     r$(printf '\xc3\xa9')pertoire de compilation
    
 
 EOF
@@ -504,6 +507,7 @@ et install"$e_acute"s d"$e_acute"ffinitivement \n\
 %11s\e[4mexemple\e[0m:\n\
 %11scat > ~/.bashrc <<EOF\n\
 %11s\e[90mexport PATH=\$PATH:/tools/sspm_tools/bin:/tools/sspm_tools/usr/bin\n%11sexport SRC=/sources\e[0m\n%11sEOF\n\n\
+%7s*%1sPKGBDIR\n%11sr"$e_acute"pertoire de compilation\n\n\
 %7s*%1sEXCLUDE/IGNORE ou NOT_TRACE_PATH\n%11svous avez besoin de cette variable seulement si vous manipul"$e_acute"s \
 les donn"$e_acute"es d'un autre syst"$e_grave"me\n%11sc'est-"$a_grave"-dire que vous install"$e_acute"s ou d"$e_acute"sinstall"$e_acute"s un paquet dans votre syst"$e_grave"me d'exploitation\n\
 %11sen m"$e_circumflex"me temps vous avez 'un disk mont"$e_acute", un r"$e_acute"pertoire' qui contient un autre syst"$e_grave"me, une toolchain\n\
@@ -560,7 +564,7 @@ remarque: si la variable 'tfext' dans le fichier (pkgbuild) est vide,\n\
             License GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure <https://gnu.org/licenses/gpl.html>.\n\
             Ce programme est un logiciel libre: vous pouvez le redistribuer ou le modifier.\n\
             Il n'y a AUCUNE GARANTIE, dans la mesure permise par la loi.\v\v\n
-sspm $SSPM_VER%66sJanvier 2022%66sSSPM(1)   \n"
+sspm $SSPM_VER%68sMai 2022%68sSSPM(1)   \n"
 }
 
 
@@ -2746,4 +2750,3 @@ sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="on"/' "$SCRIPTFILE"; printf "\e
 elif [[ "$DIALOG" = "on" ]]; then sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"
 printf "\e[90mmessage de succ"$e_grave"s d"$e_acute"activ"$e_acute"\e[0m\n"; elif [[ -z "$DIALOG" ]]; then
 sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"; printf "\e[90mmessage de succ"$e_grave"s d"$e_acute"activ"$e_acute"\e[0m\n"; fi fi fi
-
