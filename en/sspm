@@ -184,7 +184,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 
 SSPM_VER=
-TMP="/tmp"
+TMP="${PKGBDIR:-/tmp}"
 TAG="pkg"
 PIPE="/dev/ilpc"
 GROUP="sspm"
@@ -351,6 +351,9 @@ Options:
      set all next packages as type 'group'
      see PKG_GROUP environment variable section
      for possible values.
+     
+     export PKGBDIR=/somedir
+     build directory
    
 
 EOF
@@ -453,6 +456,7 @@ DESCRIPTION\n\
 %11s\e[4mexample\e[0m:\n\
 %11scat > ~/.bashrc <<EOF\n\
 %11s\e[90mexport PATH=\$PATH:/tools/sspm_tools/bin:/tools/sspm_tools/usr/bin\n%11sexport SRC=/sources\e[0m\n%11sEOF\n\n\
+%7s*%1sPKGBDIR\n%11sbuild directory\n\n\
 %7s*%1sEXCLUDE/IGNORE or NOT_TRACE_PATH\n%11s(ex: root:# export NOT_TRACE_PATH=/mnt/mounted_root)\n%11stell sspm that '/mnt/mounted_root' is not part of filesystem while tracking broken symbolic links\n\
 %11snecessary if you have a mounted filesystem/toolchain for example\n\
 %11syou need to set this variable if you have a mounted filesystem while acting (install/uninstall)\n%11sin the base system (where sspm is installed)\v\n\
@@ -504,7 +508,7 @@ note:%5swhatever build function name build_foo() { commands }, foo_build() { com
          License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
          This is free sortware: you can change and redistribute it.\n\
          There is NO WARRANTY, to the extent permitted by law.\v\v\n
-sspm $SSPM_VER%66sJanuary 2022%66sSSPM(1)   \n"
+sspm $SSPM_VER%68sMay 2022%68sSSPM(1)   \n"
 }
 
 
@@ -2627,4 +2631,3 @@ sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="on"/' "$SCRIPTFILE"; printf "\e
 elif [[ "$DIALOG" = "on" ]]; then sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"
 printf "\e[90msuccess message disabled\e[0m\n"; elif [[ -z "$DIALOG" ]]; then
 sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"; printf "\e[90msuccess message disable\e[0m\n"; fi fi fi
-
