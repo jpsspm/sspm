@@ -2110,11 +2110,13 @@ fi
 [ -x "/sbin/ldconfig" ] && /sbin/ldconfig &>/dev/null
 sleep 0.52; printf "\e[96mv"$e_acute"rification des liens symboliques\e[0m\n"; sleep 0.48
 if [[ -z "$EXCLUDE_DIR" ]]; then
+# la command find ci-dessous est correct mais produit un message d'avertissement inoffensif apropos du repertoire '/proc' si vous etes en 'chroot'
+# d'ou le 2>/dev/null, ce message disparait lors du boot normal du systeme.
 find $LOCALROOT -xtype l \! \( -path '/proc/*' -o -path '/sys/*' -o -path \
-'/tmp/*' -o -path '/dev/*' -o -path '/run/*' -o -path '/home/*' -o -path '/root/*' \) -delete
+'/tmp/*' -o -path '/dev/*' -o -path '/run/*' -o -path '/home/*' -o -path '/root/*' \) -delete 2>/dev/null
 else
 find $LOCALROOT -xtype l \! \( -path '/proc/*' -o -path '/sys/*' -o -path '/tmp/*' -o -path \
-'/dev/*' -o -path '/run/*' -o -path '/home/*' -o -path '/root/*' -o -path ''$EXCLUDE_DIR'*' \) -delete
+'/dev/*' -o -path '/run/*' -o -path '/home/*' -o -path '/root/*' -o -path ''$EXCLUDE_DIR'*' \) -delete 2>/dev/null
 fi
 else
 tar -cpf - ./* | (tar --no-overwrite-dir --keep-directory-symlink -xvpf - -C "$2") | sed 's/^.//g'
@@ -2366,9 +2368,11 @@ local FILES="$($DTBFILE0 "$1"_pth|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|
              #### verification des liens symboliques
              if [ -z "$2" ]; then
              if [ -z "$EXCLUDE_DIR" ]; then
-             find $ROOT -xtype l \! \( -path '/proc/*' -o -path '/sys/*' -o -path '/run/*' -o -path '/tmp/*' -o -path '/dev/*' -o -path '/home/*' -o -path '/root/*' \) -delete
+	     # la command find ci-dessous est correct mais produit un message d'avertissement inoffensif apropos du repertoire '/proc' si vous etes en 'chroot'
+             # d'ou le 2>/dev/null, ce message disparait lors du boot normal du systeme.
+             find $ROOT -xtype l \! \( -path '/proc/*' -o -path '/sys/*' -o -path '/run/*' -o -path '/tmp/*' -o -path '/dev/*' -o -path '/home/*' -o -path '/root/*' \) -delete 2>/dev/null
              else
-             find $ROOT -xtype l \! \( -path '/proc/*' -o -path '/sys/*' -o -path '/tmp/*' -o -path '/run/*' -o -path '/dev/*' -o -path '/home/*' -o -path '/root/*' -o -path ''$EXCLUDE_DIR'*' \) -delete
+             find $ROOT -xtype l \! \( -path '/proc/*' -o -path '/sys/*' -o -path '/tmp/*' -o -path '/run/*' -o -path '/dev/*' -o -path '/home/*' -o -path '/root/*' -o -path ''$EXCLUDE_DIR'*' \) -delete 2>/dev/null
              fi
              fi
 
