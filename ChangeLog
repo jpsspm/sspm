@@ -10,3 +10,9 @@
 2022-05-16
 
         'PKGBDIR'  env var added to allow build directory change
+        
+
+2022-05-17 
+      
+        Fix harmless warning messages about /proc path if you are in 'chroot'
+        while tracking broken symbolic links
