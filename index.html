@@ -3,29 +3,39 @@
 <head>
   <title>SSPM</title>
   <style>
-     body  {height: auto;
+  
+       body {height: 100%;
             background-size: auto;
-            background-color: black;
+            background-color: white;
             background-repeat: no-repeat;
             padding: auto;
             background-image: url("data/bg0.png");
             }
     
-    section {top: 18em;
-              max-height: 50em;
-              padding-top: 4px;
-              padding-left: 30px;
-              width: auto;
+    
+    
+    
+    
+           .section {top: 6em;
+              color: blue;
               max-width: 800px;
-              margin: auto;
+              margin-left: 10px;
               overflow-wrap: break-word;
               position: relative;
-              border: 2px solid darkgrey;
-              border-radius: 15px;
-              background-color:rgba(0, 0, 0, 0.2)
               }
-              
-    .section1 {top: 20em;
+            .section h3 {color: blue;font-size: 26px;}
+            .section p {color: black;font-size: 20px;}
+             
+             
+             
+.link {color: #cda200; text-decoration: none;}
+.link:hover {text-decoration: underline;}
+.link_fld {opacity: 53%;text-decoration: none;}
+.link_fld:hover {text-decoration: underline;}
+.section ul li a .strong {color: black;opacity: 82%;}
+
+
+    .section1 {top: 9em;
               height: auto;
               width: auto;
               max-width: 800px;
@@ -33,10 +43,8 @@
               overflow-wrap: break-word;
               position: relative;
               }
-
               
-              
-    section2 {top:25em;
+    section2 {top:10em;
               left: 7rem;
               height: auto;
               padding:15px;
@@ -44,79 +52,72 @@
               width: auto;
               overflow: wrap;
               position: relative;
-              }         
-        
+              }      
 
-       
-       section h3                               {font-size: 30px;}
-       section ul li                            {color: white;}
-       section .link                            {color: DodgerBlue;text-decoration: none;} 
-       section .link:hover                      {text-decoration: underline;}
-       section .link_fld                        {color: #8FBC8F;text-decoration: none;} 
-       section .link_fld:hover                  {text-decoration: underline;}
-       section ul li .strong                    {color: rgb(255, 189, 60);opacity: 70%;}           
-       
-       div.section1 .h3_1       {font-size: 37px;color: rgba(94, 48, 77, 1);margin-bottom: -5px;}
-       div.section1 .sp1        {}
-       div.section1 p .link                            {color: rgb(54, 0, 171);text-decoration: none;padding-left: 6px;padding-right: 6px;border-radius: 15px;} 
-       div.section1 p .link:hover                      {color: rgb(255, 189, 60);background: none;text-decoration: underline;}
+
+
+       div.section1 .h3_1       {font-size: 26px;color: rgba(94, 48, 77, 1);}
+       div.section1 .sp1        {color: black;font-size: 19px;margin-top: -20px;}
+       div.section1 p           {color: black;}
+       div.section1 p .link                            {color: blue;text-decoration: none;padding-left: 6px;padding-right: 6px;border-radius: 15px;} 
+       div.section1 p .link:hover                      {color: #cda200;background: none;text-decoration: underline;}
         
         div.section1 .h3_2       {font-size: 37px;text-align: right;margin-bottom: -8px;letter-spacing: 3px;}                                  
-        div.section1 div.sp2     {text-align: right;border: 2px -4px lightblue;border-width: small;border-radius: 15px;width: auto;background-color: rgba(47, 100, 120, 0.4);}
-        div.section1 div.sp2 p   {color: #FA8072;padding-right: 10px;padding-left: 10px;padding-top: 2px;padding-bottom: 2px;color: black;opacity: 75%;font-size: 18px;}
+        div.section1 div.sp2     {text-align: right;border: 2px -4px lightblue;border-width: small;border-radius: 15px;width: auto;background-color: rgba(0, 0, 0, 0.4);}
+        div.section1 div.sp2 p   {color: #FA8072;padding-right: 10px;padding-left: 10px;padding-top: 2px;padding-bottom: 2px;color: black;opacity: 85%;font-size: 18px;}
         .sp2_1                   {color: white;font-style: normal;}
        
        
        
        
-       section2 p.fake_term                     {background-color: rgba(0, 0, 0, 0.5);font-size: 15px;width: 430px;color: rgba(255, 255, 255, 0.8);}
+       section2 p.fake_term                     {background-color: rgba(0, 0, 0, 0.8);font-size: 15px;width: 430px;color: rgba(255, 255, 255, 0.8);}
        section2 p.fake_term .user_style         {color: rgba(0, 213, 48, 0.8);font-size: 15.5px;}
-       section2 p span.buildfile_style          {color: black;font-style: normal;}
+       section2 p span.buildfile_style          {color: #2c3f76;font-style: normal;}
        section2 .h3_6                           {font-size: 37px;color: rgba(94, 48, 77, 1);margin-bottom: -10px;}
-       section2 p.text3                         {color: #ffd135;font-size: 30px;max-width: 850px;font-style: italic;text-transform: capitalize;opacity: 40%;}
+       section2 p.text2                         {color: black;}
+       section2 p.text3                         {color: #a29776;font-size: 30px;max-width: 850px;font-style: italic;text-transform: capitalize;opacity: 89%;}
        
-        
+
+
+
+
+
+
+
        p      {color: white;}
        footer {background-color: #333;margin-left: -10px;padding-bottom: -10px;overflow: hidden;position: absolute;  bottom: -205rem;width: 100%;}
        footer p {float: left;display: block;text-align: left;padding-left: 10px;padding-right: 10px;background-color: #83a6bf;color: black;}
-       
-    
+
   </style>
 </head> 
  
 <body>
 
-
-
-
-
-
-<section>
+    <div class="section">
     <h3>Introduction</h3>
-  
     <p>
     sspm is a package manager inspired from 'makepkg' and the 'LFS' project.</br>
     <span class="normal">it's a simple script written in bash, that you can use to build, install and manage your packages </span>
     </p>
 
-      <h3>Releases</h3>
-    
+    <h3>Releases</h3>
     <p> the latest version is <a class="link" href="https://github.com/jpsspm/sspm/releases/download/1.0.3/sspm-1.0.3.tar.xz" target="_blank"><strong>1.0.3</strong></a>,&ensp;released on may 17, 2022.</br>
         or browse the <a class="link_fld" href="https://github.com/jpsspm/sspm/releases/" target="_blank"><strong>download</strong></a> page to get a specific release
     </p> 
 
-      <h3>Suported OS</h3>
-      
-     <p> This software is designed for linux-based systems built from source ( or if you want to build one )
-       </p>
+    <h3>Suported OS</h3>
+    <p> This software is designed for linux-based systems built from source ( or if you want to build one )
+    </p>
              
-      <h3>Contacts</h3>
-      
-      <ul>
-         <li>bugs report &ensp;----->&emsp;<a class="link" href="https://github.com/jpsspm/sspm/issues/" target="_blank"><strong>github</strong></a></li>
-         <li>email&emsp;&emsp;&emsp;&ensp;----->&emsp;<a><strong class="strong">joepackar</strong>&ensp;domain: <strong class="strong">gmail.com</strong></a></li>
-      </ul>
-</section>
+    <h3>Contacts</h3>
+    <ul>
+    <li>bugs report &ensp;----->&emsp;<a class="link" href="https://github.com/jpsspm/sspm/issues/" target="_blank"><strong>github</strong></a></li>
+    <li>email&emsp;&emsp;&emsp;&ensp;----->&emsp;<a><strong class="strong">joepackar</strong>&ensp;domain: <strong class="strong">gmail.com</strong></a></li>
+    </ul>
+    </div>
+
+
+
 
 
 
@@ -141,7 +142,7 @@
           
           
       <h3 class=h3_3>Release note </h3> 
-       <p >   
+       <p>   
          due to caracteres manipulation issues the program is language hardcoded<br />
          the releases include a <strong class="lang">fr</strong> and an <strong class="lang">en</strong> version 
        </p>
@@ -187,6 +188,9 @@
 
 
 
+
+
+
 <footer>
   <p>Author: Joe Packar</p>
   <p><strong>joepackar</strong>&ensp;domain: <strong>gmail.com</strong></p>
@@ -198,5 +202,4 @@
 
 </body>
 </html>
-
 
