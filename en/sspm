@@ -1084,7 +1084,7 @@ fi
                                        tar_ver="tar $(tar --version | tr '\n' ' ' | cut -d ' ' -f4)" 
                                        pkg_config_ver="pkg-config $(pkg-config --version)"
                                        procps_ng_ver="$(ps --version | rev | cut -d ' ' -f1,2 | rev )"
-                                       which_ver="which $(which --version | head -1 | tr -d "[:alpha:],[:space:]" | cut -d '(' -f1)"
+                                       which_ver="which $(which --version 2>/dev/null | head -1 | tr -d "[:alpha:],[:space:],[![:print:]]" | cut -d '(' -f1)"
                                        printf "$bsdtar_ver%2s$pkg_config_ver%2s$procps_ng_ver%2s$tar_ver%2s$which_ver%2s$zstd_ver\n"
                                        exit $OKCODE
                                        fi
