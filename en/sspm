@@ -1311,7 +1311,7 @@ if [[ "${#NO_EMPTY[@]}" -eq 0 || (( "${#REF_VAR[@]}" = 4 && "${#NO_EMPTY[@]}" -l
 printf "\e[91merror:  \e[0mplease fill out the ($BUILDFILE) file\n"; exit $ERCODE
 elif [[ "${#REF_VAR[@]}" -lt 4 ]]; then local MISSING_REF_VAR=()
 for name in pkgname pkgver pkgrev tfext; do [[ "${REF_VAR[@]}" =~ $name ]] || MISSING_REF_VAR+=("$name"); done
-printf "\e[91merror:\e[0m  missing '${MISSING_REF_VAR[@]}=' in ($BUILDFILE) file\n"; exit $ERCODE
+printf "%b= " "\e[91merror:\e[0m  missing '${MISSING_REF_VAR[@]}=' in ($BUILDFILE) file\n"; exit $ERCODE
 else printf "\e[91merror: \e[0m can't read the ($BUILDFILE) file\n\
 %8smake sure to fill out the file properly\n"; exit $ERCODE; fi
 else local NO_EMPTY_FUNC0="$(sed -n '/^\(.*().*{\)\|^\({\)/,/^\(.*}.*\)/p' "$BDIR/$BUILDFILE"\
