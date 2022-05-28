@@ -16,3 +16,8 @@
       
         Fix harmless warning messages about /proc path if you are in 'chroot'
         while tracking broken symbolic links
+        
+2022-05-28
+
+       build function : a syntax error fixed with the printf command,
+       added : "%b= "  in  (fr - line 1391) and  (en - line 1314)
