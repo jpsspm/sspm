@@ -81,7 +81,7 @@ TEMP='/tmp'; BASHRC='.bashrc'
 
             if ! type which &>/dev/null && ! type "$DESTDIR/usr/bin/which" &>/dev/null && \
                ! type "$DESTDIR/bin/which" &>/dev/null; then
-              FILE="$(find $SOURCES -iname "which*" -type f -print | head -1 )"
+              FILE="$(find $SOURCES -iname "which*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerror: 'which' can't access the source file\n"; exit 1; fi
              printf '\n\n%9sBuilding sspm dependencies ...\n\n'; sleep 0.67
@@ -91,7 +91,7 @@ TEMP='/tmp'; BASHRC='.bashrc'
                    fi 
             if ! type zstd &>/dev/null && ! type "$DESTDIR/usr/bin/zstd" &>/dev/null && \
                ! type "$DESTDIR/bin/zstd" &>/dev/null; then
-              FILE="$(find $SOURCES -iname "zstd*" -type f -print | head -1 )"
+              FILE="$(find $SOURCES -iname "zstd*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerror: 'zstd' can't access the source file\n"; exit 1; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
@@ -106,7 +106,7 @@ TEMP='/tmp'; BASHRC='.bashrc'
                    fi
             if ! type pkg-config &>/dev/null && ! type "$DESTDIR/usr/bin/pkg-config" &>/dev/null && \
                ! type "$DESTDIR/pkg-config" &>/dev/null; then
-              FILE="$(find $SOURCES -iname "pkg-config*" -type f -print | head -1 )"
+              FILE="$(find $SOURCES -iname "pkg-config*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerror: 'pkg-config' can't access the source file\n"; exit 1; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
@@ -116,7 +116,7 @@ TEMP='/tmp'; BASHRC='.bashrc'
               PATH=$PATH:$DESTDIR/bin:$DESTDIR/usr/bin:$DESTDIR/sbin:$DESTDIR/usr/sbin
             if ! type bsdtar &>/dev/null && ! type "$DESTDIR/usr/bin/bsdtar" &>/dev/null && \
                ! type "$DESTDIR/bin/bsdtar" &>/dev/null; then
-              FILE="$(find $SOURCES -iname "libarchive*" -type f -print | head -1 )"
+              FILE="$(find $SOURCES -iname "libarchive*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerror: 'libarchive' can't access the source file\n"; exit 1; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
@@ -129,7 +129,7 @@ TEMP='/tmp'; BASHRC='.bashrc'
                    fi
             if ! type ps &>/dev/null && ! type "$DESTDIR/usr/bin/ps" &>/dev/null && \
                ! type "$DESTDIR/bin/ps" &>/dev/null; then
-              FILE="$(find $SOURCES -iname "procps*" -type f -print | head -1 )"
+              FILE="$(find $SOURCES -iname "procps*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerror: 'procps-ng' can't access the source file\n"; exit 1; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
@@ -145,7 +145,7 @@ TEMP='/tmp'; BASHRC='.bashrc'
                    fi
             if ! type chattr &>/dev/null && ! type "$DESTDIR/usr/bin/chattr" &>/dev/null && \
                ! type "$DESTDIR/bin/chattr" &>/dev/null; then
-              FILE="$(find $SOURCES -iname "e2fsprogs*" -type f -print | head -1 )"
+              FILE="$(find $SOURCES -iname "e2fsprogs*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerror: 'e2fsprogs' can't access the source file\n"; exit 1; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
