@@ -21,3 +21,9 @@
 
        build function : a syntax error fixed with the printf command,
        added : "%b= "  in  (fr - line 1391) and  (en - line 1314)
+       
+2022-05-29
+   
+       Fix source files find erros (confusion between a patch and a source file) while building dependencies
+       added : ".?z" in find command.
+       for dependencies build, if you can download xz/gz compressed archives that will make things easier 
