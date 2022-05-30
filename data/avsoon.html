@@ -16,10 +16,27 @@
      #file1          {top: 15em; right: 42em;position: absolute;}
      #file2          {top: 20em; left: 10em;position: absolute;}
      #file3          {top: 47em; left: 46em;position: absolute;}
-     #file4          {top: 65em; left: 5em;position: absolute;}
+     #file4          {top: 58em; left: 5em;position: absolute;}
      #file5          {top: 56em; right: 10em;position: absolute;}
      #file6          {top: 88em; left: 6em;position: absolute;}
+     #file7          {top: 100em; right: 48em;position: absolute;}
+     #file8          {top: 155em; right: 40em;position: absolute;}
      div.footer_text {position: absolute;bottom:-95em;}
+     
+     @media screen and (max-width: 600px) {     
+     div.pkgbf {margin: 10px;display: flex;align-items: stretch;width: auto;position:absolute;}
+     #file0          {top: 15em; left: auto;right: auto;}
+     #file1          {top: 49em; left: auto;right: auto;}
+     #file2          {top: 80em; left: auto;right: auto;}
+     #file3          {top: 115em; left: auto;right: auto;}
+     #file4          {top: 152em; left: auto;right: auto;}
+     #file5          {top: 180em; left: auto;right: auto;}
+     #file6          {top: 220em; left: auto;right: auto;}
+     #file7          {top: 340em; left: auto;right: auto;}
+     #file8          {top: 390em; left: auto;right: auto;}
+     div.footer_text {position: absolute;bottom:-250em;width: auto;}
+}
+     
      </style>
     
     
@@ -113,37 +130,32 @@
         
         
        <div class="pkgbf" id="file3">
-       <p> cat  pkgbuild_bluez</br></br>
-           pkgname=bluez</br>
-           pkgver=5.63</br>
-           pkgrev=1</br>
-           pkgdesc=""</br>
-           url="https://www.kernel.org/pub/linux/bluetooth/"</br>
-           groups=</br>
-           depends=(dbus glib libical)</br>
-           makedepend=()</br>
-           packager=""</br>
-           tfext=tar.xz</br></br>
-           build() {</br>
-           ./configure --prefix=/usr&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;\</br>
-            &emsp;&emsp;&emsp;&emsp;&emsp;--sysconfdir=/etc&emsp;&emsp;&emsp;&ensp;\</br>
-            &emsp;&emsp;&emsp;&emsp;&emsp;--localstatedir=/var&emsp;&emsp;&ensp;\</br>
-            &emsp;&emsp;&emsp;&emsp;&emsp;--disable-manpages&emsp;&emsp;\</br>
-            &emsp;&emsp;&emsp;&emsp;&emsp;--enable-library</br>
+       <p> cat  pkgbuild_kmod</br></br>         
+            pkgname=kmod</br>
+            pkgver=29</br>
+            pkgrev=1</br>
+            pkgdesc="libraries and utilities for loading kernel modules"</br>
+            url="https://www.kernel.org/pub/linux/utils/kernel/kmod/"</br>
+            groups=base</br>
+            depends=()</br>
+            makedepend=()</br>
+            packager=</br>
+            tfext=tar.xz</br></br>
+            build() {</br>
+            ./configure&emsp;&emsp;--prefix=/usr&emsp;&emsp;&emsp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;--sysconfdir=/etc&emsp;&emsp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;--with-openssl&emsp;&emsp;&emsp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;--with-xz&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;--with-zstd&emsp;&emsp;&emsp;&emsp; \</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;--with-zlib</br></br>
             make</br>
             make DESTDIR=<strong>$pkgdir</strong> install</br></br>
-            ln -svf ../libexec/bluetooth/bluetoothd /usr/sbin</br>
-            install -v -dm755 <strong>$pkgdir</strong>/etc/bluetooth</br>
-            install -v -m644 src/main.conf <strong>$pkgdir</strong>/etc/bluetooth/main.conf</br></br>
-            cat > <strong>$pkgdir</strong>/etc/bluetooth/rfcomm.conf << EOF</br>
-            # start rfcomm.conf</br>
-            # ... subsystem in the Linux kernel.</br>
-            # Use one line per command</br>
-            # See the rfcomm man page for options</br>
-            </br></br>
-            # End</br>
-            EOF</br></br>
+            for target in depmod insmod modinfo modprobe rmmod; do</br>
+              ln -sfv ../bin/kmod <strong>$pkgdir</strong>/usr/sbin/$target</br>
+            done</br></br>
+            ln -sfv kmod <strong>$pkgdir</strong>/usr/bin/lsmod</br>
             }
+
         </p>
         </div>
 
@@ -151,7 +163,7 @@
         <div class="pkgbf" id="file4">
          <p> cat  pkgbuild_pygments</br></br>
          pkgname=pygments</br>
-         pkgver=2.11.0</br>
+         pkgver=2.12.0</br>
          pkgrev=</br>
          pkgdesc="general syntax highlighter written in python"</br>
          url=""</br>
@@ -161,7 +173,8 @@
          packager=</br>
          tfext=</br></br>
          build() {</br>
-         python3 setup.py install --optimize=1 --root=<strong>$pkgdir</strong></br>
+         pip3 wheel -w dist --no-build-isolation --no-deps $PWD</br>
+         pip3 install --no-index --find-links dist --no-cache-dir Pygments --root=<strong>$pkgdir</strong></br>
          }
           </p>
          </div>
@@ -217,11 +230,11 @@
           mkdir -v build</br>
           cd&emsp;&emsp;&emsp; build</br>
           echo "rootsbindir=/usr/sbin" > configparms</br>
-          ../configure --prefix=/usr&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;\</br>
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--disable-werror&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\</br>
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--enable-kernel=3.2&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; \</br>
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--enable-stack-protector=strong&emsp;&emsp;&ensp; \</br>
-          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--with-headers=/usr/include&emsp;&emsp;&emsp;&emsp;&emsp;\</br>
+          ../configure --prefix=/usr&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\</br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--disable-werror&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;\</br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--enable-kernel=3.2&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\</br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--enable-stack-protector=strong&emsp;&emsp;&emsp;&emsp; \</br>
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;--with-headers=/usr/include&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; \</br>
           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;libc_cv_slibdir=/usr/lib</br></br>
            make</br>
            make check</br>
@@ -285,6 +298,71 @@
            EOF</br></br>
            }</br></br>
          </p>           
+         </div>
+         
+
+
+        <div class="pkgbf" id="file7">
+        <p> cat  pkgbuild_bluez</br></br>
+           pkgname=bluez</br>
+           pkgver=5.63</br>
+           pkgrev=1</br>
+           pkgdesc=""</br>
+           url="https://www.kernel.org/pub/linux/bluetooth/"</br>
+           groups=</br>
+           depends=(dbus glib libical)</br>
+           makedepend=()</br>
+           packager=""</br>
+           tfext=tar.xz</br></br>
+           build() {</br>
+           ./configure --prefix=/usr&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--sysconfdir=/etc&emsp;&emsp;&emsp;&ensp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--localstatedir=/var&emsp;&emsp;&ensp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--disable-manpages&emsp;&emsp;\</br>
+            &emsp;&emsp;&emsp;&emsp;&emsp;--enable-library</br>
+            make</br>
+            make DESTDIR=<strong>$pkgdir</strong> install</br></br>
+            ln -svf ../libexec/bluetooth/bluetoothd /usr/sbin</br>
+            install -v -dm755 <strong>$pkgdir</strong>/etc/bluetooth</br>
+            install -v -m644 src/main.conf <strong>$pkgdir</strong>/etc/bluetooth/main.conf</br></br>
+            cat > <strong>$pkgdir</strong>/etc/bluetooth/rfcomm.conf << EOF</br>
+            # start rfcomm.conf</br>
+            # ... subsystem in the Linux kernel.</br>
+            # Use one line per command</br>
+            # See the rfcomm man page for options</br>
+            </br></br>
+            # End</br>
+            EOF</br></br>
+            }
+        </p>
+        </div>
+
+
+         
+         
+          <div class="pkgbf" id="file8">
+          <p> cat  pkgbuild_elfutils</br></br>
+          pkgname=libelf</br>
+          pkgver=0.187</br>
+          pkgrev=1</br>
+          pkgdesc="a library for handling ELF"</br>
+          url="https://sourceware.org/elfutils/"</br>
+          groups=base</br>
+          depends=()</br>
+          makedepend=()</br>
+          packager=</br>
+          tfext=tar.bz2</br></br>
+          build() {</br>
+          ./configure&emsp;&emsp;--prefix=/usr&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\</br>
+           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; --disable-debuginfod&emsp;&emsp;&emsp;\</br>
+           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; --enable-libdebuginfod=dummy</br></br>
+          make</br>
+          make DESTDIR=<strong>$pkgdir</strong> -C libelf install</br></br>
+          install -vm644 config/libelf.pc <strong>$pkgdir</strong>/usr/lib/pkgconfig</br>
+          rm <strong>$pkgdir</strong>/usr/lib/libelf.a</br>
+          }
+          
+          </p>
          </div>
 
         
