@@ -457,7 +457,7 @@ DESCRIPTION\n\
 %11scat > ~/.bashrc <<EOF\n\
 %11s\e[90mexport PATH=\$PATH:/tools/sspm_tools/bin:/tools/sspm_tools/usr/bin\n%11sexport SRC=/sources\e[0m\n%11sEOF\n\n\
 %7s*%1sPKGBDIR\n%11sbuild directory\n\n\
-%7s*%1sEXCLUDE/IGNORE or NOT_TRACE_PATH\n%11s(ex: root:# export NOT_TRACE_PATH=/mnt/mounted_root)\n%11stell sspm that '/mnt/mounted_root' is not part of filesystem while tracking broken symbolic links\n\
+%7s*%1sEXCLUDE/IGNORE or NOT_TRACE_PATH\n%11s(ex: root:# export NOT_TRACE_PATH=/mnt/mounted_root)\n%11stells sspm that '/mnt/mounted_root' is not part of filesystem while tracking broken symbolic links\n\
 %11snecessary if you have a mounted filesystem/toolchain for example\n\
 %11syou need to set this variable if you have a mounted filesystem while acting (install/uninstall)\n%11sin the base system (where sspm is installed)\v\n\
 %7s*%1sPKG_GROUP=group\n%11s(this variable takes effect only if the 'groups' variable is empty in 'pkgbuild' file)\n\
@@ -508,7 +508,7 @@ note:%5swhatever build function name build_foo() { commands }, foo_build() { com
          License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
          This is free sortware: you can change and redistribute it.\n\
          There is NO WARRANTY, to the extent permitted by law.\v\v\n
-sspm $SSPM_VER%68sMay 2022%68sSSPM(1)   \n"
+sspm $SSPM_VER%68sJune 2022%68sSSPM(1)   \n"
 }
 
 
@@ -1482,16 +1482,18 @@ if [ -z $PKG_SRC ]; then
 local PKG_SRC="$SRC/${pkgname}-${pkgver}.$tfext"
 [[ -f "$PKG_SRC" ]] && local REFIND=NO || local REFIND=YES
 fi
-if [[ -z "$REFIND" || (( -n "$REFIND" && "$REFIND" = 'YES' )) ]]; then
+if [[ (( -z "$REFIND" && $([[ ! -f $(export -p | grep -E PKG_SRC | cut -d= -f2 | tr -d "\"'") ]] && printf '0') = 0 )) || (( -n "$REFIND" && "$REFIND" = 'YES' )) ]]; then
+local PKG_SRC="$SRC/$pkgname"
+local PKG_SRC=${PKG_SRC%%+([[:digit:][:punct:]])}
 local PKG_SRC_MATCH=(${PKG_SRC%%.*}*)
 
 if [[ ${#PKG_SRC_MATCH[@]} -gt 0 ]]; then
 if [[ "${PKG_SRC_MATCH[@]}" =~ "docs" || "${PKG_SRC_MATCH[@]}" =~ "html" \
 || "${PKG_SRC_MATCH[@]}" =~ "fixe" || "${PKG_SRC_MATCH[@]}" =~ "patch" \
-|| "${PKG_SRC_MATCH[@]}" =~ "fhs" ]]
+|| "${PKG_SRC_MATCH[@]}" =~ "fhs" || "${PKG_SRC_MATCH[@]}" =~ "xdoc" || "${PKG_SRC_MATCH[@]}" =~ \* ]]
     then local PKG_SRC_MATCH1=()
     for psm in ${PKG_SRC_MATCH[@]}; do
-    [[ "$psm" = *"docs"* || "$psm" = *"html"* || "$psm" = *"fixe"* || "$psm" = *"patch"* || "$psm" = *"fhs"* ]] || \
+    [[ "$psm" = *"docs"* || "$psm" = *"xdoc"* || "$psm" = *"html"* || "$psm" = *"fixe"* || "$psm" = *"patch"* || "$psm" = *"fhs"* || "$psm" =~ \* ]] || \
     local PKG_SRC_MATCH1+=("$psm")
     done
     local PKG_SRC_MATCH=(${PKG_SRC_MATCH1[@]})
@@ -1500,7 +1502,12 @@ fi
 fi
 
 if [[ ${#PKG_SRC_MATCH[@]} -gt 1 ]]; then
-local PKG_SRC_MATCH="$(tr '[:space:]' '\n' <<< "${PKG_SRC_MATCH[@]}" | sort -Vr | head -n1)"
+local PKG_SRC_MATCH="$(tr '[:space:]' '\n' <<< "${PKG_SRC_MATCH[@]}" | sort -Vr)"
+if [[ $(grep -E "$pkgver" <<< "$PKG_SRC_MATCH") ]]; then
+local PKG_SRC_MATCH="$(grep -E "$pkgver" <<< "$PKG_SRC_MATCH" | head -n1)"
+else
+local PKG_SRC_MATCH="$(head -n1 <<< "$PKG_SRC_MATCH")"
+fi
 fi
 if [[ -f $PKG_SRC_MATCH ]]; then
 local PKG_SRC="$PKG_SRC_MATCH"
@@ -1516,7 +1523,7 @@ exit $ERCODE
 fi
 for FILE in $PKG_SRC_FOUND; do
 FNAME="$(basename "${FILE,,}")"
-if [[ "$FNAME" =~ "$HEAD" && "$FNAME" =~ "$pkgver" && (( "$FNAME" != *"docs"* && "$FNAME" != *"html"* && "$FNAME" != *"fixe"* && "$FNAME" != *"patch"* && "$FNAME" != *"fhs"* )) ]]
+if [[ "$FNAME" =~ "$HEAD" && "$FNAME" =~ "$pkgver" && (( "$FNAME" != *"docs"* && "$FNAME" != *"xdoc"* && "$FNAME" != *"html"* && "$FNAME" != *"fixe"* && "$FNAME" != *"patch"* && "$FNAME" != *"fhs"* )) ]]
 then local PKG_SRC="$FILE"; fi
 done
 fi
