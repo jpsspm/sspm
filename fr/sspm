@@ -564,7 +564,7 @@ remarque: si la variable 'tfext' dans le fichier (pkgbuild) est vide,\n\
             License GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure <https://gnu.org/licenses/gpl.html>.\n\
             Ce programme est un logiciel libre: vous pouvez le redistribuer ou le modifier.\n\
             Il n'y a AUCUNE GARANTIE, dans la mesure permise par la loi.\v\v\n
-sspm $SSPM_VER%68sMai 2022%68sSSPM(1)   \n"
+sspm $SSPM_VER%68sJuin 2022%68sSSPM(1)   \n"
 }
 
 
@@ -1564,16 +1564,16 @@ if [ -z $PKG_SRC ]; then
 local PKG_SRC="$SRC/${pkgname}-${pkgver}.$tfext"
 [[ -f "$PKG_SRC" ]] && local REFIND=NO || local REFIND=YES
 fi
-if [[ -z "$REFIND" || (( -n "$REFIND" && "$REFIND" = 'YES' )) ]]; then
+if [[ (( -z "$REFIND" && $([[ ! -f $(export -p | grep -E PKG_SRC | cut -d= -f2 | tr -d "\"'") ]] && printf '0') = 0 )) || (( -n "$REFIND" && "$REFIND" = 'YES' )) ]]; then
 local PKG_SRC_MATCH=(${PKG_SRC%%.*}*)
 
 if [[ ${#PKG_SRC_MATCH[@]} -gt 0 ]]; then
 if [[ "${PKG_SRC_MATCH[@]}" =~ "docs" || "${PKG_SRC_MATCH[@]}" =~ "html" \
 || "${PKG_SRC_MATCH[@]}" =~ "fixe" || "${PKG_SRC_MATCH[@]}" =~ "patch" \
-|| "${PKG_SRC_MATCH[@]}" =~ "fhs" ]]
+|| "${PKG_SRC_MATCH[@]}" =~ "fhs" || "${PKG_SRC_MATCH[@]}" =~ "xdoc" || "${PKG_SRC_MATCH[@]}" =~ \* ]]
     then local PKG_SRC_MATCH1=()
     for psm in ${PKG_SRC_MATCH[@]}; do
-    [[ "$psm" = *"docs"* || "$psm" = *"html"* || "$psm" = *"fixe"* || "$psm" = *"patch"* || "$psm" = *"fhs"* ]] || \
+    [[ "$psm" = *"docs"* || "$psm" = *"xdoc"* || "$psm" = *"html"* || "$psm" = *"fixe"* || "$psm" = *"patch"* || "$psm" = *"fhs"* || "$psm" =~ \* ]] || \
     local PKG_SRC_MATCH1+=("$psm")
     done
     local PKG_SRC_MATCH=(${PKG_SRC_MATCH1[@]})
@@ -1582,7 +1582,12 @@ fi
 fi
 
 if [[ ${#PKG_SRC_MATCH[@]} -gt 1 ]]; then
-local PKG_SRC_MATCH="$(tr '[:space:]' '\n' <<< "${PKG_SRC_MATCH[@]}" | sort -Vr | head -n1)"
+local PKG_SRC_MATCH="$(tr '[:space:]' '\n' <<< "${PKG_SRC_MATCH[@]}" | sort -Vr)"
+if [[ $(grep -E "$pkgver" <<< "$PKG_SRC_MATCH") ]]; then
+local PKG_SRC_MATCH="$(grep -E "$pkgver" <<< "$PKG_SRC_MATCH" | head -n1)"
+else
+local PKG_SRC_MATCH="$(head -n1 <<< "$PKG_SRC_MATCH")"
+fi
 fi
 if [[ -f $PKG_SRC_MATCH ]]; then
 local PKG_SRC="$PKG_SRC_MATCH"
@@ -1598,7 +1603,7 @@ exit $ERCODE
 fi
 for FILE in $PKG_SRC_FOUND; do
 FNAME="$(basename "${FILE,,}")"
-if [[ "$FNAME" =~ "$HEAD" && "$FNAME" =~ "$pkgver" && (( "$FNAME" != *"docs"* && "$FNAME" != *"html"* && "$FNAME" != *"fixe"* && "$FNAME" != *"patch"* && "$FNAME" != *"fhs"* )) ]]
+if [[ "$FNAME" =~ "$HEAD" && "$FNAME" =~ "$pkgver" && (( "$FNAME" != *"docs"* && "$FNAME" != *"xdoc"* && "$FNAME" != *"html"* && "$FNAME" != *"fixe"* && "$FNAME" != *"patch"* && "$FNAME" != *"fhs"* )) ]]
 then local PKG_SRC="$FILE"; fi
 done
 fi
