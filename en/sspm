@@ -1483,8 +1483,6 @@ local PKG_SRC="$SRC/${pkgname}-${pkgver}.$tfext"
 [[ -f "$PKG_SRC" ]] && local REFIND=NO || local REFIND=YES
 fi
 if [[ (( -z "$REFIND" && $([[ ! -f $(export -p | grep -E PKG_SRC | cut -d= -f2 | tr -d "\"'") ]] && printf '0') = 0 )) || (( -n "$REFIND" && "$REFIND" = 'YES' )) ]]; then
-local PKG_SRC="$SRC/$pkgname"
-local PKG_SRC=${PKG_SRC%%+([[:digit:][:punct:]])}
 local PKG_SRC_MATCH=(${PKG_SRC%%.*}*)
 
 if [[ ${#PKG_SRC_MATCH[@]} -gt 0 ]]; then
