@@ -24,7 +24,26 @@ and point "SRC" to that directory
 
 
 
-
+note :
+    there are some packages still need to be built manually
+    due to caracteres manipulations issues and others
+    like : kbd  and iana-etc
+    sometimes you can have basename command warning messages when you install
+    a package this does not affect the package neither the system
+    
+    
+    
+sspm policy :
+        sspm policy is to create less dependencies to the system
+        because its supposed to be used from the minimum linux-based environment
+        to a full linux-based system.
+        So where you can simply type two options with an external tool to resolve the issue
+        if there is a pure shell effective solution. that will be used even if its takes 100 lines
+        
+        
+        
+        
+        
 
 ############################################################################
 the project was born in 2020
