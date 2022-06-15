@@ -2408,7 +2408,7 @@ local FILES="$($DTBFILE0 "$1"_pth|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|
 ### mise a jour de la base de donnees
 [ ! -w "$DTBFILE0" ] && chattr -i $DTBFILE0 && local PERM1=ro
 cp $DTBFILE0 "$DTBFILE0.bck"
-sed -i "/"$1"_pth/,/paquet "$1"/d" $DTBFILE0 && sed -i '/^$/d' $DTBFILE0
+sed '/./{H;$!d};x;/'$1'_pth/d' -i $DTBFILE0 && sed -i '/^$/d' $DTBFILE0
 sed -i 's/^}.*/&\n\n/' $DTBFILE0; sed -i '/'"$PARSEID"'/i\\' $DTBFILE0
 local SPCLINE="$(( $(grep -n '^#-*-#$' $DTBFILE0 |tail -1|cut -f1 -d':') + 1 ))"
 local LINE_STAT="$(head -n $SPCLINE $DTBFILE0|tail -1)"
