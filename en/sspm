@@ -2069,7 +2069,7 @@ if [[ -f "$DTBFILE0" ]]; then
 [ ! -w "$DTBFILE0" ] && chattr -i $DTBFILE0
 cp $DTBFILE0 "$DTBFILE0.bck"
 if $DTBFILE0 "$pkgname"_pth &>/dev/null; then
-sed -i "/"$pkgname"_pth/,/package "$pkgname"/d ; /^$/d" $DTBFILE0
+sed '/./{H;$!d};x;/'$pkgname'_pth/d' -i $DTBFILE0
 else
 $DTBFILE0 "$pkgname"_pth 2>&1
    if [[ $? != $dtb_ercode ]]; then
@@ -2086,7 +2086,7 @@ sed -i -e '/'"$PARSEID"'/,$d' $DTBFILE0; sed -i '/^$/d' $DTBFILE0; sed -i '/^[[:
 cat $FAKEROOT/realpath >> $DTBFILE0; sed -i 's/^}.*/&\n\n/' $DTBFILE0
 
                                          if [[ "$(grep --binary-files=text $pkgname"_pth" $DTBFILE0|cut -d'_' -f1|wc -w)" -gt 1 ]]; then
-                                            sed -i "/$pkgname.*_pth/I,/}.*$pkgname/I d ; /^$/d" $DTBFILE0
+                                            sed '/./{H;$!d};x;/'$pkgname'_pth/d' -i $DTBFILE0; sed '/^$/d' $DTBFILE0
                                             cat $FAKEROOT/realpath >> $DTBFILE0
                                             sed -i 's/^}.*/&\n\n/' $DTBFILE0
                                          fi
