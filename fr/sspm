@@ -1870,9 +1870,17 @@ if [[ "$INT_MODE" != on && "$INT_MODE" != y && "$INT_MODE" != yes ]]; then
 if [[ -n $NOEXIT && $NOEXIT = y ]]; then
    if [ -z "$DEST_DIR" ]
     then
+    if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
      export PKG_FILE="$BDIR/$TGT_PKG_NAME"
+     else
+     export PKG_FILE=$BDIR/${TGT_PKG_NAME%.zst}
+     fi
     else
+    if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
      export PKG_FILE=""$DEST_DIR"$TGT_PKG_NAME"
+     else
+     export PKG_FILE=""$DEST_DIR"${TGT_PKG_NAME%.zst}"
+     fi
    fi
 else
  [[ -n "$PERM_STDOUT_MODE" && "$PERM_STDOUT_MODE" = "y" ]] || exit $OKCODE
