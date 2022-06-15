@@ -36,3 +36,8 @@
 2022-06-02
 
        source file auto-detection improved
+       
+       
+2022-06-15
+
+      major update, like allowing building a non-zstd compressed package
