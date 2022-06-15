@@ -509,8 +509,7 @@ et install"$e_acute"s d"$e_acute"ffinitivement \n\
 %11scat > ~/.bashrc <<EOF\n\
 %11s\e[90mexport PATH=\$PATH:/tools/sspm_tools/bin:/tools/sspm_tools/usr/bin\n%11sexport SRC=/sources\e[0m\n%11sEOF\n\n\
 %7s*%1sPKGBDIR\n%11sr"$e_acute"pertoire de compilation\n\n\
-%7s*%1sNCPKG/NC_PKG=[y/yes/true]\n%11sne pas compr"$e_acute"sser les paquets en zstd\n\
-%11snote: vous avez besoin de cette variable pour installer un paquet non-compr"$e_acute"ss"$e_acute"\n\n\
+%7s*%1sNCPKG/NC_PKG=[y/yes/true]\n%11sne pas compr"$e_acute"sser les paquets en zstd\n\n\
 %7s*%1sEXCLUDE/IGNORE ou NOT_TRACE_PATH\n%11svous avez besoin de cette variable seulement si vous manipul"$e_acute"s \
 les donn"$e_acute"es d'un autre syst"$e_grave"me\n%11sc'est-"$a_grave"-dire que vous install"$e_acute"s ou d"$e_acute"sinstall"$e_acute"s un paquet dans votre syst"$e_grave"me d'exploitation\n\
 %11sen m"$e_circumflex"me temps vous avez 'un disk mont"$e_acute", un r"$e_acute"pertoire' qui contient un autre syst"$e_grave"me, une toolchain\n\
