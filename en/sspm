@@ -458,8 +458,7 @@ DESCRIPTION\n\
 %11scat > ~/.bashrc <<EOF\n\
 %11s\e[90mexport PATH=\$PATH:/tools/sspm_tools/bin:/tools/sspm_tools/usr/bin\n%11sexport SRC=/sources\e[0m\n%11sEOF\n\n\
 %7s*%1sPKGBDIR\n%11sbuild directory\n\n\
-%7s*%1sNCPKG/NC_PKG=[y/yes/true]\n%11sdo not filter packages through zstd, sometimes you may need to build a non-compressed package\n\
-%11snote: you also need this variable to install a non-compressed package\n\n\
+%7s*%1sNCPKG/NC_PKG=[y/yes/true]\n%11sdo not filter packages through zstd, sometimes you may need to build a non-compressed package\n\n\
 %7s*%1sEXCLUDE/IGNORE or NOT_TRACE_PATH\n%11s(ex: root:# export NOT_TRACE_PATH=/mnt/mounted_root)\n%11stells sspm that '/mnt/mounted_root' is not part of filesystem while tracking broken symbolic links\n\
 %11snecessary if you have a mounted filesystem/toolchain for example\n\
 %11syou need to set this variable if you have a mounted filesystem while acting (install/uninstall)\n%11sin the base system (where sspm is installed)\v\n\
