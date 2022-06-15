@@ -1830,7 +1830,7 @@ local ERCODE=8; if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
 if [[ $BIMODE ]]; then printf "cannot proceed with installation. permission denied\n"; exit $ERCODE
 else printf "%1syou need to be root to run this command\n"; exit $ERCODE; fi fi
 local TMPFILE=$(mktemp $TMP/tif.XXXXXX); [[ -n "$BIMODE" && "$BIMODE" == y ]] && set +e
-[[ -z "$2" ]] && check_dtb; if [[ -n "$1" ]]; then if [[ "$1" = "$(basename $0)" ]]; then printf '*** nice joke ***\n'; exit $OKCODE; elif [[ -e "$1" ]]; then
+[[ -z "$2" ]] && check_dtb; if [[ -n "$1" ]]; then if [[ "$1" = "$(basename $0)" ]]; then printf '*** so funny ***\n'; exit $OKCODE; elif [[ -e "$1" ]]; then
   if ! ( test -f "$1" && file "$1" 2>/dev/null | grep -q 'Zstandard compressed data' && tar tf "$1" 2>/dev/null | grep -q "$BUILDFILE" ) && \
   [[ $(tar tf "$1" 2>/dev/null | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) != 2 ]]; then
   printf "\e[91merror:\e[0m  Could not initialize package\n\e[90m '$1' doesn't look like a package.\e[0m\n"
