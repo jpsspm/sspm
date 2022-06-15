@@ -236,6 +236,7 @@ ERCODE="1"
 DEPEND_ERCODE="7"
 ARCH="$(uname -m)"
 export BDIR="$(pwd -P)"
+NCPKG="${NCPKG:-$NC_PKG}"
 PKGEXT="tar.zst"
 TEXT0="nom du paquet"
 TEXT1="version"
@@ -508,6 +509,8 @@ et install"$e_acute"s d"$e_acute"ffinitivement \n\
 %11scat > ~/.bashrc <<EOF\n\
 %11s\e[90mexport PATH=\$PATH:/tools/sspm_tools/bin:/tools/sspm_tools/usr/bin\n%11sexport SRC=/sources\e[0m\n%11sEOF\n\n\
 %7s*%1sPKGBDIR\n%11sr"$e_acute"pertoire de compilation\n\n\
+%7s*%1sNCPKG/NC_PKG=[y/yes/true]\n%11sne pas compr"$e_acute"sser les paquets en zstd\n\
+%11snote: vous avez besoin de cette variable pour installer un paquet non-compr"$e_acute"ss"$e_acute"\n\n\
 %7s*%1sEXCLUDE/IGNORE ou NOT_TRACE_PATH\n%11svous avez besoin de cette variable seulement si vous manipul"$e_acute"s \
 les donn"$e_acute"es d'un autre syst"$e_grave"me\n%11sc'est-"$a_grave"-dire que vous install"$e_acute"s ou d"$e_acute"sinstall"$e_acute"s un paquet dans votre syst"$e_grave"me d'exploitation\n\
 %11sen m"$e_circumflex"me temps vous avez 'un disk mont"$e_acute", un r"$e_acute"pertoire' qui contient un autre syst"$e_grave"me, une toolchain\n\
@@ -1779,17 +1782,30 @@ chmod a+x $pkgdir/$PKG_INSTALL;
 sleep 0.30; printf "\n\e[100mCr"$e_acute"ation du paquet\e[0m\n"; sleep 0.60
 if [ -z "$DEST_DIR" ]; then
 [ -f $BDIR/$TGT_PKG_NAME ] && rm -f $BDIR/$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .
-if [[ ! -z $PKG_HASH && $PKG_HASH = "yes" ]]; then 
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
+$TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .; else tar -cpf $BDIR/${TGT_PKG_NAME%.zst} .;fi
+if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f $BDIR/$TGT_PKG_NAME ] && ( file $BDIR/$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
-cd $BDIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi; fi
+cd $BDIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
+else
+if [[ -f $BDIR/${TGT_PKG_NAME%.zst} && $(tar tf $BDIR/${TGT_PKG_NAME%.zst} | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
+cd $BDIR && make_sum_check -g "${TGT_PKG_NAME%.zst}" -o "$PKG_SHA"; fi
+fi; fi
 else
 [ -f "$DEST_DIR"$TGT_PKG_NAME ] && rm -f "$DEST_DIR"$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf ""$DEST_DIR"$TGT_PKG_NAME" --zstd $COMPRESS_AS .
-if [[ ! -z $PKG_HASH && $PKG_HASH = "yes" ]]; then 
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
+$TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .; else tar -cpf $BDIR/${TGT_PKG_NAME%.zst} .;fi
+if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f "$DEST_DIR"$TGT_PKG_NAME ] && ( file "$DEST_DIR"$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
-cd $DEST_DIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi; fi
-fi;    rm -rf $TMP/$pkgdir_rm; rm -rf $TMP/$spkgdir; [ -f $TMPFILE ] && rm -f $TMPFILE; sleep 0.27
+cd $DEST_DIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
+else
+if [[ -f $BDIR/${TGT_PKG_NAME%.zst} && $(tar tf $BDIR/${TGT_PKG_NAME%.zst} | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
+cd $BDIR && make_sum_check -g "${TGT_PKG_NAME%.zst}" -o "$PKG_SHA"; fi
+fi; fi; fi;    rm -rf $TMP/$pkgdir_rm; rm -rf $TMP/$spkgdir; [ -f $TMPFILE ] && rm -f $TMPFILE; sleep 0.27
 
 
 if [[ -z "$DIALOG" || (( "$DIALOG" != "off" && "$DIALOG" == "on" )) ]]; then
@@ -1887,9 +1903,10 @@ local ERCODE=8; if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
 if [[ $BIMODE ]]; then printf "ne peut proc"$e_acute"der "$a_grave" l'installation permission non accord"$e_acute"e\n"; exit $ERCODE
 else printf "%1svous devez "$e_circumflex"tre root pour ex"$e_acute"cuter cette commande\n"; exit $ERCODE; fi fi
 local TMPFILE=$(mktemp $TMP/tif.XXXXXX); [[ -n "$BIMODE" && "$BIMODE" == y ]] && set +e
-[[ -z "$2" ]] && check_dtb; if [[ -n "$1" ]]; then if [[ -e "$1" ]]; then
-  if ! ( test -f "$1" && file "$1" 2>/dev/null | grep -q 'Zstandard compressed data' && tar tf "$1" | grep -q "$BUILDFILE" )
-  then  printf "\e[91merreur:\e[0m  impossible d'initialiser le paquet\n\e[90m '$1' ne ressemble pas "$a_grave" un paquet.\e[0m\n"
+[[ -z "$2" ]] && check_dtb; if [[ -n "$1" ]]; then if [[ "$1" = "$(basename $0)" ]]; then printf '*** lol ***\n'; exit $OKCODE; elif [[ -e "$1" ]]; then
+  if ! ( test -f "$1" && file "$1" 2>/dev/null | grep -q 'Zstandard compressed data' && tar tf "$1" 2>/dev/null | grep -q "$BUILDFILE" ) && \
+  [[ $(tar tf "$1" 2>/dev/null | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) != 2 ]]; then
+  printf "\e[91merreur:\e[0m  impossible d'initialiser le paquet\n\e[90m '$1' ne ressemble pas "$a_grave" un paquet.\e[0m\n"
   ( test -n "$(ls "$TMP" | sed -n '/\(tif.*\)/p')" ) && find "$TMP" -depth -name 'tif*' -type f -delete
   exit $ERCODE; fi else printf "\e[91merreur:\e[0m '$1' non trouv"$e_acute"\n"; exit $ERCODE; fi
   else printf "\e[91merreur:\e[0m indiquer un paquet "$a_grave" installer\n"; exit $ERCODE; fi
