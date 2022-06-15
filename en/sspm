@@ -205,6 +205,7 @@ ERCODE="1"
 DEPEND_ERCODE="7"
 ARCH="$(uname -m)"
 export BDIR="$(pwd -P)"
+NCPKG="${NCPKG:-$NC_PKG}"
 PKGEXT="tar.zst"
 TEXT0="name"
 TEXT1="version"
@@ -1693,17 +1694,30 @@ chmod a+x $pkgdir/$PKG_INSTALL;
 sleep 0.30; printf "\n\e[100mCreating package\e[0m\n"; sleep 0.60
 if [ -z "$DEST_DIR" ]; then
 [ -f $BDIR/$TGT_PKG_NAME ] && rm -f $BDIR/$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .
-if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then 
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
+$TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .; else tar -cpf $BDIR/${TGT_PKG_NAME%.zst} .;fi
+if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f $BDIR/$TGT_PKG_NAME ] && ( file $BDIR/$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
-cd $BDIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi; fi
+cd $BDIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
+else
+if [[ -f $BDIR/${TGT_PKG_NAME%.zst} && $(tar tf $BDIR/${TGT_PKG_NAME%.zst} | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
+cd $BDIR && make_sum_check -g "${TGT_PKG_NAME%.zst}" -o "$PKG_SHA"; fi
+fi; fi
 else
 [ -f "$DEST_DIR"$TGT_PKG_NAME ] && rm -f "$DEST_DIR"$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf ""$DEST_DIR"$TGT_PKG_NAME" --zstd $COMPRESS_AS .
-if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then 
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
+$TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .; else tar -cpf $BDIR/${TGT_PKG_NAME%.zst} .;fi
+if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f "$DEST_DIR"$TGT_PKG_NAME ] && ( file "$DEST_DIR"$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
-cd $DEST_DIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi; fi
-fi;    rm -rf $TMP/$pkgdir_rm; rm -rf $TMP/$spkgdir; [ -f $TMPFILE ] && rm -f $TMPFILE; sleep 0.27
+cd $DEST_DIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
+else
+if [[ -f $BDIR/${TGT_PKG_NAME%.zst} && $(tar tf $BDIR/${TGT_PKG_NAME%.zst} | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
+cd $BDIR && make_sum_check -g "${TGT_PKG_NAME%.zst}" -o "$PKG_SHA"; fi
+fi; fi; fi;    rm -rf $TMP/$pkgdir_rm; rm -rf $TMP/$spkgdir; [ -f $TMPFILE ] && rm -f $TMPFILE; sleep 0.27
 
 
 if [[ -z "$DIALOG" || (( "$DIALOG" != "off" && "$DIALOG" == "on" )) ]]; then
@@ -1760,7 +1774,13 @@ while true; do
 [[ "$RANDOM" =~ ^"7" && "$RANDOM" =~ "7" ]] && printf "\v\v\v\e[95m$TGT_PKG_NAME\e[0m successfully created\v\n" && break
 [[ "$RANDOM" =~ "5"$ && "$RANDOM" =~ [7-9] ]] && printf "\v\v\vdone\v\n" && break
 printf "\v\v\v\e[90mcreated package: \e[0m\e[2m$TGT_PKG_NAME\e[0m\n\e[90min%9s:%1s\e[0m\e[2m$(cat <<< "${build_time[@]}")\e[0m\v\n" && break
-done; if (export -p | grep -q PKG_SRC); then [[ "$RANDOM" =~ "1"$ || "$RANDOM" =~ ^"2" || "$RANDOM" =~ "8" ]] && printf "\e[90mDo not forget to unset 'PKG_SRC'\e[0m\v\n"; fi
+done; if (export -p | grep -q PKG_SRC); then
+if [[ "$RANDOM" =~ "1"$ || "$RANDOM" =~ ^"2" || "$RANDOM" =~ "8" ]]; then
+printf "\e[90mRemenber to unset 'PKG_SRC'\e[0m\v\n"
+else
+printf "\e[90mDo not forget to unset 'PKG_SRC'\e[0m\v\n"
+fi
+fi
 fi
 fi
 if [[ "$INT_MODE" != on && "$INT_MODE" != y && "$INT_MODE" != yes ]]; then
@@ -1801,9 +1821,10 @@ local ERCODE=8; if [[ "${EUID:-$(id -u)}" -ne 0 ]]; then
 if [[ $BIMODE ]]; then printf "cannot proceed with installation. permission denied\n"; exit $ERCODE
 else printf "%1syou need to be root to run this command\n"; exit $ERCODE; fi fi
 local TMPFILE=$(mktemp $TMP/tif.XXXXXX); [[ -n "$BIMODE" && "$BIMODE" == y ]] && set +e
-[[ -z "$2" ]] && check_dtb; if [[ -n "$1" ]]; then if [[ -e "$1" ]]; then
-  if ! ( test -f "$1" && file "$1" 2>/dev/null | grep -q 'Zstandard compressed data' && tar tf "$1" | grep -q "$BUILDFILE" )
-  then  printf "\e[91merror:\e[0m  Could not initialize package\n\e[90m '$1' doesn't look like a package.\e[0m\n"
+[[ -z "$2" ]] && check_dtb; if [[ -n "$1" ]]; then if [[ "$1" = "$(basename $0)" ]]; then printf '*** nice joke ***\n'; exit $OKCODE; elif [[ -e "$1" ]]; then
+  if ! ( test -f "$1" && file "$1" 2>/dev/null | grep -q 'Zstandard compressed data' && tar tf "$1" | grep -q "$BUILDFILE" ) && \
+  [[ $(tar tf "$1" | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) != 2 ]]; then
+  printf "\e[91merror:\e[0m  Could not initialize package\n\e[90m '$1' doesn't look like a package.\e[0m\n"
   ( test -n "$(ls "$TMP" | sed -n '/\(tif.*\)/p')" ) && find "$TMP" -depth -name 'tif*' -type f -delete
   exit $ERCODE; fi else printf "\e[91merror:\e[0m unable to find '$1'\n"; exit $ERCODE; fi
   else printf "\e[91merror:\e[0m  no package specified\n"; exit $ERCODE; fi
