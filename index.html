@@ -3,74 +3,48 @@
 <head>
   <title>SSPM</title>
   <style>
-  
-       body {height: 100%;
-            background-size: auto;
-            background-color: white;
-            background-repeat: no-repeat;
-            padding: auto;
-            background-image: url("data/bg0.png");
-            }
-    
-    
-    
-    
-    
-           .section {top: 6em;
-              color: blue;
-              max-width: 950px;
-              margin-left: 10px;
-              overflow-wrap: break-word;
-              position: relative;
-              }
-            .section h3 {color: #191970;font-size: 26px;}
-            .section p {color: black;font-size: 20px;}
-             
-             
-             
-.link {color: #556B2F; text-decoration: none;}
+body {background-image: url("data/bg0.png");}
+
+section {background:
+         linear-gradient(-90deg, rgba(0,0,0,.05) 1px, transparent 1px),
+         linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+         #f2f2f2; 
+         background-size:
+         4px 4px,   4px 4px,
+         80px 80px, 80px 80px,
+         80px 80px, 80px 80px,
+         80px 80px, 80px 80px;   
+         height: auto;
+         max-width: 800px;       
+         margin-top: 7rem;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-bottom: 56px;
+         padding-left: 14px;
+         padding: 14px;
+         border: 1px solid;
+         border-color: white;
+         border-width: 2px;
+         border-style: outset;
+         border-radius: 9px;
+         box-shadow: 5px 6px 8px #888888;
+        }
+
+p {color: green;}
+.lang {color: #2F4F4F;}
+.link {text-decoration: none;}
 .link:hover {text-decoration: underline;}
-.link_fld {opacity: 53%;text-decoration: none;}
+.link_fld {text-decoration: none;}
 .link_fld:hover {text-decoration: underline;}
-.section ul li a .strong {color: black;opacity: 82%;}
 
 
-    .section1 {top: 9em;
-              height: auto;
-              width: auto;
-              max-width: 950px;
-              margin: auto;
-              overflow-wrap: break-word;
-              position: relative;
-              }
-              
-    section2 {top:10em;
-              left: 5rem;
-              height: auto;
-              padding:15px;
-              max-width: 900px;
-              width: auto;
-              overflow: wrap;
-              position: relative;
-              }      
-
-
-
-       div.section1 .h3_1       {font-size: 26px;color: rgba(94, 48, 77, 1);}
-       div.section1 .sp1        {color: black;font-size: 19px;margin-top: -20px;}
-       div.section1 p           {color: black;}
-       div.section1 p .link                            {color: blue;text-decoration: none;padding-left: 6px;padding-right: 6px;border-radius: 15px;} 
-       div.section1 p .link:hover                      {color: #cda200;background: none;text-decoration: underline;}
-        
-        div.section1 .h3_2       {font-size: 37px;text-align: right;margin-bottom: -8px;letter-spacing: 3px;}                                  
+        div.section1 .h3_2       {font-size: 27px;text-align: right;margin-bottom: -8px;letter-spacing: 3px;}                                  
         div.section1 div.sp2     {text-align: right;border: 2px -4px lightblue;border-width: small;border-radius: 15px;width: auto;background-color: rgba(0, 0, 0, 0.4);}
         div.section1 div.sp2 p   {color: #FA8072;padding-right: 10px;padding-left: 10px;padding-top: 2px;padding-bottom: 2px;color: black;opacity: 85%;font-size: 18px;}
-        .sp2_1                   {color: white;font-style: normal;}
-       
-       
-       
-       
-       section2 p.fake_term                     {background-color: rgba(0, 0, 0, 0.8);font-size: 15px;width: 400px;height: auto;max-height: 600px;color: rgba(255, 255, 255, 0.8);}
+        .sp2_1                   {color: white;font-style: normal;word-break: break-all;}
+
+
+       section2 p.fake_term                     {background-color: rgba(0, 0, 0, 0.8);font-size: 15px;width: auto;max-width: 400px;height: auto;max-height: 600px;color: rgba(255, 255, 255, 0.8);}
        section2 p.fake_term .user_style         {color: rgba(0, 213, 48, 0.8);font-size: 15.5px;}
        section2 p span.buildfile_style          {color: #2c3f76;font-style: normal;}
        section2 .h3_6                           {font-size: 37px;color: rgba(94, 48, 77, 1);margin-bottom: -10px;}
@@ -78,22 +52,21 @@
        section2 p.text3                         {color: #a29776;font-size: 30px;max-width: 850px;font-style: italic;text-transform: capitalize;opacity: 89%;}
        
 
-
-
-
-
-
-
-       p      {color: white;}
-       footer {background-color: #333;margin-left: -10px;padding-bottom: -10px;overflow: hidden;position: absolute;  bottom: -200rem;width: 100%;}
+       footer {background-color: #333;margin-left: -10px;padding-bottom: -10px;overflow: hidden;position: relative;bottom: 0px;width: 100%;}
        footer p {float: left;display: block;text-align: left;padding-left: 10px;padding-right: 10px;background-color: #83a6bf;color: black;}
 
+
+
+@media screen and (min-width: 900px) {
+   section {margin: auto; margin-top: 7rem;margin-bottom: 56px;}
+ }
   </style>
 </head> 
  
 <body>
 
-    <div class="section">
+<section>
+
     <h3>Introduction</h3>
     <p>
     sspm is a package manager inspired from 'makepkg' and the 'LFS' project.</br>
@@ -114,14 +87,11 @@
     <li>bugs report &ensp;----->&emsp;<a class="link" href="https://github.com/jpsspm/sspm/issues/" target="_blank"><strong>github</strong></a></li>
     <li>email&emsp;&emsp;&emsp;&ensp;----->&emsp;<a><strong class="strong">joepackar</strong>&ensp;domain: <strong class="strong">gmail.com</strong></a></li>
     </ul>
-    </div>
-
-
-
 
 
 
 <div class="section1">
+<br>
    <h3 class="h3_1">Why sspm ? </h3> 
    <p class="sp1">sspm for simple script package manager</p>
    
@@ -184,21 +154,13 @@
      because the bash comment sign is used as maker by the software while reading the file<br> see pkgbuild files examples to learn more.<br>
     </p>
 </section2>
-
-
-
-
-
-
+</section>
 
 <footer>
   <p>Author: Joe Packar</p>
   <p><strong>joepackar</strong>&ensp;domain: <strong>gmail.com</strong></p>
-  <p>Last edited: 2/2/2022 17:08:19</p>
+  <p>Last edited: 06/17/2022 16:43:19</p>
 </footer>
-
-
-
 
 </body>
 </html>
