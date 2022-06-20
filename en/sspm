@@ -1693,31 +1693,28 @@ chmod a+x $pkgdir/$PKG_INSTALL;
               done <<< $(find $pkgdir -xtype l -print)
 # Creating package
 sleep 0.30; printf "\n\e[100mCreating package\e[0m\n"; sleep 0.60
+[[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]] || local TGT_PKG_NAME="${TGT_PKG_NAME%.zst}"
 if [ -z "$DEST_DIR" ]; then
 [ -f $BDIR/$TGT_PKG_NAME ] && rm -f $BDIR/$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
-if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
-$TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .; else tar -cpf $BDIR/${TGT_PKG_NAME%.zst} .;fi
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .
 if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
 if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f $BDIR/$TGT_PKG_NAME ] && ( file $BDIR/$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
 cd $BDIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
 else
-if [[ -f $BDIR/${TGT_PKG_NAME%.zst} && $(tar tf $BDIR/${TGT_PKG_NAME%.zst} | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
-cd $BDIR && make_sum_check -g "${TGT_PKG_NAME%.zst}" -o "$PKG_SHA"; fi
+if [[ -f $BDIR/$TGT_PKG_NAME && $(tar tf $BDIR/$TGT_PKG_NAME | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
+cd $BDIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
 fi; fi
 else
 [ -f "$DEST_DIR"$TGT_PKG_NAME ] && rm -f "$DEST_DIR"$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
-if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
-$TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .; else tar -cpf $BDIR/${TGT_PKG_NAME%.zst} .;fi
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf $DEST_DIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .
 if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
 if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f "$DEST_DIR"$TGT_PKG_NAME ] && ( file "$DEST_DIR"$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
 cd $DEST_DIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
 else
-if [[ -f $BDIR/${TGT_PKG_NAME%.zst} && $(tar tf $BDIR/${TGT_PKG_NAME%.zst} | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
-cd $BDIR && make_sum_check -g "${TGT_PKG_NAME%.zst}" -o "$PKG_SHA"; fi
+if [[ -f $DEST_DIR/$TGT_PKG_NAME && $(tar tf $DEST_DIR/$TGT_PKG_NAME | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) = 2 ]]; then
+cd $DEST_DIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
 fi; fi; fi;    rm -rf $TMP/$pkgdir_rm; rm -rf $TMP/$spkgdir; [ -f $TMPFILE ] && rm -f $TMPFILE; sleep 0.27
 
 
@@ -1788,17 +1785,9 @@ if [[ "$INT_MODE" != on && "$INT_MODE" != y && "$INT_MODE" != yes ]]; then
 if [[ -n $NOEXIT && $NOEXIT = y ]]; then
    if [ -z "$DEST_DIR" ]
     then
-    if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
      export PKG_FILE="$BDIR/$TGT_PKG_NAME"
-     else
-     export PKG_FILE=$BDIR/${TGT_PKG_NAME%.zst}
-     fi
     else
-    if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
      export PKG_FILE=""$DEST_DIR"$TGT_PKG_NAME"
-     else
-     export PKG_FILE=""$DEST_DIR"${TGT_PKG_NAME%.zst}"
-     fi
    fi
 else
  [[ -n "$PERM_STDOUT_MODE" && "$PERM_STDOUT_MODE" = "y" ]] || exit $OKCODE
