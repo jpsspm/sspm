@@ -1163,7 +1163,7 @@ fi
                                        tar_ver="tar $(tar --version | tr '\n' ' ' | cut -d ' ' -f4)" 
                                        pkg_config_ver="pkg-config $(pkg-config --version)"
                                        procps_ng_ver="$(ps --version | rev | cut -d ' ' -f1,2 | rev )"
-                                       which_ver="which $(which --version  2>/dev/null | head -1 | tr -d "[:alpha:],[:space:],[![:print:]]" | cut -d '(' -f1)"
+                                       which_ver="which $(which --version 2>/dev/null | head -1 | tr -d "[:alpha:],[:space:],[![:print:]]" | cut -d '(' -f1)"
                                        printf "$bsdtar_ver%2s$pkg_config_ver%2s$procps_ng_ver%2s$tar_ver%2s$which_ver%2s$zstd_ver\n"
                                        exit $OKCODE
                                        fi
@@ -2386,7 +2386,7 @@ local FILES="$($DTBFILE0 "$1"_pth|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|
              #### verification des liens symboliques
              if [ -z "$2" ]; then
              if [ -z "$EXCLUDE_DIR" ]; then
-	     # la command find ci-dessous est correct mais produit un message d'avertissement inoffensif apropos du repertoire '/proc' si vous etes en 'chroot'
+             # la command find ci-dessous est correct mais produit un message d'avertissement inoffensif apropos du repertoire '/proc' si vous etes en 'chroot'
              # d'ou le 2>/dev/null, ce message disparait lors du boot normal du systeme.
              find $ROOT -xtype l \! \( -path '/proc/*' -o -path '/sys/*' -o -path '/run/*' -o -path '/tmp/*' -o -path '/dev/*' -o -path '/home/*' -o -path '/root/*' \) -delete 2>/dev/null
              else
