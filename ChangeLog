@@ -41,3 +41,9 @@
 2022-06-15
 
       major update, like allowing building a non-zstd compressed package
+
+
+2022-06-20
+
+     Fix one bug introduced about the '-o' option. changing BDIR to DEST_DIR
+     (fr - line 1795-1803) and  (en - line 1709-1717)  
