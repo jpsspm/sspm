@@ -241,6 +241,7 @@ DTBFILE1="$PKGDIR/database/$PKG_DTB"
 # this program with '../sspm' style
 SCRIPTFILE="$(realpath -q $0)"
 SCRIPTFILE="${SCRIPTFILE:-$0}"
+STRIPPKG="${STRIPPKG:-$STRIP_PKG}"
 
 
 
@@ -466,7 +467,8 @@ DESCRIPTION\n\
 %11sset all next packages as type 'group', possible values are: base , add , opt , other\n%11sif nothing is done even in the 'pkgbuild' file, the group will be 'other'\n\
 %11snote: here 'opt' for optionnal package nothing to do with '/opt'\v\n\
 %7s*%1sPACKAGER=name\n%11s(this variable takes effect only if the 'packager' variable is empty in 'pkgbuild' file) built by 'name'\v\n\
-%7s*%1sLV_BUILD=[on/y/yes]\n%11screate even install a package interactively instead of using a '$BUILDFILE' file\v\v\n\
+%7s*%1sLV_BUILD=[on/y/yes]\n%11screate even install a package interactively instead of using a '$BUILDFILE' file\v\n\
+%7s*%1sSTRIPPKG/STRIP_PKG=[y/yes/true]\n%11sstrip package at build/install process, this software can prevent stripping twice\n%11sno need to unset this variable between both processes (build and install)\v\v\n\
 \e[1mTHE PKGBUILD FILE:\e[0m\n\
 cat $BUILDFILE\n\n\e[90m\
 pkgname=foo\n\
@@ -510,7 +512,7 @@ note:%5swhatever build function name build_foo() { commands }, foo_build() { com
          License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
          This is free sortware: you can change and redistribute it.\n\
          There is NO WARRANTY, to the extent permitted by law.\v\v\n
-sspm $SSPM_VER%68sJune 2022%68sSSPM(1)   \n"
+sspm $SSPM_VER%68sJully 2022%68sSSPM(1)   \n"
 }
 
 
@@ -1691,6 +1693,25 @@ chmod a+x $pkgdir/$PKG_INSTALL;
                    fi
                  else continue; fi
               done <<< $(find $pkgdir -xtype l -print)
+# Stripping if enabled
+if [[ -n $STRIPPKG && (( $STRIPPKG = [yY] || $STRIPPKG = yes || $STRIPPKG = YES || $STRIPPKG = true )) ]]; then
+local STRIPFILES=($(find $pkgdir | xargs file | grep -E "executable|shared object" | grep ELF | grep -e "not stripped" | cut -d: -f1))
+
+if [[ ${#STRIPFILES[@]} -gt 0 ]]; then
+( tr ' ' '\n' <<< "${STRIPFILES[@]}" | grep -qE "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so" ) && \
+local STRIPFILES_SAVED=($(tr ' ' '\n' <<< "${STRIPFILES[@]}"|grep -E "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so"))
+
+                               if [[ ${#STRIPFILES_SAVED[@]} -gt 0 ]]; then
+                                   for i in ${STRIPFILES_SAVED[@]}; do objcopy --only-keep-debug $i $i.dbg; done
+                                   for i in ${STRIPFILES[@]}; do case "$i" in *dbg) ;; *) strip --strip-unneeded $i 2>/dev/null ;; esac; done
+                                   for i in ${STRIPFILES_SAVED[@]}; do [[ -e $i.dbg ]] && objcopy --add-gnu-debuglink=$i.dbg $i; done
+                               else
+                               strip --strip-unneeded ${STRIPFILES[@]} 2>/dev/null
+                               fi
+
+fi
+
+fi
 # Creating package
 sleep 0.30; printf "\n\e[100mCreating package\e[0m\n"; sleep 0.60
 [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]] || local TGT_PKG_NAME="${TGT_PKG_NAME%.zst}"
@@ -1946,6 +1967,35 @@ printf "\e[36mchecking package\e[0m\n"; sleep 0.67
 make_sum_check -c "." -i "$FILES_SHA" && rm -rf $TMP/msc.*;
 find -L . \( -perm 711 -o -perm 555 -o -perm 777 -o -perm 511 -o -perm 775 -o -perm 750 \) -exec chmod 755 {} &>/dev/null \; \
        -o \( -perm 444 -o -perm 666 -o -perm 664 -o -perm 640 -o -perm 400 -o -perm 600 -o -perm 440 \) -exec chmod 644 {} &>/dev/null \;
+
+# Stripping if enabled
+if [[ -n $STRIPPKG && (( $STRIPPKG = [yY] || $STRIPPKG = yes || $STRIPPKG = YES || $STRIPPKG = true )) ]]; then
+local STRIPFILES=($(find . | xargs file | grep -E "executable|shared object" | grep ELF | grep -e "not stripped" | cut -d: -f1))
+
+if [[ ${#STRIPFILES[@]} -gt 0 ]]; then
+( tr ' ' '\n' <<< "${STRIPFILES[@]}" | grep -qE "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so" ) && \
+local STRIPFILES_SAVED=($(tr ' ' '\n' <<< "${STRIPFILES[@]}"|grep -E "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so"))
+
+                               if [[ ${#STRIPFILES_SAVED[@]} -gt 0 ]]; then
+                                           while IFS= read -r LINE
+                                             do    [[ "$LINE" != *dbg ]] && continue
+                                                if [[ "$LINE" = *dbg && -e "${LINE%.*}" ]]; then
+                                                   file "${LINE%.*}" | grep -qe "not stripped" || STRIP_EXIT_STATUS=1
+                                                   break
+                                                fi
+                                             done  <<< "$(tr ' ' '\n' <<< ${STRIPFILES_SAVED[@]})"
+                               
+                                   if [[ -z $STRIP_EXIT_STATUS || $STRIP_EXIT_STATUS != 1 ]]; then
+                                      for i in ${STRIPFILES_SAVED[@]}; do objcopy --only-keep-debug $i $i.dbg; done
+                                      for i in ${STRIPFILES[@]}; do case "$i" in *dbg) ;; *) strip --strip-unneeded $i 2>/dev/null ;; esac; done
+                                      for i in ${STRIPFILES_SAVED[@]}; do [[ -e $i.dbg ]] && objcopy --add-gnu-debuglink=$i.dbg $i; done
+                                   fi
+                               else
+                               strip --strip-unneeded ${STRIPFILES[@]} 2>/dev/null
+                               fi
+
+fi
+fi
 
 
 ## finding package name, version, install dirs, type and other
