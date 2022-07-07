@@ -273,6 +273,7 @@ DTBFILE1="$PKGDIR/database/$PKG_DTB"
 # commandes si vous executez le script en '../sspm'
 SCRIPTFILE="$(realpath -q $0)"
 SCRIPTFILE="${SCRIPTFILE:-$0}"
+STRIPPKG="${STRIPPKG:-$STRIP_PKG}"
 
 
 
@@ -521,7 +522,8 @@ cass"$e_acute"s dans le syst"$e_grave"me or les liens symboliques\n%11sde votre 
 %11sd"$e_acute"finir tout les prochains paquets entant que paquets de type 'group'\n\
 %11sles valeurs possible: base ; add ; opt ; other. si cette variable n'est pas d"$e_acute"finie, le groupe sera 'other'\n%11sNB: ici 'opt' ne signifie pas que le paquet sera install"$e_acute" dans '/opt' mais plut"$o_circumflex"t sera d"$e_acute"fini entant que paquet optionnel\v\n\
 %7s*%1sPACKAGER=name\n%11s(cette variable ne prend effet que si la variable 'packager' est vide dans le fichier 'pkgbuild')\n%11sd"$e_acute"finir tout les prochains paquets comme "$e_acute"tant cr"$e_acute""$e_acute" par 'name'\v\n\
-%7s*%1sLV_BUILD=[on/y/yes]\n%11scompiler, cr"$e_acute"er un paquet voire l'installer de mani"$e_grave"re interactive plut"$o_circumflex"t que d'utiliser le fichier '$BUILDFILE'\v\v\n\
+%7s*%1sLV_BUILD=[on/y/yes]\n%11scompiler, cr"$e_acute"er un paquet voire l'installer de mani"$e_grave"re interactive plut"$o_circumflex"t que d'utiliser le fichier '$BUILDFILE'\v\n\
+%7s*%1sSTRIPPKG/STRIP_PKG=[y/yes/true]\n%11sstripper le paquet lors de la compilation/l'installation\n%11sce logiciel peut pr"$e_acute"venir le fait de stripper deux fois un paquet\n%11svous n'avez donc pas besoin de d"$e_acute"sinitialiser cette variable entre les deux processus (compilation/installation)\v\v\n\
 \e[1mINITIALISATION DU FICHIER:\e[0m '$BUILDFILE' \n\
 voici un exemple de configuration de ce fichier\n\
 cat $BUILDFILE\n\n\e[90m\
@@ -566,7 +568,7 @@ remarque: si la variable 'tfext' dans le fichier (pkgbuild) est vide,\n\
             License GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure <https://gnu.org/licenses/gpl.html>.\n\
             Ce programme est un logiciel libre: vous pouvez le redistribuer ou le modifier.\n\
             Il n'y a AUCUNE GARANTIE, dans la mesure permise par la loi.\v\v\n
-sspm $SSPM_VER%68sJuin 2022%68sSSPM(1)   \n"
+sspm $SSPM_VER%68sJuillet 2022%68sSSPM(1)   \n"
 }
 
 
@@ -1777,6 +1779,25 @@ chmod a+x $pkgdir/$PKG_INSTALL;
                    fi
                  else continue; fi
               done <<< $(find $pkgdir -xtype l -print)
+# si vous avez active le strip
+if [[ -n $STRIPPKG && (( $STRIPPKG = [yY] || $STRIPPKG = yes || $STRIPPKG = YES || $STRIPPKG = true )) ]]; then
+local STRIPFILES=($(find $pkgdir | xargs file | grep -E "executable|shared object" | grep ELF | grep -e "not stripped" | cut -d: -f1))
+
+if [[ ${#STRIPFILES[@]} -gt 0 ]]; then
+( tr ' ' '\n' <<< "${STRIPFILES[@]}" | grep -qE "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so" ) && \
+local STRIPFILES_SAVED=($(tr ' ' '\n' <<< "${STRIPFILES[@]}"|grep -E "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so"))
+
+                               if [[ ${#STRIPFILES_SAVED[@]} -gt 0 ]]; then
+                                   for i in ${STRIPFILES_SAVED[@]}; do objcopy --only-keep-debug $i $i.dbg; done
+                                   for i in ${STRIPFILES[@]}; do case "$i" in *dbg) ;; *) strip --strip-unneeded $i 2>/dev/null ;; esac; done
+                                   for i in ${STRIPFILES_SAVED[@]}; do [[ -e $i.dbg ]] && objcopy --add-gnu-debuglink=$i.dbg $i; done
+                               else
+                               strip --strip-unneeded ${STRIPFILES[@]} 2>/dev/null
+                               fi
+
+fi
+
+fi
 # Creation du paquet
 sleep 0.30; printf "\n\e[100mCr"$e_acute"ation du paquet\e[0m\n"; sleep 0.60
 [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]] || local TGT_PKG_NAME="${TGT_PKG_NAME%.zst}"
@@ -2028,6 +2049,35 @@ printf "\e[36mv"$e_acute"rification de l'int"$e_acute"gralit"$e_acute" du paquet
 make_sum_check -c "." -i "$FILES_SHA" && rm -rf $TMP/msc.*;
 find -L . \( -perm 711 -o -perm 555 -o -perm 777 -o -perm 511 -o -perm 775 -o -perm 750 \) -exec chmod 755 {} &>/dev/null \; \
        -o \( -perm 444 -o -perm 666 -o -perm 664 -o -perm 640 -o -perm 400 -o -perm 600 -o -perm 440 \) -exec chmod 644 {} &>/dev/null \;
+
+# si vous avez active le strip
+if [[ -n $STRIPPKG && (( $STRIPPKG = [yY] || $STRIPPKG = yes || $STRIPPKG = YES || $STRIPPKG = true )) ]]; then
+local STRIPFILES=($(find . | xargs file | grep -E "executable|shared object" | grep ELF | grep -e "not stripped" | cut -d: -f1))
+
+if [[ ${#STRIPFILES[@]} -gt 0 ]]; then
+( tr ' ' '\n' <<< "${STRIPFILES[@]}" | grep -qE "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so" ) && \
+local STRIPFILES_SAVED=($(tr ' ' '\n' <<< "${STRIPFILES[@]}"|grep -E "ld-linux|libc.so|libthread_db.so|libquadmath.so|libstdc++.so|libitm.so|libatomic.so"))
+
+                               if [[ ${#STRIPFILES_SAVED[@]} -gt 0 ]]; then
+                                           while IFS= read -r LINE
+                                             do    [[ "$LINE" != *dbg ]] && continue
+                                                if [[ "$LINE" = *dbg && -e "${LINE%.*}" ]]; then
+                                                   file "${LINE%.*}" | grep -qe "not stripped" || STRIP_EXIT_STATUS=1
+                                                   break
+                                                fi
+                                             done  <<< "$(tr ' ' '\n' <<< ${STRIPFILES_SAVED[@]})"
+                               
+                                   if [[ -z $STRIP_EXIT_STATUS || $STRIP_EXIT_STATUS != 1 ]]; then
+                                      for i in ${STRIPFILES_SAVED[@]}; do objcopy --only-keep-debug $i $i.dbg; done
+                                      for i in ${STRIPFILES[@]}; do case "$i" in *dbg) ;; *) strip --strip-unneeded $i 2>/dev/null ;; esac; done
+                                      for i in ${STRIPFILES_SAVED[@]}; do [[ -e $i.dbg ]] && objcopy --add-gnu-debuglink=$i.dbg $i; done
+                                   fi
+                               else
+                               strip --strip-unneeded ${STRIPFILES[@]} 2>/dev/null
+                               fi
+
+fi
+fi
 
 
 ## recherche du nom, la version, les repertoires d'installation du paquet et autres
