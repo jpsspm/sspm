@@ -47,3 +47,7 @@
 
      Fix one bug introduced about the '-o' option. changing BDIR to DEST_DIR
      (fr - line 1795-1803) and  (en - line 1709-1717)  
+
+
+2022-07-07
+     Stripping support added
