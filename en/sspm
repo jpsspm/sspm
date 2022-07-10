@@ -512,7 +512,7 @@ note:%5swhatever build function name build_foo() { commands }, foo_build() { com
          License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
          This is free sortware: you can change and redistribute it.\n\
          There is NO WARRANTY, to the extent permitted by law.\v\v\n
-sspm $SSPM_VER%68sJully 2022%68sSSPM(1)   \n"
+sspm $SSPM_VER%68sJuly 2022%68sSSPM(1)   \n"
 }
 
 
