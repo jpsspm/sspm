@@ -498,7 +498,7 @@ note:%5swhatever build function name build_foo() { commands }, foo_build() { com
 %9s instead of doing an if file exist before doing pattern matching\n\
 %9s if you apply a patch and you have an error like:\n\
 \t\t\t**** can't find file to patch at input line 23 ****\n\
-%9s do a 'cd right_extract_directory' before the 'patch' command in (pkgbuild) file\n\n\
+%9s do a 'cd real_extract_directory' before the 'patch' command in (pkgbuild) file\n\n\
 
 \e[1mEXIT STATUS:\e[0m\n\
         0        if OK,\n\
