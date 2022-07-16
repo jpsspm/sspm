@@ -489,7 +489,7 @@ DESCRIPTION\n\
          * sspm infos (Afficher la page de manuel)\v\n\
        
 \e[1mENVIRONNEMENT\e[0m\n\
-%7ssi vous utilis"$e_acute"s la commande 'sudo' vous aurez peut-"$e_circumflex"tre besoin de l'option '-E' (preserve existing environment variables)\n\n\
+%7ssi vous utilisez la commande 'sudo' vous aurez peut-"$e_circumflex"tre besoin de l'option '-E' (preserve existing environment variables)\n\n\
 %7s*%1sSRC\n%10sr"$e_acute"pertoire contenant le ou les fichiers sources (ex: export SRC=~/tout_les_fichiers_sources) \n\n\
 %7s*%1sPKG_SRC\n%11schemin d'acc"$e_grave"s direct au fichier source, d"$e_acute"finissez cette variable\n\
 %11ssi sspm ne parvient pas $a_grave d"$e_acute"terminer l'archive avec les informations saisies dans le fichier '$BUILDFILE'\n\n\
@@ -2823,5 +2823,5 @@ printf "erreur:  trop d'arguments\nEssayez 'sspm --help' pour plus d'information
 if [[ -n "$PERM_STDOUT_MODE" ]]; then if [[ "$PERM_STDOUT_MODE" = "y" ]]; then if [[ "$DIALOG" = "off" ]]; then
 sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="on"/' "$SCRIPTFILE"; printf "\e[90mmessage de succ"$e_grave"s activ"$e_acute"\e[0m\n"
 elif [[ "$DIALOG" = "on" ]]; then sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"
-printf "\e[90mmessage de succ"$e_grave"s d"$e_acute"activ"$e_acute"\e[0m\n"; elif [[ -z "$DIALOG" ]]; then
+printf "\e[90mmessage de succ"$e_grave"s d"$e_acute"sactiv"$e_acute"\e[0m\n"; elif [[ -z "$DIALOG" ]]; then
 sed -i -e '0,/\(^DIALOG=.*\)/s/DIALOG=.*/DIALOG="off"/' "$SCRIPTFILE"; printf "\e[90mmessage de succ"$e_grave"s d"$e_acute"activ"$e_acute"\e[0m\n"; fi fi fi
