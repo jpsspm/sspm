@@ -216,6 +216,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 SSPM_VER=
 TMP="${PKGBDIR:-/tmp}"
+TMP="${TMP%/}"
 TAG="pkg"
 PIPE="/dev/ilpc"
 GROUP="sspm"
@@ -1803,7 +1804,8 @@ sleep 0.30; printf "\n\e[100mCr"$e_acute"ation du paquet\e[0m\n"; sleep 0.60
 [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]] || local TGT_PKG_NAME="${TGT_PKG_NAME%.zst}"
 if [ -z "$DEST_DIR" ]; then
 [ -f $BDIR/$TGT_PKG_NAME ] && rm -f $BDIR/$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
+{ [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]] && $TAR -cpf $BDIR/$TGT_PKG_NAME --zstd $COMPRESS_AS . || $TAR -cpf $BDIR/$TGT_PKG_NAME .; }
 if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
 if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f $BDIR/$TGT_PKG_NAME ] && ( file $BDIR/$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
@@ -1814,7 +1816,8 @@ cd $BDIR && make_sum_check -g "$TGT_PKG_NAME" -o "$PKG_SHA"; fi
 fi; fi
 else
 [ -f "$DEST_DIR"$TGT_PKG_NAME ] && rm -f "$DEST_DIR"$TGT_PKG_NAME
-cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && $TAR -cpf $DEST_DIR/$TGT_PKG_NAME --zstd $COMPRESS_AS .
+cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
+{ [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]] && $TAR -cpf $DEST_DIR/$TGT_PKG_NAME --zstd $COMPRESS_AS . || $TAR -cpf $DEST_DIR/$TGT_PKG_NAME .; }
 if [[ -n $PKG_HASH && $PKG_HASH = "yes" ]]; then
 if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then 
 if [ -f "$DEST_DIR"$TGT_PKG_NAME ] && ( file "$DEST_DIR"$TGT_PKG_NAME 2>/dev/null | grep 'Zstandard compressed' 1>/dev/null ); then
@@ -1923,7 +1926,7 @@ local TMPFILE=$(mktemp $TMP/tif.XXXXXX); [[ -n "$BIMODE" && "$BIMODE" == y ]] &&
 [[ -z "$2" ]] && check_dtb; if [[ -n "$1" ]]; then if [[ "$1" = "$(basename $0)" ]]; then printf '*** lol ***\n'; exit $OKCODE; elif [[ -e "$1" ]]; then
   if ! ( test -f "$1" && file "$1" 2>/dev/null | grep -q 'Zstandard compressed data' && tar tf "$1" 2>/dev/null | grep -q "$BUILDFILE" ) && \
   [[ $(tar tf "$1" 2>/dev/null | grep -E "$BUILDFILE|$PKG_INSTALL"|wc -w) != 2 ]]; then
-  printf "\e[91merreur:\e[0m  impossible d'initialiser le paquet\n\e[90m '$1' ne ressemble pas "$a_grave" un paquet.\e[0m\n"
+  printf "\e[91merreur:\e[0m  impossible d'initialiser le paquet\n\e[2m '$1' ne ressemble pas "$a_grave" un paquet.\e[0m\n"
   ( test -n "$(ls "$TMP" | sed -n '/\(tif.*\)/p')" ) && find "$TMP" -depth -name 'tif*' -type f -delete
   exit $ERCODE; fi else printf "\e[91merreur:\e[0m '$1' non trouv"$e_acute"\n"; exit $ERCODE; fi
   else printf "\e[91merreur:\e[0m indiquer un paquet "$a_grave" installer\n"; exit $ERCODE; fi
