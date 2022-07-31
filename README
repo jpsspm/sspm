@@ -17,6 +17,11 @@ The exit issue :
     the program does not really exit if there is an error
     
     
+    better to strip a package at install process
+    as a non-privileged user if you enable stripping
+    if the package contains a non-writable file this will cause an error
+    
+    
     
 sspm is a local package manager does not fetch anything from internet
 means you must have downloaded all the necessary source files in a directory
@@ -47,7 +52,7 @@ sspm policy :
 
 ############################################################################
 the project was born in 2020
-not less than : 305 days of work
+not less than : 356 days of work
 your opinions: will determine if I must continue || exit   
 ############################################################################
 
