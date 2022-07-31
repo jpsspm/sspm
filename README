@@ -31,7 +31,7 @@ and point "SRC" to that directory
 
 note :
     there are some packages still need to be built manually
-    due to caracteres manipulations issues and others
+    due to characters manipulations issues and others
     like : kbd  and iana-etc
     sometimes you can have basename command warning messages when you install
     a package this does not affect the package neither the system
