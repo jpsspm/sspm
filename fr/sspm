@@ -105,7 +105,7 @@ exit 1
 else
 unset LINE
 [[ "$DESTDIR" =~ /$ ]] && DESTDIR="${DESTDIR%?}"
-[ ! -d "$SOURCES" ] && printf "erreur: impossible d'acc"$e_acute"der au r"$e_acute"pertoire source sp"$e_acute"cifie"$acute"\n" && exit 1
+[ ! -d "$SOURCES" ] && printf "erreur: impossible d'acc"$e_acute"der au r"$e_acute"pertoire source sp"$e_acute"cifi"$e_acute"\n" && exit 1
 [ ! -d "$DESTDIR" ] && mkdir -p $DESTDIR
 [ ! -d "$DESTDIR/lib" ] && mkdir -p $DESTDIR/lib
 TEMP='/tmp'; BASHRC='.bashrc'
