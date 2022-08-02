@@ -115,7 +115,7 @@ TEMP='/tmp'; BASHRC='.bashrc'
               FILE="$(find $SOURCES -iname "which*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then printf "\n\nerreur: 'which' impossible d'acc"$e_acute"der au fichier source\n"; exit 1; fi
-             printf '\n\n%9sCompilation des de'$acute'pendances de sspm ...\n\n'; sleep 0.67
+             printf '\n\n%9sCompilation des d'$e_acute'pendances de sspm ...\n\n'; sleep 0.67
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
                tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && ./configure --prefix=/usr && \
 		make && make install; cd $TEMP && rm -r $CD_DIR;
