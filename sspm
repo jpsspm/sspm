@@ -79,8 +79,8 @@ if [[ ! "${langues[@]}" =~ "$PKGLANG" ]]
 then
 case "$lang" in
     fr_*) printf "\e[2mlangue: « \e[93m$PKGLANG1\e[0m\e[2m » non disponible\e[0m\n" ;;
-    tr_TR) ;;
-    en_*|*) printf "\e[2mlangue: « \e[93m$PKGLANG1\e[0m\e[2m » not available\e[0m\n" ;;
+    en_*) printf "\e[2mlangue: « \e[93m$PKGLANG1\e[0m\e[2m » not available\e[0m\n" ;;
+    *) printf "\e[2msspm: langue « \e[0m\e[1m$PKGLANG1\e[0m\e[2m » not available\e[0m\n"; exit 1;;
 esac
 break
 else
@@ -88,7 +88,7 @@ else
 [[ "$PKGLANG" = english || "$PKGLANG" = anglais || "$PKGLANG" = en || "$PKGLANG" = en_* ]] && lang=en_
 break
 fi
-done
+done; [[ ! "${langues[@]}" =~ "${lang%_*}" ]] && lang=en_
 ####################################################################################################
 
 
