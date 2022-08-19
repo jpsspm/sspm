@@ -1396,7 +1396,7 @@ esac; exit $ERCODE; fi
 fi; [[ -n $DEBUG_MODE && $DEBUG_MODE = y ]] && set +x
 # sspm use two regular files as database to save packages informations
 # normally only the owner user can manipulate these files; here checksums are used only to synchronize and authenticate 
-# last wrintten data, in order to remove or to save other data. from the first installation the 'PKGDTB_DIGIT0' variable
+# last written data, in order to remove or to save other data. from the first installation the 'PKGDTB_DIGIT0' variable
 # will save the digit part of files hashs and will be match at the next use
 # note: this is done only for the base system (where sspm is installed) not distant/mounted 'root'.
 
@@ -2449,6 +2449,13 @@ fi
                                            elif type -t unzip &>/dev/null; then
                                               C_TYPE_FILE=zip; EXTOOL=unzip
                                            elif type -t bsdtar &>/dev/null; then
+                                              if ( ! bsdtar -h &>/dev/null ); then
+                                                 case "$lang" in
+                                                 fr_*) printf '\nsspm: \e[91merreur\e[0m  « bsdtar »  de libarchive ne semble pas fonctionner\n\n' ;;
+                                                 en_*|*) printf '\nsspm: \e[91merror\e[0m  « bsdtar »  from libarchive does not seem to work\n\n' ;;
+                                                 esac
+                                                 exit $ERCODE
+                                              fi
                                               C_TYPE_FILE=zip; EXTOOL=bsdtar
                                            else
                                               case "$lang" in
@@ -2684,7 +2691,11 @@ fr_*) printf "\n\e[100mCr"$e_acute"ation du paquet\e[0m\n" ;;
 tr_TR) ;;
 en_*|*) printf "\n\e[100mCreating package\e[0m\n" ;;
 esac; sleep 0.60
-[[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]] || local TGT_PKG_NAME="${TGT_PKG_NAME%.zst}"
+if [[ -z $NCPKG || (( $NCPKG != [yY] && $NCPKG != yes && $NCPKG != YES && $NCPKG != true )) ]]; then
+( ! bsdtar -h &>/dev/null ) && case "$lang" in fr_*) printf '\nsspm: \e[91merreur\e[0m  « bsdtar »  de libarchive ne semble pas fonctionner\n\n' ;;
+en_*|*) printf '\nsspm: \e[91merror\e[0m  « bsdtar »  from libarchive does not seem to work\n\n' ;; esac && exit $ERCODE
+else local TAR=tar; local TGT_PKG_NAME="${TGT_PKG_NAME%.zst}"
+fi
 if [ -z "$DEST_DIR" ]; then
 [ -f $BDIR/$TGT_PKG_NAME ] && rm -f $BDIR/$TGT_PKG_NAME
 cd $pkgdir && make_sum_check -g "." -o $FILES_SHA && \
