@@ -3316,6 +3316,15 @@ dtb_ercode=1
 local DATE="$(date +%D)" TIME="$(date "+%I:%M %p")"
 local EPOCH="$(date --date="$builddate $buildtime" +%s)"
 
+
+if ( ! chattr &>/dev/null ); then
+  case "$lang" in
+  fr_*) printf '\nsspm: \e[91merreur\e[0m  « chattr »  de E2fsprogs semble ne pas fonctionner\n\n' ;;
+  en_*|*) printf '\nsspm: \e[91merror\e[0m  « chattr »  from E2fsprogs does not seem to work\n\n' ;;
+  esac; exit $ERCODE
+fi
+
+
 if [[ -f "$DTBFILE0" && (( "$(head -n5 "$DTBFILE0")" =~ "install.log" || \
 "$(head -n5 "$DTBFILE0")" =~ "sspm installation logfile" )) ]]; then
 [ ! -w "$DTBFILE0" ] && chattr -i $DTBFILE0
@@ -3630,6 +3639,12 @@ local FILES="$($DTBFILE0 "$1"_pth|sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|
              fi
 
 ### database update
+if ( ! chattr &>/dev/null ); then
+  case "$lang" in
+  fr_*) printf '\nsspm: \e[91merreur\e[0m  « chattr »  de E2fsprogs semble ne pas fonctionner\n\n' ;;
+  en_*|*) printf '\nsspm: \e[91merror\e[0m  « chattr »  from E2fsprogs does not seem to work\n\n' ;;
+  esac; exit $ERCODE
+fi
 [ ! -w "$DTBFILE0" ] && chattr -i $DTBFILE0 && local PERM1=ro
 cp $DTBFILE0 "$DTBFILE0.bck"
 sed '/^'$1'_pth/s/^/_/' -i $DTBFILE0
