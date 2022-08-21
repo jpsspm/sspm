@@ -67,3 +67,8 @@
 2022-08-20
 
      dialog added, if bsdtar does not work correctly rather than exiting directly
+     
+     
+2022-08-21
+
+    dependencies build : Fix bugs and symlinks, add fix and dialogs
