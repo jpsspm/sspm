@@ -166,9 +166,12 @@ TEMP='/tmp'; BASHRC='.bashrc'
             en_*|*) printf '\n\n%9sBuilding sspm dependencies ...\n\n'; sleep 0.67 ;;
              esac
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
-               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && ./configure --prefix=/usr && \
-		make && make install; cd $TEMP && rm -r $CD_DIR;
-                   fi 
+               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && ./configure --prefix=/usr && make && make install
+                [[ $? != 0 ]] && BUILD_STATUS=1 ; cd $TEMP && rm -r $CD_DIR;
+                  fi; [[ $BUILD_STATUS && $BUILD_STATUS = 1 ]] && case "$lang" in
+                   fr_*) printf '\n\n\e[91merreur\e[0m:  « which »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
+                   en_*|*) printf '\n\n\e[91merror\e[0m:  « which »  build failed\n\n'; exit 1;;
+                   esac   
             if ! type zstd &>/dev/null && ! type "$DESTDIR/usr/bin/zstd" &>/dev/null && \
                ! type "$DESTDIR/bin/zstd" &>/dev/null; then
               FILE="$(find $SOURCES -iname "zstd*.?z" -type f -print | head -1 )"
@@ -179,15 +182,20 @@ TEMP='/tmp'; BASHRC='.bashrc'
             en_*|*) printf "\n\nerror: 'zstd' can't access the source file\n"; exit 1 ;;
              esac; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
-               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && \
-                make && make prefix=/usr install; cd $TEMP && rm -r $CD_DIR;
+               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && make && make prefix=/usr install
+                [[ $? != 0 ]] && BUILD_STATUS=1 ; cd $TEMP && rm -r $CD_DIR;
                 rm -v $DESTDIR/usr/lib/libzstd.a; mv -v $DESTDIR/usr/lib/libzstd.so.* $DESTDIR/lib
-                SLINK0="$(find $DESTDIR -name "libzstd.so" -type l -print | head -1)"
-                SLINK1="$(find $DESTDIR -name "libzstd.so.*" -type l -print | head -1)"
+                [[ $? != 0 ]] && BUILD_STATUS=1 
+                SLINK0="$(find $DESTDIR -name libzstd.so -type l -print | head -1)"
+                SLINK1="$(find $DESTDIR -name libzstd.so.* -type l -print)"
                 ln -sfv ../../lib/$(readlink $SLINK0) $SLINK0
+                [[ $? != 0 ]] && BUILD_STATUS=1
                 ln -sfv $DESTDIR/lib/$(basename $(readlink $SLINK0)) /usr/lib/$(basename $SLINK0)
-                ln -sfv $DESTDIR/lib/$(basename $(readlink $SLINK1)) /lib/$(basename $SLINK1)
-                   fi
+                for SLINK2 in $SLINK1; do [[ -L $SLINK2 ]] && ln -sfv $SLINK2 /lib/$(basename $SLINK2); done
+                [[ $? != 0 || $BUILD_STATUS = 1 ]] && case "$lang" in
+                fr_*) printf '\n\n\e[91merreur\e[0m:  « zstd »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
+                en_*|*) printf '\n\n\e[91merror\e[0m:  « zstd »  build failed\n\n'; exit 1;;
+                esac; fi
             if ! type pkg-config &>/dev/null && ! type "$DESTDIR/usr/bin/pkg-config" &>/dev/null && \
                ! type "$DESTDIR/pkg-config" &>/dev/null; then
               FILE="$(find $SOURCES -iname "pkg-config*.?z" -type f -print | head -1 )"
@@ -198,27 +206,35 @@ TEMP='/tmp'; BASHRC='.bashrc'
             en_*|*) printf "\n\nerror: 'pkg-config' can't access the source file\n"; exit 1 ;;
              esac; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
-               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && ./configure --prefix=/usr \
-               --with-internal-glib --disable-host-tool && make && make install; cd $TEMP && rm -r $CD_DIR;
-                   fi
-              PATH=$PATH:$DESTDIR/bin:$DESTDIR/usr/bin:$DESTDIR/sbin:$DESTDIR/usr/sbin
+               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && \
+               ./configure --prefix=/usr --with-internal-glib --disable-host-tool && \
+               make && make install; [[ $? != 0 ]] && BUILD_STATUS=1; cd $TEMP && rm -r $CD_DIR;
+               fi; [[ $BUILD_STATUS && $BUILD_STATUS = 1 ]] && case "$lang" in
+               fr_*) printf '\n\n\e[91merreur\e[0m:  « pkg-config »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
+               en_*|*) printf '\n\n\e[91merror\e[0m:  « pkg-config »  build failed\n\n'; exit 1;;
+               esac
+               PATH=$PATH:$DESTDIR/bin:$DESTDIR/usr/bin:$DESTDIR/sbin:$DESTDIR/usr/sbin
             if ! type bsdtar &>/dev/null && ! type "$DESTDIR/usr/bin/bsdtar" &>/dev/null && \
                ! type "$DESTDIR/bin/bsdtar" &>/dev/null; then
               FILE="$(find $SOURCES -iname "libarchive*.?z" -type f -print | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then case "$lang" in
             fr_*) printf "\n\nerreur: 'libarchive' impossible d'acc"$e_acute"der au fichier source\n"; exit 1 ;;
-            tr_TR) ;;
-            en_*|*) printf "\n\nerror: 'libarchive' can't access the source file\n"; exit 1 ;;
-             esac fi
+            tr_TR) ;; en_*|*) printf "\n\nerror: 'libarchive' can't access the source file\n"; exit 1 ;;
+             esac; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
-               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && ./configure --prefix=/usr \
-               --without-expat --without-xml2 --without-openssl --without-nettle \
-               --disable-bsdcpio --disable-rpath --disable-static --with-zstd && \
-               make && make install; cd $TEMP && rm -r $CD_DIR;
-               SLINK0="$(find $DESTDIR -name "libarchive.so.*" -type l -print | head -1)"
-               ln -sfv $(readlink -e $SLINK0) /usr/lib/$(basename $SLINK0)
-                   fi
+               tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && \
+               { [[ $(ldd --version | head -n1 | rev | cut -d' '  -f1 | rev) != 2.36 ]] || \
+               sed '/linux\/fs\.h/d' -i libarchive/archive_read_disk_posix.c; } && \
+               ./configure --prefix=/usr --without-expat --without-xml2 --without-openssl \
+               --without-nettle --disable-bsdcpio --disable-rpath --disable-static --with-zstd && \
+               make && make install; [[ $? != 0 ]] && BUILD_STATUS=1; cd $TEMP && rm -r $CD_DIR;
+               SLINK0="$(find $DESTDIR -name libarchive.so.* -type l -print)"
+               for SLINK2 in $SLINK0; do [[ -L $SLINK2 ]] && ln -sfv $(readlink -e $SLINK2) /usr/lib/$(basename $SLINK2); done
+               [[ $? != 0 || $BUILD_STATUS = 1 ]] && case "$lang" in
+               fr_*) printf '\n\n\e[91merreur\e[0m:  « libarchive »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
+               en_*|*) printf '\n\n\e[91merror\e[0m:  « libarchive »  build failed\n\n'; exit 1;;
+               esac; fi
             if ! type ps &>/dev/null && ! type "$DESTDIR/usr/bin/ps" &>/dev/null && \
                ! type "$DESTDIR/bin/ps" &>/dev/null; then
               FILE="$(find $SOURCES -iname "procps*.?z" -type f -print | head -1 )"
@@ -231,14 +247,19 @@ TEMP='/tmp'; BASHRC='.bashrc'
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
                tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && ./configure --prefix=/usr \
                --exec-prefix= --libdir=/usr/lib --disable-static --disable-kill && \
-               make && make install; cd $TEMP && rm -r $CD_DIR;
-               mv -v $DESTDIR/usr/lib/libprocps.so.* $DESTDIR/lib;
-               SLINK0="$(find $DESTDIR -name "libprocps.so" -type l -print | head -1)"
-               SLINK1="$(find $DESTDIR -name "libprocps.so.*" -type l -print | head -1)"
+               make && make install; [[ $? != 0 ]] && BUILD_STATUS=1; cd $TEMP && rm -r $CD_DIR;
+               mv -v $DESTDIR/usr/lib/libproc-2.so.* $DESTDIR/lib; [[ $? != 0 ]] && BUILD_STATUS=1
+               SLINK0="$(find $DESTDIR -name libproc-2.so -type l -print | head -1)"
+               SLINK1="$(find $DESTDIR -name libproc-2.so.* -type l -print)"
                ln -svf ../../lib/$(readlink $SLINK0) $SLINK0
-               ln -svf $DESTDIR/lib/$(basename $(readlink $SLINK0)) /lib/$(basename $SLINK0)
-               ln -svf $DESTDIR/lib/$(basename $(readlink $SLINK1)) /lib/$(basename $SLINK1)
-                   fi
+               [[ $? != 0 ]] && BUILD_STATUS=1
+               ln -svf $SLINK0 /lib/$(basename $SLINK0)
+               [[ $? != 0 ]] && BUILD_STATUS=1
+               for SLINK2 in $SLINK1; do [[ -L $SLINK2 ]] && ln -svf $SLINK2 /lib/$(basename $SLINK2); done
+               [[ $? != 0 || $BUILD_STATUS = 1 ]] && case "$lang" in
+               fr_*) printf '\n\n\e[91merreur\e[0m:  « procps-ng »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
+               en_*|*) printf '\n\n\e[91merror\e[0m:  « procps-ng »  build failed\n\n'; exit 1;;
+               esac; fi
             if ! type chattr &>/dev/null && ! type "$DESTDIR/usr/bin/chattr" &>/dev/null && \
                ! type "$DESTDIR/bin/chattr" &>/dev/null; then
               FILE="$(find $SOURCES -iname "e2fsprogs*.?z" -type f -print | head -1 )"
@@ -252,11 +273,14 @@ TEMP='/tmp'; BASHRC='.bashrc'
                tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && mkdir -pv $TEMP/$CD_DIR/build && \
                cd $TEMP/$CD_DIR/build && ../configure --prefix=/usr --bindir=/bin --with-root-prefix="" \
                --enable-elf-shlibs --disable-libblkid --disable-libuuid --disable-uuidd --disable-fsck && \
-               make && make install; cd $TEMP && rm -r $CD_DIR; rm -fv $DESTDIR/usr/lib/{libcom_err,libe2p,libext2fs,libss}.a;
-               SLINK0="$(find $DESTDIR -name "libcom_err.so.*" -type l -print | head -1)"
-               SLINK1="$(find $DESTDIR -name "libe2p.so.*" -type l -print | head -1)"
-               ln -svf $DESTDIR/lib/$(readlink $SLINK0) /lib/$(basename $SLINK0)
-               ln -svf $DESTDIR/lib/$(readlink $SLINK1) /lib/$(basename $SLINK1)
+               make && make install; [[ $? != 0 ]] && BUILD_STATUS=1; cd $TEMP && rm -r $CD_DIR; rm -fv $DESTDIR/usr/lib/{libcom_err,libe2p,libext2fs,libss}.a;
+               SLINK0="$(find $DESTDIR -name libcom_err.so.* -type l -print)"
+               SLINK1="$(find $DESTDIR -name libe2p.so.* -type l -print)"
+               for SLINK2 in $SLINK0 $SLINK1; do [[ -L $SLINK2 ]] && ln -svf $SLINK2 /lib/$(basename $SLINK2); done     
+               [[ $? != 0 || $BUILD_STATUS = 1 ]] && case "$lang" in
+               fr_*) printf '\n\n\e[91merreur\e[0m:  « e2fsprogs »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
+               en_*|*) printf '\n\n\e[91merror\e[0m:  « e2fsprogs »  build failed\n\n'; exit 1;;
+               esac
                printf 'export PATH='$PATH'\n' >> $HOME/$BASHRC
                case "$lang" in
                fr_*)
@@ -280,33 +304,39 @@ TEMP='/tmp'; BASHRC='.bashrc'
                                                         if ( ! type awk bsdtar chattr find sha256sum ps sed tar which zstd &>/dev/null ); then
                                                         case "$lang" in
                                                         fr_*) printf "erreur fatale: veuillez sourcer votre fichier '.bashrc'\n"
-                                                        printf "%15sou mettez "$a_grave" jour et exportez la variable 'PATH'\n\n" ;;
+                                                        printf "%15sou mettez "$a_grave" jour et exportez la variable 'PATH'\n\n"
+                                                        printf "\e[2m%1sN'oubliez pas de d"$e_acute"sinitialiser les variables 'SOURCES' et 'DESTDIR'\e[0m\n\n" ;;
                                                         tr_TR) ;;
                                                         en_*|*) printf "fatal error: please source your '.bashrc' file\n"
-                                                        printf "%15sor update and export the 'PATH' variable\n\n" ;;
+                                                        printf "%15sor update and export the 'PATH' variable\n\n"
+                                                        printf "\e[2m%1sDo not forget to unset 'SOURCES' and 'DESTDIR'\e[0m\n\n" ;;
                                                         esac
                                                         exit 1
                                                         fi else
                                                         case "$lang" in
                                                         fr_*) printf "erreur fatale: veuillez sourcer votre fichier '.bashrc'\n"
-                                                        printf "%15sou mettez "$a_grave" jour et exportez la variable 'PATH'\n\n" ;;
+                                                        printf "%15sou mettez "$a_grave" jour et exportez la variable 'PATH'\n\n"
+                                                        printf "\e[2m%1sN'oubliez pas de d"$e_acute"sinitialiser les variables 'SOURCES' et 'DESTDIR'\e[0m\n\n" ;;
                                                         tr_TR) ;;
                                                         en_*|*) printf "fatal error: maybe you have to source your '.bashrc' file\n"
-                                                        printf "%15sor update and export the 'PATH' variable\n\n" ;;
+                                                        printf "%15sor update and export the 'PATH' variable\n\n"
+                                                        printf "\e[2m%1sDo not forget to unset 'SOURCES' and 'DESTDIR'\e[0m\n\n" ;;
                                                         esac
                                                         exit 1
                                                         fi else
                                                         case "$lang" in
                                                         fr_*)
                                                         printf "erreur fatale: veuillez sourcer votre fichier '.bashrc'\n"
-                                                        printf "%15sou mettez "$a_grave" jour et exportez la variable 'PATH'\n\n";;
+                                                        printf "%15sou mettez "$a_grave" jour et exportez la variable 'PATH'\n\n"
+                                                        printf "\e[2m%1sN'oubliez pas de d"$e_acute"sinitialiser les variables 'SOURCES' et 'DESTDIR'\e[0m\n\n" ;;
                                                         tr_TR) ;;
                                                         en_*|*) printf "fatal error: please source your '.bashrc' file\n"
-                                                        printf "%15smaybe you missed to update the 'PATH' variable\n\n" ;;
+                                                        printf "%15smaybe you missed to update the 'PATH' variable\n\n" 
+                                                        printf "\e[2m%1sDon’t forget to unset 'SOURCES' and 'DESTDIR'\e[0m\n\n" ;;
                                                         esac
                                                         exit 1
                                                         fi
-fi else sleep 0.10; unset LINE
+fi else sleep 0.10; unset LINE BUILD_STATUS
 PRINT_INFOS=YES
 fi else TAR=bsdtar; umask 022; fi
 
