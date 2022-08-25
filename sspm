@@ -513,7 +513,7 @@ printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2022 Free Software Foundation, In
 License GPLv3+ : GNU GPL version 3 ou ult"$e_acute"rieure\nCe programme est un logiciel\
 %1slibre: redistribuer ou modifier le\nmais SANS AUCUNE GARANTIE; sans m"$e_circumflex"me\
 %1sla garantie implicite\nde QUALITE MARCHANDE ou ADAPTATION A UN USAGE PARTICULIER\n\
-Voir la licence publique g"$e_acute"n"$e_acute"rale GNU pour plus de details.\v\nEcrit par Joe Packar.\n" ;;
+Voir la licence publique g"$e_acute"n"$e_acute"rale GNU pour plus de details.\v\n"$E_acute"crit par Joe Packar.\n" ;;
 tr_TR) ;;
 en_*|*)
 printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2022 Free Software Foundation, Inc.\n\
@@ -582,7 +582,7 @@ printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2022 Free Software Foundation, In
 License GPLv3+ : GNU GPL version 3 ou ult"$e_acute"rieure\nCe programme est un logiciel\
 %1slibre: redistribuer ou modifier le\nmais SANS AUCUNE GARANTIE; sans m"$e_circumflex"me\
 %1sla garantie implicite\nde QUALITE MARCHANDE ou ADAPTATION A UN USAGE PARTICULIER\n\
-Voir la licence publique g"$e_acute"n"$e_acute"rale GNU pour plus de details.\v\nEcrit par Joe Packar.\n" ;;
+Voir la licence publique g"$e_acute"n"$e_acute"rale GNU pour plus de details.\v\n"$E_acute"crit par Joe Packar.\n" ;;
 tr_TR) ;;
 en_*|*)
 printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2022\nLicense GPLv3+ : GNU GPL version 3 or later\n\
@@ -850,7 +850,7 @@ remarque: si la variable 'tfext' dans le fichier (pkgbuild) est vide,\n\
         1        si erreur, etc ...\n\
 	la plupart du temps vous aurez un message expliquant +/- la raison de l'erreur, enfin presque\v\n\
 \e[1mAUTEUR\e[0m\n\
-      Ecrit par Joe Packar.\n\
+      "$E_acute"crit par Joe Packar.\n\
       rapporter les bugs "$a_grave" https://github.com/jpsspm/sspm/issues/.\n\
       Pour plus d'informations, consultez la page d'accueil de sspm\n\
       "$a_grave" l'adresse suivante: https://jpsspm.github.io/sspm/.\n\n\
@@ -2209,7 +2209,7 @@ exit $ERCODE; fi; else case $RANDOM in 2*2* | *0*4 | *3*5 | 6*1* | *0*0 | *9*1* 
 case "$lang" in fr_*) printf "\e[91merreur:\e[0m  ($BUILDFILE) \e[2mfichier inexistant\e[0m\n" ;;
 tr_TR) ;; en_*|*) printf "\e[91merror:\e[0m  ($BUILDFILE) \e[2munexisting file\e[0m\n" ;; esac ;;
 *) case "$lang" in fr_*) printf "\e[91merreur:  \e[0mle fichier ($BUILDFILE) n'existe pas\n"  ;;
-tr_TR) ;; en_*|*) printf "\e[91merror:\e[0m  the ($BUILDFILE) file does not exit\n"  ;; esac ;; esac; exit $ERCODE; fi
+tr_TR) ;; en_*|*) printf "\e[91merror:\e[0m  the ($BUILDFILE) file does not exist\n"  ;; esac ;; esac; exit $ERCODE; fi
 [[ -n "$1" && "$1" == "-wh" ]] && local PKG_HASH=yes
 case "$lang" in fr_*) printf "\e[1msspm (build)\e[0m\nOutil de cr"$e_acute"ation de paquets compatibles\npour une utilisation avec le gestionnaire sspm\n" ;;
 tr_TR) ;; en_*|*) printf "\e[1msspm (build)\e[0m\nA build tool for creating \ncompatible packages to use with sspm\n" ;; esac 
@@ -2781,27 +2781,27 @@ fr_*)
 [[ "$RANDOM" =~ ^"9" ]] && printf "\v\v\v\e[90mle paquet \e[0m\e[2m$TGT_PKG_NAME\e[0m\e[90m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" && "$RANDOM" =~ "3" ]] && printf "\v\v\vtout est ok,%2s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "3"$ && ! "$RANDOM" =~ "7" ]] && printf "\v\v\v$TGT_PKG_NAME: ok\v\n***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
-[[ "$RANDOM" =~ "5"$ && ! "$RANDOM" =~ "0" ]] && printf "\v\v\vle paquet $TGT_PKG_NAME a "$e_acute"t"$e_acute" cr"$e_acute$e_acute" avec succ"$e_grave"s\v\n%15s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "5"$ && ! "$RANDOM" =~ "0" ]] && printf "\v\v\vle paquet $TGT_PKG_NAME a "$e_acute"t"$e_acute" cr"$e_acute$e_acute" avec succ"$e_grave"s\v\n%15s«%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a "$e_acute"t"$e_acute" cr"$e_acute$e_acute" avec succ"$e_grave"s\v\n" && break
 [[ "$RANDOM" =~ ^"8" || "$RANDOM" =~ ^"6" ]] && [[ "$RANDOM" =~ "8"$ || "$RANDOM" =~ "5"$ ]] &&  printf "\v\v\vfait\v\n" && break
-[[ "$RANDOM" =~ "1"$ && "$RANDOM" =~ "6" ]] && printf "\v\v\v<<<%1sfait, $TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
-[[ "$RANDOM" =~ "42"$ ]] && printf "\v\v\v<<<%1sfait, dur"$e_acute"e de compilation%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "1"$ && "$RANDOM" =~ "6" ]] && printf "\v\v\v«%1sfait, $TEXT12%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
+[[ "$RANDOM" =~ "42"$ ]] && printf "\v\v\v«%1sfait, dur"$e_acute"e de compilation%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ "7"$ ]] && printf "\v\v\vfait\v\n" && break
 [[ "$RANDOM" =~ ^"3" ]] && [[ "$RANDOM" =~ "0" && "$RANDOM" =~ "2" ]] && printf "\v\v\v\e[90mtout est \e[0m\e[2mok\e[0m\v\n" && break
-[[ "$RANDOM" =~ ^"3" ]] && printf "\v\v\vle paquet \e[94m$pkgname\e[0m a "$e_acute"t"$e_acute" cr"$e_acute""$e_acute" avec succ"$e_grave"s\v\n%3s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ ^"3" ]] && printf "\v\v\vle paquet \e[94m$pkgname\e[0m a "$e_acute"t"$e_acute" cr"$e_acute""$e_acute" avec succ"$e_grave"s\v\n%3s«%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ ^"4" && "$RANDOM" =~ "4" ]] && printf "\v\v\v\e[94mfait\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"1" && "$RANDOM" =~ "2"$ ]] && printf "\v\v\v\e[90mpaquet cr"$e_acute$e_acute": \e[0m\e[2m$TGT_PKG_NAME\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"7" && "$RANDOM" =~ "4" ]] && printf "\v\v\vpaquet compil"$e_acute" avec succ"$e_grave"s\v\n%1s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "5" && "$RANDOM" =~ "8" ]] && printf "\v\v\v\e[90mpaquet cr"$e_acute$e_acute": \e[0m\e[2m$TGT_PKG_NAME\e[0m\n\e[90men%9s:%1s\e[0m\e[2m$(cat <<< "${build_time[@]}")\e[0m\v\n" && break
-[[ "$RANDOM" =~ "06"$ ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n%11s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
-[[ "$RANDOM" =~ "0" && "$RANDOM" =~ "5" ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n%8s<<<%1s$TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "06"$ ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n%11s«%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
+[[ "$RANDOM" =~ "0" && "$RANDOM" =~ "5" ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n%8s«%1s$TEXT12%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ "9" && ! "$RANDOM" =~ "2" ]] && printf "\v\v\vfait\v\n" && break
 [[ "$RANDOM" =~ ^"6" ]] && printf "\v\v\vle paquet \e[94m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n" && break
 [[ "$RANDOM" =~ ^"1" && "$RANDOM" =~ "1" ]] && printf "\v\v\vle paquet \e[94m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n" && break
 [[ "$RANDOM" =~ ^"5" ]] && printf "\v\v\vtout est ok,%2s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "0"$ ]] && printf "\v\v\vcompilation de \e[36m$TGT_PKG_NAME\e[0m r"$e_acute"ussie\v\n" && break
 [[ "$RANDOM" =~ "2"$ ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n" && break
-[[ "$RANDOM" =~ "4"$ ]] && printf "\v\v\vtout est ok\v\n%1s<<<%1sdur"$e_acute"e de compilation,%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "4"$ ]] && printf "\v\v\vtout est ok\v\n%1s«%1sdur"$e_acute"e de compilation,%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ "8"$ ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n%10s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "1"$ ]] && printf "\v\v\vfait\v\n" && break
 [[ "$RANDOM" =~ "6"$ ]] && printf "\v\v\vle paquet \e[92m$TGT_PKG_NAME\e[0m a bien "$e_acute"t"$e_acute" cr"$e_acute$e_acute"\v\n" && break
@@ -2816,27 +2816,27 @@ en_*|*)
 [[ "$RANDOM" =~ ^"9" ]] && printf "\v\v\v\e[2m$TGT_PKG_NAME\e[0m\e[90m successfully build\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" && "$RANDOM" =~ "3" ]] && printf "\v\v\veverything is ok,%2s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "3"$ && ! "$RANDOM" =~ "7" ]] && printf "\v\v\v$TGT_PKG_NAME: ok\v\n***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
-[[ "$RANDOM" =~ "5"$ && ! "$RANDOM" =~ "0" ]] && printf "\v\v\v$TGT_PKG_NAME has been created successfully\v\n%15s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "5"$ && ! "$RANDOM" =~ "0" ]] && printf "\v\v\v$TGT_PKG_NAME has been created successfully\v\n%15s«%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ ^"2" && "$RANDOM" =~ "2" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m successfully created\v\n" && break
 [[ "$RANDOM" =~ ^"8" || "$RANDOM" =~ ^"6" ]] && [[ "$RANDOM" =~ "8"$ || "$RANDOM" =~ "5"$ ]] &&  printf "\v\v\vdone\v\n" && break
-[[ "$RANDOM" =~ "1"$ && "$RANDOM" =~ "6" ]] && printf "\v\v\v<<<%1sdone, $TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
-[[ "$RANDOM" =~ "42"$ ]] && printf "\v\v\v<<<%1sdone, build time%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "1"$ && "$RANDOM" =~ "6" ]] && printf "\v\v\v«%1sdone, $TEXT12%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
+[[ "$RANDOM" =~ "42"$ ]] && printf "\v\v\v«%1sdone, build time%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ "7"$ ]] && printf "\v\v\vdone\v\n" && break
 [[ "$RANDOM" =~ ^"3" ]] && [[ "$RANDOM" =~ "0" && "$RANDOM" =~ "2" ]] && printf "\v\v\v\e[90meverything is \e[0m\e[2mok\e[0m\v\n" && break
-[[ "$RANDOM" =~ ^"3" ]] && printf "\v\v\v\e[94m$pkgname\e[0m successfully created\v\n%3s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ ^"3" ]] && printf "\v\v\v\e[94m$pkgname\e[0m successfully created\v\n%3s«%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ ^"4" && "$RANDOM" =~ "4" ]] && printf "\v\v\v\e[94mdone\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"1" && "$RANDOM" =~ "2"$ ]] && printf "\v\v\v\e[90mcreated: \e[0m\e[2m$TGT_PKG_NAME\e[0m\v\n" && break
 [[ "$RANDOM" =~ ^"7" && "$RANDOM" =~ "4" ]] && printf "\v\v\vsuccessfully built package\v\n%1s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "5" && "$RANDOM" =~ "8" ]] && printf "\v\v\v\e[90mcreated package: \e[0m\e[2m$TGT_PKG_NAME\e[0m\n\e[90min%13s:%1s\e[0m\e[2m$(cat <<< "${build_time[@]}")\e[0m\v\n" && break
-[[ "$RANDOM" =~ "06"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m has been successfully created\v\n%11s<<<%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
-[[ "$RANDOM" =~ "0" && "$RANDOM" =~ "5" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m created\v\n%8s<<<%1s$TEXT12%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "06"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m has been successfully created\v\n%11s«%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
+[[ "$RANDOM" =~ "0" && "$RANDOM" =~ "5" ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m created\v\n%8s«%1s$TEXT12%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ "9" && ! "$RANDOM" =~ "2" ]] && printf "\v\v\vdone\v\n" && break
 [[ "$RANDOM" =~ ^"6" ]] && printf "\v\v\v\e[94m$TGT_PKG_NAME\e[0m ok\v\n" && break
 [[ "$RANDOM" =~ ^"1" && "$RANDOM" =~ "1" ]] && printf "\v\v\v\e[94m$TGT_PKG_NAME\e[0m successfully created\v\n" && break
 [[ "$RANDOM" =~ ^"5" ]] && printf "\v\v\veverything is ok,%2s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "0"$ ]] && printf "\v\v\v\e[36m$TGT_PKG_NAME\e[0m created successfully\v\n" && break
 [[ "$RANDOM" =~ "2"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m created successfully\v\n" && break
-[[ "$RANDOM" =~ "4"$ ]] && printf "\v\v\veverything is ok\v\n%1s<<<%1sbuild duration,%1s$(cat <<< "${build_time[@]}")%1s>>>\v\n" && break
+[[ "$RANDOM" =~ "4"$ ]] && printf "\v\v\veverything is ok\v\n%1s«%1sbuild duration,%1s$(cat <<< "${build_time[@]}")%1s»\v\n" && break
 [[ "$RANDOM" =~ "8"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m has been created successfully\v\n%10s***%1s"$TEXT11"%1s$(cat <<< "${build_time[@]}")%1s***\v\n" && break
 [[ "$RANDOM" =~ "1"$ ]] && printf "\v\v\vdone\v\n" && break
 [[ "$RANDOM" =~ "6"$ ]] && printf "\v\v\v\e[92m$TGT_PKG_NAME\e[0m created\v\n" && break
