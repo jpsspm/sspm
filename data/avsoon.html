@@ -9,32 +9,30 @@
     
      <style>
      body            {background-color: #C0C0C0;}
-     p.h1            {color: grey;font-size:48px;font-style:italic;margin-bottom: 5px;}
-     p.h2            {color: grey;font-size:22px;font-style:italic;}
-     div.pkgbf       {font-size: 10px; background: rgb(158, 146, 110);padding-left: 5px;padding-right: 5px;max-width:35em}
-     #file0          {top: 15em; right: 6em;position: absolute;}
-     #file1          {top: 15em; right: 42em;position: absolute;}
-     #file2          {top: 20em; left: 10em;position: absolute;}
-     #file3          {top: 47em; left: 46em;position: absolute;}
-     #file4          {top: 58em; left: 5em;position: absolute;}
-     #file5          {top: 56em; right: 10em;position: absolute;}
-     #file6          {top: 88em; left: 6em;position: absolute;}
-     #file7          {top: 100em; right: 48em;position: absolute;}
-     #file8          {top: 155em; right: 40em;position: absolute;}
-     div.footer_text {position: absolute;bottom:-95em;}
-     
-     @media screen and (max-width: 1000px) {     
-     div.pkgbf {margin: 10px;display: flex;align-items: stretch;width: auto;position:absolute;}
-     #file0          {top: 15em; left: auto;right: auto;}
-     #file1          {top: 49em; left: auto;right: auto;}
-     #file2          {top: 80em; left: auto;right: auto;}
-     #file3          {top: 115em; left: auto;right: auto;}
-     #file4          {top: 152em; left: auto;right: auto;}
-     #file5          {top: 180em; left: auto;right: auto;}
-     #file6          {top: 220em; left: auto;right: auto;}
-     #file7          {top: 340em; left: auto;right: auto;}
-     #file8          {top: 390em; left: auto;right: auto;}
-     div.footer_text {position: absolute;bottom:-289em;width: auto;}
+     p.h1            {color: grey;font-size:48px;font-style:italic;}
+     div.pkgbf       {font-size: 10px;margin-left: 5px;background: rgb(158, 146, 110);max-width:38em;padding-left: 2px;}
+
+@media screen and (max-width: 500px) {
+  div.pkgbf {margin-right: auto;}
+  .footer_text {width: auto;margin-top: 3em;}
+}
+
+@media screen and (min-width: 1000px) {
+ 
+     div.pkgbf {display: flex;align-items: stretch;width: auto;position:absolute;}
+     #file0          {top: 15em; left: auto;right: 6em;position: absolute;}
+     #file1          {top: 68em; left: 50em;right: auto;position: absolute;}
+     #file2          {top: 90em; left: auto;right: 6em;position: absolute;}
+     #file3          {top: 98em; left: 46em;right: auto;position: absolute;}
+     #file4          {top: 15em; left: 48em;right: auto;position: absolute;max-width:42em;padding-right: 2px;}
+     #file5          {top: 49em; left: auto;right: 6em;position: absolute;}
+     #file6          {top: 55em; left: auto;right: auto;position: absolute;}
+     #file7          {top: 140em; left: auto;right: 48em;position: absolute;}
+     #file8          {top: 126em; left: auto;right: 10em;position: absolute;}
+     #file9          {top: 38em; left: 50em;right: 30em;position: absolute;max-width:35em;padding-right: 2px;}
+     #file10         {top: 15em; left: 2em;right: auto;position: absolute;max-width:42em;padding-right: 2px;}
+     div.footer_text {position: absolute;bottom:-95em;width: auto;}
+
 }
      
      </style>
@@ -45,9 +43,7 @@
 
 <body>
   
-    <p class="h1"> will be coming soon! </p>
-    <p class=h2>here are a few examples:</p>
-    
+    <p class="h1"> here are a few examples: </p>    
     
     
     <div class="pkgbf" id="file0">
@@ -364,6 +360,67 @@
           
           </p>
          </div>
+    
+    
+         
+            <div class="pkgbf" id="file9">
+            <p> cat  pkgbuild_p7zip</br></br>
+            pkgname=p7zip</br>
+            pkgver=17.04</br>
+            pkgrev=1</br>
+            pkgdesc="command-line file archiver with high compression ratio"</br>
+            url="https://downloads.sourceforge.net/p7zip/"</br>
+            groups=base</br>
+            depends=()</br>
+            makedepend=()</br>
+            packager=</br>
+            tfext=</br></br>                  
+            build() {</br>
+            sed '/^gzip/d' -i install.sh</br>
+            sed -i '160a if(_buffer == nullptr || _size == _pos) return E_FAIL;' CPP/7zip/Common/StreamObjects.cpp</br>
+            make all3</br>
+            make DEST_DIR=<strong>$pkgdir</strong> &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;\</br>
+                    &emsp;&emsp;&emsp;DEST_HOME=/usr&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;\</br>
+                    &emsp;&emsp;&emsp;DEST_MAN=/usr/share/man&emsp;&emsp; \</br>
+                    &emsp;&emsp;&emsp;DEST_SHARE_DOC=/usr/share/doc/p7zip-$pkgdir install</br>
+            }
+          
+            </p>
+         </div>
+         
+         
+         
+          <div class="pkgbf" id="file10">
+          <p> cat  pkgbuild_linux</br></br>
+          pkgname=linux</br>
+          pkgver=5.19.4</br>
+          pkgrev=1</br>
+          pkgdesc="the Linux kernel"</br>
+          url="https://www.kernel.org/"</br>
+          groups=base</br>
+          depends=()</br>
+          makedepend=()</br>
+          packager=</br>
+          tfext=tar.xz</br></br>
+          build() {</br>
+          make mrproper</br>
+          make menuconfig</br>
+          make</br>
+          make INSTALL_MOD_PATH=<strong>$pkgdir</strong> modules_install</br></br>
+          mkdir -pv &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>$pkgdir</strong>/boot</br>
+          cp -v arch/x86/boot/bzImage <strong>$pkgdir</strong>/boot/vmlinuz-$pkgver</br>
+          cp -v System.map&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;<strong>$pkgdir</strong>/boot/System.map-$pkgver</br>
+          cp -v .config&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <strong>$pkgdir</strong>/boot/config-$pkgver</br>
+          install -v -m755 -d&emsp;&emsp;&emsp;&emsp;&emsp; <strong>$pkgdir</strong>/etc/modprobe.d</br></br>
+          cat > <strong>$pkgdir</strong>/etc/modprobe.d/usb.conf << EOF</br>
+          install ohci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i ohci_hcd ; true</br>
+          install uhci_hcd /sbin/modprobe ehci_hcd ; /sbin/modprobe -i uhci_hcd ; true</br>
+          EOF</br>
+          }
+          
+          </p>
+         </div>
+         
 
         
         <div class=footer_text>
