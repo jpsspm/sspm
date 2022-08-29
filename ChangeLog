@@ -72,3 +72,9 @@
 2022-08-21
 
     dependencies build : fix bugs and symlinks, add fix and dialogs
+    
+    
+2022-08-29
+
+   (sed/grep) commands adjusted to fix an issue when updating databases,
+   particularly with packages with similar names
