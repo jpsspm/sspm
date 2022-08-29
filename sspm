@@ -478,7 +478,7 @@ printf "%21sOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n
 %21sO%2sCopyright (C) 2021 Free Software Foundation, Inc.%13sO\n%21sO%2sLicense GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure%15sO\
 \n%21sO%64sO\n%21sO%2ssspm  v$SSPM_VER%50sO\n%21sO%2ssous les termes de la GNU General Public License%14sO\n%21sO%2slibre "$a_grave" vous de\
 %1smodifier ou de redistribuer ce programme%6sO\n%21sO%2sIl n'y a AUCUNE GARANTIE, dans la mesure permise par la loi.%2sO\n%21sO%64sO\n\
-%21sO%2sEditeur  Joe Packar.%42sO\n%21sOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\v\n" ;;
+%21sO%2s"$E_acute"diteur  Joe Packar.%42sO\n%21sOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\v\n" ;;
 tr_TR) ;;
 en_*|*)
 printf "%21sOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO\n\
@@ -2459,9 +2459,9 @@ local HEAD="${HEAD,,}"
 local PKG_SRC_FOUND="$(find $SRC -iname "$HEAD*.*" -type f 2>/dev/null)"
 if [ -z "$PKG_SRC_FOUND" ]; then
 case "$lang" in
-fr_*) printf "\e[91m===> ERREUR: \e[0mimpossible de trouver '$(basename "$PKG_SRC")' dans << $SRC >>\e[0m\n" ;;
+fr_*) printf "\e[91m===> ERREUR: \e[0mimpossible de trouver '$(basename "$PKG_SRC")' dans « $SRC »\e[0m\n" ;;
 tr_TR) ;;
-en_*|*) printf "\e[91m===> ERROR:\e[0m '$(basename "$PKG_SRC")' not found in << $SRC >>\e[0m\n" ;;
+en_*|*) printf "\e[91m===> ERROR:\e[0m '$(basename "$PKG_SRC")' not found in « $SRC »\e[0m\n" ;;
 esac
 exit $ERCODE
 fi
@@ -3419,8 +3419,8 @@ fr_*) printf "\e[96mmise "$a_grave" jour de la base de donn"$e_acute"es\e[0m\n" 
 tr_TR) ;;
 en_*|*) printf "\e[96mupdating database\e[0m\n" ;;
 esac
-if grep -q "^[[:punct:]]$pkgname" $DTBFILE1; then
-sed -i "/^[[:punct:]]$pkgname\|^.*"$pkgname"_desc/d ; /^[[:space:]]*$/d" $DTBFILE1
+if grep -q "^[[:punct:]]$pkgname[[:punct:]]" $DTBFILE1; then
+sed -i "/^[[:punct:]]$pkgname[[:punct:]]\|^.*"$pkgname"_desc/d ; /^[[:space:]]*$/d" $DTBFILE1
 else sed -i '/^[[:space:]]*$/d' $DTBFILE1; fi
 printf '%b ' "{$pkgname}.{$pkgver}.($pkgrev).{$ARCH}.{$EPOCH}.{$pkggroup}.{$PKG_SIZE}.{$packager}.${depends[@]}${makedepend[@]}\n" >> $DTBFILE1
 printf ""$pkgname"_desc<$pkgdesc>url<$pkg_url>\n" >> $DTBFILE1;  sed -i 's/^ \+//g' $DTBFILE1
@@ -3690,7 +3690,7 @@ sed -i "s|[[:digit:]][[:digit:]]:[[:digit:]][[:digit:]][[:space:]][[:alpha:]][[:
 rm -f "$DTBFILE0.bck"
 [ ! -w "$DTBFILE1" ] && chattr -i "$DTBFILE1" && local PERM2=ro
 cp $DTBFILE1 "$DTBFILE1.bck"
-sed -i "/^[[:punct:]]"$1"\|^"$1"/d" $DTBFILE1 && sed -i '/^$/d' $DTBFILE1
+sed -i "/^[[:punct:]]"$1"[[:punct:]]\|^"$1"_desc/d" $DTBFILE1 && sed -i '/^$/d' $DTBFILE1
 sed -i '/^[[:space:]]*$/d' $DTBFILE1;  sed -i 's/^ \+//g' $DTBFILE1
 sed -i -e "$(grep -n '^###*#$' $DTBFILE1 |tail -1|cut -f1 -d':')a \ " $DTBFILE1
 sed -i 's|[[:digit:]][[:digit:]]/[[:digit:]][[:digit:]]/[[:digit:]][[:digit:]]|'$DATE'|g' $DTBFILE1
