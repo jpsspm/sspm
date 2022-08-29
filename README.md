@@ -8,7 +8,7 @@ Simple Script Package Manager  written in bash for linux-based OS built from scr
 >* sspm info *(the manual page)* 
 >* sspm -pe  *(generate an empty pkgbuild file)* 
 >* sspm --destdir='../dir/dir' -ib *(build install and save package in ... )* 
->* sspm -l --root /dir/dir
+>* sspm -bio ..
 
 ### Home Page
 
