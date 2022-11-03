@@ -733,7 +733,7 @@ DESCRIPTION\n\
        -r, --root=\e[4mPATH\e[0m\n\
             Destination\n\n\
        -p, --path\n\
-            Afficher l'istorique d'installation d'un paquet\n\n\
+            Afficher l'historique d'installation d'un paquet\n\n\
        -pi, --print-infos\n\
             Afficher les informations du paquet\n\n\
        -bi,\n\
@@ -752,7 +752,7 @@ DESCRIPTION\n\
        -qq, --quiet-all\n\
             Rendre la compilation silensieuse, et n'afficher que le dialogue d'installation\n\
             si l'option '-i' est indiqu"$e_acute"e\n\n\
-       -aq, --always-quit\n\
+       -aq, --always-quiet\n\
             Activer ou D"$e_acute"sactiver le message de succ"$e_grave"s apr"$e_grave"s la cr"$e_acute"ation d'un paquet\n\
             Pareil que l'option '-q' de mani"$e_grave"re permanente\n\n\
        -pe, -ep, --pkgbuild-example\n\
@@ -771,8 +771,8 @@ DESCRIPTION\n\
          * sspm -i foo.tar.zst (installer foo)\n\
          * sspm -i foo.tar.zst --root /quelquepart (installer foo dans 'quelquepart')\n\
          * sspm -bi (compiler et installer le paquet)\n\
-         * sspm --path foo (afficher l'istorique d'installation de foo)\n\
-         * sspm --root=/mnt/nouveau_root -p foo (afficher l'istorique d'installation de foo install"$e_acute" dans /mnt/nouveau_root)\n\
+         * sspm --path foo (afficher l'historique d'installation de foo)\n\
+         * sspm --root=/mnt/nouveau_root -p foo (afficher l'historique d'installation de foo install"$e_acute" dans /mnt/nouveau_root)\n\
          * sspm -i -r /mnt/nouveau_root -b --with-hash (compiler, g"$e_acute"n"$e_acute"rer une somme de contr"$o_circumflex"le et installer le paquet dans /mnt/nouveau_root)\n\
          * sspm -bi --root /mnt/nouveau_root --destdir=\$HOME/pkg_archives -wh (compiler le paquet, g"$e_acute"n"$e_acute"rer une somme de contr"$o_circumflex"le(sha256sum)\n%17spuis stocker les fichiers dans '\$HOME/pkg_archives' et enfin installer le paquet dans /mnt/nouveau_root)\n\
          * sspm infos (Afficher la page de manuel)\v\n\
@@ -904,7 +904,7 @@ DESCRIPTION\n\
             Quiet successful build text\n\n\
        -qq, --quiet-all\n\
             Quiet all and show only the installation dialog if '-i' was passed\n\n\
-       -aq, --always-quit\n\
+       -aq, --always-quiet\n\
             This permanently enable/disable the '-q' option\n\n\
        -pe, -ep, --pkgbuild-example\n\
             Generate an empty '$BUILDFILE' file\n\n\
@@ -948,7 +948,7 @@ DESCRIPTION\n\
 %11s\e[90mexport PATH=\$PATH:/tools/sspm_tools/bin:/tools/sspm_tools/usr/bin\n%11sexport SRC=/sources\e[0m\n%11sEOF\n\n\
 %7s*%1sPKGBDIR\n%11sbuild directory\n\n\
 %7s*%1sNCPKG/NC_PKG=[y/yes/true]\n%11sdo not filter packages through zstd, sometimes you may need to build a non-compressed package\n\n\
-%7s*%1sEXCLUDE/IGNORE or NOT_TRACE_PATH\n%11s(ex: root:# export NOT_TRACE_PATH=/mnt/mounted_root)\n%11stells sspm that '/mnt/mounted_root' is not part of filesystem while tracking broken symbolic links\n\
+%7s*%1sEXCLUDE/IGNORE or NOT_TRACE_PATH\n%11s(ex: root:# export NOT_TRACE_PATH=/mnt/mounted_root)\n%11stell sspm that '/mnt/mounted_root' is not part of filesystem while tracking broken symbolic links\n\
 %11snecessary if you have a mounted filesystem/toolchain for example\n\
 %11syou need to set this variable if you have a mounted filesystem while acting (install/uninstall)\n%11sin the base system (where sspm is installed)\v\n\
 %7s*%1sPKG_GROUP=group\n%11s(this variable takes effect only if the 'groups' variable is empty in 'pkgbuild' file)\n\
