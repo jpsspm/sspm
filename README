@@ -45,6 +45,37 @@ sspm policy :
         to a full linux-based system.
         So where you can simply type two options with an external tool to resolve the issue
         if there is a pure shell effective solution. that will be used even if its takes 100 lines
+
+
+
+_________________________________________________________________________________________________________
+section : # dependencies check
+............................
+
+if you automatically compile sspm dependencies and you encounter an error,
+ensure that we're dealing with the same libraries
+because sometimes packages libraries change names on newer versions of the package
+
+here configurations are suitable for suggested versions of packages
+
+so a simple adjustment of a library name, adding/removing an option can solve the issue
+
+
+example:
+
+procps-ng v4.0.0
+
+* line 251        mv -v $DESTDIR/usr/lib/libproc-2.so.* $DESTDIR/lib; [[ $? != 0 ]] && BUILD_STATUS=1
+* line 252        SLINK0="$(find $DESTDIR -name libproc-2.so -type l -print | head -1)"
+* line 253        SLINK1="$(find $DESTDIR -name libproc-2.so.* -type l -print)"
+
+
+procps-ng v4.0.1
+
+* line 251       mv -v $DESTDIR/usr/lib/libproc2.so.* $DESTDIR/lib; [[ $? != 0 ]] && BUILD_STATUS=1
+* line 252       SLINK0="$(find $DESTDIR -name libproc2.so -type l -print | head -1)"
+* line 253       SLINK1="$(find $DESTDIR -name libproc2.so.* -type l -print)"
+_________________________________________________________________________________________________________
         
         
         
