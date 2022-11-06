@@ -125,11 +125,11 @@ libarchive v3.6.1, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v4
 tr_TR) ;;
 en_*|*)
 printf "You have to manually install these packages:\n\e[4mwhich\e[0m, \e[4mzstd\e[0m, \e[4mlibarchive\e[0m, \e[4mpkg-config\e[0m, \e[4mprocps\e[0m \
-et \e[4me2fsprogs\e[0m\nin a temporary directory to make sspm work\n\n\e[2m%1sthis can be done automatically by simply setting\n\
-%1sthese both variables in your shell:\n ex: export \e[0m\e[1mSOURCES\e[0m\e[2m='/dir/containing/sources'\n\
+and \e[4me2fsprogs\e[0m\nin a temporary directory to make sspm work\n\n\e[2m%1sthis can be done automatically by simply setting\n\
+%1sthese two variables in your shell:\n ex: export \e[0m\e[1mSOURCES\e[0m\e[2m='/dir/containing/sources'\n\
 %1sex: export \e[0m\e[1mDESTDIR\e[0m\e[2m='/dir/to_install/temp_packages'\n%1sthen rerun your command\n\n\
 %1smake sure that you have these source files\n%1swith the following versions or later: \
-libarchive v3.6.1, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v4.0.0 et e2fsprogs v1.46.5\n\n\
+libarchive v3.6.1, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v4.0.0 and e2fsprogs v1.46.5\n\n\
 %1sif you have already installed these packages, update and re-export\n\
 %1sthe 'PATH' variable in your shell or simply source the .bashrc file\n%1sfor these packages to be visible in the environment\e[0m\n\n"
 [[ ! -v "SOURCES" && -v "DESTDIR" ]] && printf "%1splease initialize the '\e[91mSOURCES\e[0m' variable\n\n" && exit 1
