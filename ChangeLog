@@ -78,3 +78,8 @@
 
    (sed/grep) commands adjusted to fix an issue when updating databases,
    particularly with packages with similar names
+   
+   
+2023-01-05
+
+   dependencies build : versions of packages updated
