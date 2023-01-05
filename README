@@ -56,7 +56,7 @@ if you automatically compile sspm dependencies and you encounter an error,
 ensure that we're dealing with the same libraries
 because sometimes packages libraries change names on newer versions of the package
 
-here configurations are suitable for suggested versions of packages
+here configurations are suitable for suggested versions of packages.
 
 a simple adjustment of a library name, adding/removing an option can solve the issue
 
