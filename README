@@ -58,7 +58,7 @@ because sometimes packages libraries change names on newer versions of the packa
 
 here configurations are suitable for suggested versions of packages
 
-so a simple adjustment of a library name, adding/removing an option can solve the issue
+a simple adjustment of a library name, adding/removing an option can solve the issue
 
 
 example:
@@ -70,7 +70,7 @@ procps-ng v4.0.0
 * line 253        SLINK1="$(find $DESTDIR -name libproc-2.so.* -type l -print)"
 
 
-procps-ng v4.0.1
+procps-ng v4.0.2
 
 * line 251       mv -v $DESTDIR/usr/lib/libproc2.so.* $DESTDIR/lib; [[ $? != 0 ]] && BUILD_STATUS=1
 * line 252       SLINK0="$(find $DESTDIR -name libproc2.so -type l -print | head -1)"
