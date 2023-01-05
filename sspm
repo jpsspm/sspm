@@ -116,7 +116,7 @@ et \e[4me2fsprogs\e[0m\ndans un r"$e_acute"pertoire temporaire pour faire foncti
 %1sexportez ces deux variables dans votre shell:\n ex: export \e[0m\e[1mSOURCES\e[0m\e[2m='/dir/containing/sources'\n\
 %1sex: export \e[0m\e[1mDESTDIR\e[0m\e[2m='/dir/to_install/temp_packages'\n%1spuis r"$e_acute"ex"$e_acute"cutez votre commande\n\n\
 %1sveuillez vous assurer que vous disposez de ces fichiers sources\n%1savec les versions suivantes ou ult"$e_acute"rieures: \
-libarchive v3.6.1, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v4.0.0 et e2fsprogs v1.46.5\n\n\
+libarchive v3.6.2, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v4.0.2 et e2fsprogs v1.46.5\n\n\
 %1ssi vous avez d"$e_acute"j"$a_grave" install"$e_acute" tous ces paquets, mettez "$a_grave" jour et exportez\n\
 %1sla variable 'PATH' dans le shell ou sourcez le fichier .bashrc\n%1spour que ces paquets soient visibles dans l'environnement\e[0m\n\n"
 [[ ! -v "SOURCES" && -v "DESTDIR" ]] && printf "%1sveuillez initialiser la variable '\e[91mSOURCES\e[0m'\n\n" && exit 1
@@ -129,7 +129,7 @@ and \e[4me2fsprogs\e[0m\nin a temporary directory to make sspm work\n\n\e[2m%1st
 %1sthese two variables in your shell:\n ex: export \e[0m\e[1mSOURCES\e[0m\e[2m='/dir/containing/sources'\n\
 %1sex: export \e[0m\e[1mDESTDIR\e[0m\e[2m='/dir/to_install/temp_packages'\n%1sthen rerun your command\n\n\
 %1smake sure that you have these source files\n%1swith the following versions or later: \
-libarchive v3.6.1, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v4.0.0 and e2fsprogs v1.46.5\n\n\
+libarchive v3.6.2, zstd v1.5.2\n%1spkg-config v0.29.2, which v2.21, procps-ng v4.0.2 and e2fsprogs v1.46.5\n\n\
 %1sif you have already installed these packages, update and re-export\n\
 %1sthe 'PATH' variable in your shell or simply source the .bashrc file\n%1sfor these packages to be visible in the environment\e[0m\n\n"
 [[ ! -v "SOURCES" && -v "DESTDIR" ]] && printf "%1splease initialize the '\e[91mSOURCES\e[0m' variable\n\n" && exit 1
@@ -246,11 +246,11 @@ TEMP='/tmp'; BASHRC='.bashrc'
              esac; fi
               CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
                tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && ./configure --prefix=/usr \
-               --exec-prefix= --libdir=/usr/lib --disable-static --disable-kill && \
+               --exec-prefix= --libdir=/usr/lib --disable-static --without-ncurses --disable-kill && \
                make && make install; [[ $? != 0 ]] && BUILD_STATUS=1; cd $TEMP && rm -r $CD_DIR;
-               mv -v $DESTDIR/usr/lib/libproc-2.so.* $DESTDIR/lib; [[ $? != 0 ]] && BUILD_STATUS=1
-               SLINK0="$(find $DESTDIR -name libproc-2.so -type l -print | head -1)"
-               SLINK1="$(find $DESTDIR -name libproc-2.so.* -type l -print)"
+               mv -v $DESTDIR/usr/lib/libproc2.so.* $DESTDIR/lib; [[ $? != 0 ]] && BUILD_STATUS=1
+               SLINK0="$(find $DESTDIR -name libproc2.so -type l -print | head -1)"
+               SLINK1="$(find $DESTDIR -name libproc2.so.* -type l -print)"
                ln -svf ../../lib/$(readlink $SLINK0) $SLINK0
                [[ $? != 0 ]] && BUILD_STATUS=1
                ln -svf $SLINK0 /lib/$(basename $SLINK0)
