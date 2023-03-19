@@ -212,7 +212,7 @@
          <div class="pkgbf" id="file6">
           <p> cat  pkgbuild_glibc</br></br>
           pkgname=glibc</br>
-          pkgver=2.35</br>
+          pkgver=2.37</br>
           pkgrev=1</br>
           pkgdesc="main C library"</br>
           url="https://www.gnu.org/software/libc/"</br>
@@ -222,7 +222,7 @@
           packager=</br>
           tfext=</br></br>
           build() {</br>
-          patch -Np1 -i <strong>$SRC</strong>/glibc-2.35-fhs-1.patch</br>
+          patch -Np1 -i <strong>$SRC</strong>/glibc-2.37-fhs-1.patch</br>
           mkdir -v build</br>
           cd&emsp;&emsp;&emsp; build</br>
           echo "rootsbindir=/usr/sbin" > configparms</br>
