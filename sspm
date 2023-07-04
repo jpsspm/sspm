@@ -1197,9 +1197,9 @@ esac
                         sudo -k sed -i '/^PERM_PM_CONFDIR=.*/s/PERM_PM_CONFDIR=.*/PERM_PM_CONFDIR="'$PM_CONFDIR'"/' "$SCRIPTFILE"                                                                  #
                         else                                                                                                                                                                       #
                         case "$lang" in                                                                                                                                                            #
-                        fr_*)  printf "\n%2s*%1schangement du r"$e_acute"pertoire de configuration\n\n" ;;                                                                                         #
+                        fr_*)  printf "sspm: \e[91merreur\e[0m  'sudo' non trouv"$e_acute"\n\e[90mimpossible de sauvegarder le nouveau r"$e_acute"pertoire de configuration\e[0m\n\n" ;;           #
                         tr_TR) ;;                                                                                                                                                                  #
-                        en_*|*) printf "\e[91merror:\e[0m 'sudo' not found.  run this as root\n\n" ;;                                                                                              #
+                        en_*|*) printf "sspm: \e[91merror\e[0m 'sudo' not found. cannot set new config directory\n%6s\e[90mplease unset PM_CONFDIR if this error persiste\e[0m\n\n" ;;             #
                         esac                                                                                                                                                                       #
                        exit $ERCODE                                                                                                                                                                #
                       fi                                                                                                                                                                           #
@@ -1215,9 +1215,9 @@ esac
                         sudo -k sed -i "/^DTBFILE1=/aPERM_PM_CONFDIR=\"$PM_CONFDIR\"" $SCRIPTFILE                                                                                                  #
                         else                                                                                                                                                                       #
                         case "$lang" in                                                                                                                                                            #
-                        fr_*) printf "\e[91merreur:\e[0m  'sudo' non trouv"$e_acute"\nlancez la commande en tant que root\n\n"  ;;                                                                 #
+                        fr_*) printf "sspm: \e[91merreur\e[0m  'sudo' non trouv"$e_acute"\n\e[90mimpossible de sauvegarder le nouveau r"$e_acute"pertoire de configuration\e[0m\n\n"  ;;           #
                         tr_TR) ;;                                                                                                                                                                  #
-                        en_*|*) printf "\e[91merror:\e[0m 'sudo' not found.  run this as root\n\n" ;;                                                                                              #
+                        en_*|*) printf "sspm: \e[91merror\e[0m 'sudo' not found. cannot set new config directory\n%6s\e[90mplease unset PM_CONFDIR if this error persiste\e[0m\n\n" ;;             #
                         esac                                                                                                                                                                       #
                       exit $ERCODE                                                                                                                                                                 #
                     fi                                                                                                                                                                             #
@@ -1376,7 +1376,7 @@ if [[ -n "$MODE" && "$MODE" == "check" ]]; then
 sha256sum --quiet -c "$INPUT" &>/dev/null
 if [ "$?" != "0" ]; then
 if [[ "$INPUT" == "$FILES_SHA" ]]; then
-if [[ "$LANG" = fr_* ]]; then
+if [[ "$lang" = fr_* ]]; then
 printf "\e[93mavertissement: \e[0mdes erreurs se sont produites lors de la v"$e_acute"rification de certains fichiers.\n\n"
 read -p "souhaitez-vous poursuivre l'installation (o/n) : " REP
 case $REP in [oO] | '')  printf '\n' ;; [nN]|*) exit ;; esac
