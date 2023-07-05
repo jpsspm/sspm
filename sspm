@@ -1296,7 +1296,7 @@ esac
                                            else
                                            if [ "$pid0" != "$$" ]; then
                                            if ps -fs --pid "$pid0" &>/dev/null; then
-                                           if [[ "$LANG" = fr_* ]]
+                                           if [[ "$lang" = fr_* ]]
                                            then
                                            case $RANDOM in
                                              *45*|1*2*8| *3*3)  printf "erreur: il semble que la base de donn"$e_acute"es est occup"$e_acute"e\n" ;;
@@ -1381,7 +1381,7 @@ printf "\e[93mavertissement: \e[0mdes erreurs se sont produites lors de la v"$e_
 read -p "souhaitez-vous poursuivre l'installation (o/n) : " REP
 case $REP in [oO] | '')  printf '\n' ;; [nN]|*) exit ;; esac
 else
-printf "\e[93mwarning:\e[0m some errors occurred when checking some files\n\n"
+printf "\e[93mwarning:\e[0m some errors occurred when checking files\n\n"
 read -p "do you want to Continue with installation (y/n) : " REP
 case $REP in [yY] | '')  printf '\n' ;; [nN]|*) exit ;; esac
 fi
