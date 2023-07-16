@@ -88,3 +88,8 @@
 2023-07-05
 
     spelling correction
+
+
+2023-07-16
+
+   dependencies build : pkg-config or pkgconf can be used
