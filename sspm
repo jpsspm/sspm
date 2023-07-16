@@ -196,23 +196,27 @@ TEMP='/tmp'; BASHRC='.bashrc'
                 fr_*) printf '\n\n\e[91merreur\e[0m:  « zstd »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
                 en_*|*) printf '\n\n\e[91merror\e[0m:  « zstd »  build failed\n\n'; exit 1;;
                 esac; fi
-            if ! type pkg-config &>/dev/null && ! type "$DESTDIR/usr/bin/pkg-config" &>/dev/null && \
-               ! type "$DESTDIR/pkg-config" &>/dev/null; then
-              FILE="$(find $SOURCES -iname "pkg-config*.?z" -type f -print | head -1 )"
+            if ! type pkg-config &>/dev/null && ! type "$DESTDIR/usr/bin/pkg-config" &>/dev/null && ! type "$DESTDIR/pkg-config" &>/dev/null && \
+               ! type pkgconf &>/dev/null && ! type "$DESTDIR/usr/bin/pkgconf" &>/dev/null && ! type "$DESTDIR/pkgconf" &>/dev/null; then
+              FILE="$(find $SOURCES \( -iname "pkgconf*.?z" -o -iname "pkg-config*.?z" \) -type f -print | sort -V | head -1 )"
              if [[ -z $FILE || -z "$(file $FILE | grep -E 'compressed|compress'$(printf '\xc3\xa9')'es' )" ]]
              then  case "$lang" in
-            fr_*) printf "\n\nerreur: 'pkg-config' impossible d'acc"$e_acute"der au fichier source\n"; exit 1 ;;
+            fr_*) printf "\n\nerreur: 'pkg-config/pkgconf' impossible d'acc"$e_acute"der au fichier source\n"; exit 1 ;;
             tr_TR) ;;
-            en_*|*) printf "\n\nerror: 'pkg-config' can't access the source file\n"; exit 1 ;;
-             esac; fi
-              CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
+            en_*|*) printf "\n\nerror: 'pkg-config/pkgconf' can't access source file\n"; exit 1 ;;
+            esac; fi
+             CD_DIR="$(tar -tf $FILE | head -1)" CD_DIR="${CD_DIR//\/}"
+              REL_TYPE="$([[ "$CD_DIR" = *pkgconf* ]] && printf 'N' )"
                tar xf $FILE -C $TEMP && cd $TEMP/$CD_DIR && \
-               ./configure --prefix=/usr --with-internal-glib --disable-host-tool && \
+               case $REL_TYPE in N) ./configure --prefix=/usr --disable-static ;; 
+               *) ./configure --prefix=/usr --with-internal-glib --disable-host-tool;; esac && \
                make && make install; [[ $? != 0 ]] && BUILD_STATUS=1; cd $TEMP && rm -r $CD_DIR;
                fi; [[ $BUILD_STATUS && $BUILD_STATUS = 1 ]] && case "$lang" in
                fr_*) printf '\n\n\e[91merreur\e[0m:  « pkg-config »  compilation '$e_acute'chou'$e_acute'e\n\n'; exit 1;;
                en_*|*) printf '\n\n\e[91merror\e[0m:  « pkg-config »  build failed\n\n'; exit 1;;
-               esac
+               esac; if [[ $REL_TYPE ]]; then ln -sfv pkgconf   "$DESTDIR/usr/bin/pkg-config"; \
+               SLINK0="$(find $DESTDIR -name libpkgconf.so.* -type l -print | head -1)"
+               ln -sfv $DESTDIR/usr/lib/$(readlink $SLINK0) /usr/lib/$(basename $SLINK0); fi
                PATH=$PATH:$DESTDIR/bin:$DESTDIR/usr/bin:$DESTDIR/sbin:$DESTDIR/usr/sbin
             if ! type bsdtar &>/dev/null && ! type "$DESTDIR/usr/bin/bsdtar" &>/dev/null && \
                ! type "$DESTDIR/bin/bsdtar" &>/dev/null; then
@@ -1852,7 +1856,8 @@ fi
                                        bsdtar_ver="$(bsdtar --version | cut -d '-' -f1 | sed 's/ $//g')"
                                        zstd_ver="zstd $(zstd --version | cut -d 'v' -f2 | cut -d ',' -f1)"
                                        tar_ver="tar $(tar --version | tr '\n' ' ' | cut -d ' ' -f4)" 
-                                       pkg_config_ver="pkg-config $(pkg-config --version)"
+                                       pkg_config_ver="$(pkg-config --version 2</dev/null||pkgconf --version)"
+                                       pkg_config_ver="$([[ $pkg_config_ver = 0.* ]] && printf 'pkg-config' || printf 'pkgconf') $pkg_config_ver"
                                        procps_ng_ver="$(ps --version | rev | cut -d ' ' -f1,2 | rev )"
                                        which_ver="which $(which --version 2>/dev/null | head -1| cut -d' ' -f3|tr -d \,)"
                                        printf "$bsdtar_ver%2s$pkg_config_ver%2s$procps_ng_ver%2s$tar_ver%2s$which_ver%2s$zstd_ver\n"
