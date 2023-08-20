@@ -93,3 +93,10 @@
 2023-07-16
 
    dependencies build : pkg-config or pkgconf can be used
+
+
+2023-08-20
+
+   spelling correction
+   update of pkgbuild_example to allow the creation of pre-named pkgbuild files
+   example: sspm -pe libfoo -o build
