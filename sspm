@@ -1845,7 +1845,44 @@ fi
                                        fi
                                        }
                   
+pkgbuild_example () {
+local DEST_DIR=
+[[ ${file[@]} && ${#file[@]} = 1 ]] && local SUFFIX=$file
+if [ -n "$extra_1" ]; then
+[[ -d "$extra_1" ]] || case $lang in
+fr_*) printf "sspm:  erreur  '$extra_1' r"$e_acute"pertoire non trouv"$e_acute"\n"; exit $ERCODE ;;
+en_*|*) printf "sspm:  error  directory '$extra_1' not found\n"; exit $ERCODE ;;
+esac
+ if [[ "$extra_1" =~ /$ ]]
+  then local DEST_DIR="$extra_1"
+  else  local DEST_DIR=""$extra_1"/"
+ fi
+fi
 
+[[ $SUFFIX ]] && local BUILDFILE="$BUILDFILE"_"$SUFFIX"
+
+tee $DEST_DIR"$BUILDFILE" 1>/dev/null << EOF
+pkgname=
+pkgver=
+pkgrev=
+pkgdesc=""
+url=""
+groups=""
+depends=()
+makedepend=()
+packager=""
+tfext=""
+
+
+build() {
+
+
+
+
+
+}
+EOF
+}
 
 
 
