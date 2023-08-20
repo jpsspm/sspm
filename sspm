@@ -843,7 +843,7 @@ remarque: si la variable 'tfext' dans le fichier (pkgbuild) est vide,\n\
             License GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure <https://gnu.org/licenses/gpl.html>.\n\
             Ce programme est un logiciel libre: vous pouvez le redistribuer ou le modifier.\n\
             Il n'y a AUCUNE GARANTIE, dans la mesure permise par la loi.\v\v\n
-sspm $SSPM_VER%68sJanvier 2023%68sSSPM(1)   \n" ;;
+sspm $SSPM_VER%68sAo"$u_circumflex"t 2023%68sSSPM(1)   \n" ;;
 tr_TR) ;;
 en_*|*)
 printf "SSPM(1)\n\n\
@@ -985,7 +985,7 @@ note:%5swhatever build function name build_foo() { commands }, foo_build() { com
          License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
          This is free software: you can change and redistribute it.\n\
          There is NO WARRANTY, to the extent permitted by law.\v\v\n
-sspm $SSPM_VER%68sJanuary 2023%68sSSPM(1)   \n" ;;
+sspm $SSPM_VER%68sAugust 2023%68sSSPM(1)   \n" ;;
 esac
 }
 
