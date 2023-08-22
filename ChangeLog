@@ -105,3 +105,4 @@
 2023-08-22
 
     fixed bug when building multilib packages (update of the if statement to set the right configuration type)
+    var 'sysdirs' updated
