@@ -2306,6 +2306,9 @@ local B_FUNCTION_CMD="$(sed -ne '/\(^make.*install\)\|\(^DESTDIR.*install\)/,/\(
                               else local CONFIG_TYPE=; cp $BDIR/$BUILDFILE  $TMPFILE
                               fi
                             fi
+                      elif [[ $B_FUNCTION_CMD =~ make.*distclean || $B_FUNCTION_CMD =~ make.*clean || (( (( $B_FUNCTION_CMD =~ CC= || $B_FUNCTION_CMD =~ CXX= )) && \
+                        (( $B_FUNCTION_CMD =~ cc.*-m || $B_FUNCTION_CMD =~ configure || $B_FUNCTION_CMD =~ make || $B_FUNCTION_CMD =~ lib )) )) ]]; then
+                        local CONFIG_TYPE=; cp "$BDIR/$BUILDFILE" $TMPFILE
                       elif [[ $B_FUNCTION_CMD =~ ^"for".* ]]; then local CONFIG_TYPE="C"
                         sed "/\(^for.* in .*\)\|\(.*for.* in .*\)/,/^[[:space:]]\}$\|\(^}.*\)/ s/^/##/; \
                         /^##$\|\(^}.*\)\|\(^##}.*\)\|^[[:space:]]\}$/s/^##//g"  < $BDIR/$BUILDFILE > $TMPFILE
