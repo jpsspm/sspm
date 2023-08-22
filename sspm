@@ -1091,9 +1091,9 @@ esac
                                                                    # feel free to ajust as you wish
                                                                    # ###########################################################
                                                                           sysdirs=(bin boot color cache dev doc etc lib \
-                                                                          lib64 firmware locale home opt srv sbin usr \
-                                                                          include local locate sysconfig media floppy \
-                                                                          cdrom info log mail opt pkgconfig proc spool \
+                                                                          lib32 libx32 lib64 firmware locale home opt srv \
+                                                                          sbin usr include local locate sysconfig info log \
+                                                                          floppy cdrom media mail opt pkgconfig proc spool \
                                                                           man man1 man2 man3 man4 man5 man6 man7 man8 \
                                                                           share sys dict misc mnt run root var lock tmp \
                                                                           terminfo zoneinfo)
@@ -2307,7 +2307,7 @@ local B_FUNCTION_CMD="$(sed -ne '/\(^make.*install\)\|\(^DESTDIR.*install\)/,/\(
                               fi
                             fi
                       elif [[ $B_FUNCTION_CMD =~ make.*distclean || $B_FUNCTION_CMD =~ make.*clean || (( (( $B_FUNCTION_CMD =~ CC= || $B_FUNCTION_CMD =~ CXX= )) && \
-                        (( $B_FUNCTION_CMD =~ cc.*-m || $B_FUNCTION_CMD =~ configure || $B_FUNCTION_CMD =~ make || $B_FUNCTION_CMD =~ lib )) )) ]]; then
+                        (( $B_FUNCTION_CMD =~ cc.*-m || $B_FUNCTION_CMD =~ configure || $B_FUNCTION_CMD =~ prefix || $B_FUNCTION_CMD =~ make || $B_FUNCTION_CMD =~ lib )) )) ]]; then
                         local CONFIG_TYPE=; cp "$BDIR/$BUILDFILE" $TMPFILE
                       elif [[ $B_FUNCTION_CMD =~ ^"for".* ]]; then local CONFIG_TYPE="C"
                         sed "/\(^for.* in .*\)\|\(.*for.* in .*\)/,/^[[:space:]]\}$\|\(^}.*\)/ s/^/##/; \
