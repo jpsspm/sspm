@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ###################################################################################################
 #  this script is part of Epsilon(sspm) - https://jpsspm.github.io/sspm                           #
-#  Copyright (C) 2021-2023 Joe Packar    (joepackar@gmail.com)                                    #
+#  Copyright (C) 2021-2025 Joe Packar    (joepackar@gmail.com)                                    #
 #                                                                                                 #
 #      **** a package manager for linux-based Operating Systems built from scratch ****           #
 #                                                                                                 #
@@ -346,7 +346,7 @@ fi else TAR=bsdtar; umask 022; fi
 
 
 
-SSPM_VER=
+SSPM_VER=1.0.9
 TMP="${PKGBDIR:-/tmp}"
 TMP="${TMP%/}"
 TAG="pkg"
@@ -438,7 +438,7 @@ STRIPPKG="${STRIPPKG:-$STRIP_PKG}"
 
 sspm_version() {
 if [[ "$RANDOM" =~ $"6" ]]; then
-printf "%csspm $SSPM_VER%2sCopyright (C) 2021-2023. Joe Packar\n"
+printf "%csspm $SSPM_VER%2sCopyright (C) 2021-2025. Joe Packar\n"
 elif [[ "$RANDOM" =~ ^"5" || "$RANDOM" =~ ^[1_1_]+$ ]]; then
 case "$lang" in
 fr_*)
@@ -459,7 +459,7 @@ elif [[ "$RANDOM" =~ $"7" || "$RANDOM" =~ ^[6_2_]+$ ]]; then
 case "$lang" in
 fr_*)
 printf "%13ssspm  v$SSPM_VER\n\
-%6s\e[1mS\e[0m%6sCopyright (C) 2021-2023 Free Software Foundation, Inc.\n\
+%6s\e[1mS\e[0m%6sCopyright (C) 2021-2025 Free Software Foundation, Inc.\n\
 %6s\e[1mS\e[0m%6sLicense GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure\n\
 %6s\e[1mP\e[0m\n\
 %6s\e[1mM\e[0m%6sCe programme est un logiciel libre: libre a modifier ou a redistribuer\n\
@@ -468,7 +468,7 @@ printf "%13ssspm  v$SSPM_VER\n\
 tr_TR) ;;
 en_*|*)
 printf "%13ssspm  v$SSPM_VER\n\
-%6s\e[1mS\e[0m%6sCopyright (C) 2021-2023 Free Software Foundation, Inc.\n\
+%6s\e[1mS\e[0m%6sCopyright (C) 2021-2025 Free Software Foundation, Inc.\n\
 %6s\e[1mS\e[0m%6sLicense GPLv3+: GNU GPL version 3 or later\n\
 %6s\e[1mP\e[0m\n\
 %6s\e[1mM\e[0m%6sThis is free software: free to change and to redistribute\n\
@@ -481,14 +481,14 @@ case "$lang" in fr_*) printf "sspm v$SSPM_VER\n" ;; tr_TR) ;; en_*|*) printf "ss
 elif [[ "$RANDOM" =~ ^"3" ]]; then
 case "$lang" in
 fr_*)
-printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2023 Joe Packar\n\
+printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2025 Joe Packar\n\
 %2s\e[90m|\e[0m%19s\e[90m|\e[0m\n\
 %2s\e[90m|\e[0m%6s\e[1m\e[90mS%1sS\e[0m%1s\e[1mP%1sM\e[0m%6s\e[90m|\e[0m\t\tCe programme est un logiciel libre;\n\
 %2s\e[90m|%19s|\e[0m\t\tvous pouvez le redistribuer ou le modifier\e[90m\n%3s-------------------\e[0m\
 \t\tvoir les sources pour les conditions de copie.\v\n" ;;
 tr_TR) ;;
 en_*|*)
-printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2023 Joe Packar\n\
+printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2025 Joe Packar\n\
 %2s\e[90m|\e[0m%19s\e[90m|\e[0m\n\
 %2s\e[90m|\e[0m%6s\e[1m\e[90mS%1sS\e[0m%1s\e[1mP%1sM\e[0m%6s\e[90m|\e[0m\t\tYes you right, sspm is free.\n\
 %2s\e[90m|%19s|\e[0m\t\tyou can redistribute or change it\e[90m\n%3s-------------------\e[0m\
@@ -497,12 +497,12 @@ esac
 elif [[ "$RANDOM" == *0*0* ]]; then
 case "$lang" in
 fr_*)
-printf "%csspm  v$SSPM_VER\nCopyright \xc2\xa9 2021-2023 Free Software Foundation, Inc.\n\
+printf "%csspm  v$SSPM_VER\nCopyright \xc2\xa9 2021-2025 Free Software Foundation, Inc.\n\
 Licence GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure <https://gnu.org/licenses/gpl.html>.\n\
 Logiciel libre : vous "$e_circumflex"tes libre de le modifier ou de le redistribuer.\n\
 Il n'y a AUCUNE GARANTIE, dans les limites permises par la loi.\v\n"$E_acute"crit par Joe Packar.\n" ;;
 en_*|*)
-printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2023 Free Software Foundation, Inc.\n\
+printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2025 Free Software Foundation, Inc.\n\
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\v\nWritten by Joe Packar.\n" ;;
@@ -529,7 +529,7 @@ case "$lang" in fr_*) printf "sspm v$SSPM_VER\n" ;; tr_TR) ;; en_*|*) printf "ss
 elif [[ "$RANDOM" == 1*9 ]]; then
 case "$lang" in
 fr_*)
-printf "%c\t\t\t\tsspm  v$SSPM_VER\n\t\t\t\tCopyright (C) 2021-2023 Joe Packar\n\
+printf "%c\t\t\t\tsspm  v$SSPM_VER\n\t\t\t\tCopyright (C) 2021-2025 Joe Packar\n\
 %3s-------------------\n%2s|%19s|\t\tCe programme est un logiciel libre;\n\
 %2s|%6s\e[94mS%1sS%1sP%1sM\e[0m%6s|\t\tvous pouvez le redistribuer ou le modifier\n\
 %2s|%19s|\t\tsous les termes de la GNU General Public License\n%3s-------------------\
@@ -537,7 +537,7 @@ printf "%c\t\t\t\tsspm  v$SSPM_VER\n\t\t\t\tCopyright (C) 2021-2023 Joe Packar\n
 %1sversion 3 de la licence, soit\n%32s($a_grave votre choix) toute version ult"$e_acute"rieure.\n" ;;
 tr_TR) ;;
 en_*|*)
-printf "%c\t\t\t\tsspm  v$SSPM_VER\n\t\t\t\tCopyright (C) 2021-2023 Joe Packar\n\
+printf "%c\t\t\t\tsspm  v$SSPM_VER\n\t\t\t\tCopyright (C) 2021-2025 Joe Packar\n\
 %3s-------------------\n%2s|%19s|\t\tthis is free software.\n\
 %2s|%6s\e[94mS%1sS%1sP%1sM\e[0m%6s|\t\tyou are free to change or to redistribute it\n\
 %2s|%19s|\t\tunder the terms of the GNU General Public License\n%3s-------------------\
@@ -565,12 +565,12 @@ esac
 elif [[ -z "$RANDOM" || ! -e "$RANDOM" ]]; then
 case "$lang" in
 fr_*)
-printf "%csspm  v$SSPM_VER\nCopyright \xc2\xa9 2021-2023 Free Software Foundation, Inc.\n\
+printf "%csspm  v$SSPM_VER\nCopyright \xc2\xa9 2021-2025 Free Software Foundation, Inc.\n\
 Licence GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure <https://gnu.org/licenses/gpl.html>.\n\
 Logiciel libre : vous "$e_circumflex"tes libre de le modifier ou de le redistribuer.\n\
 Il n'y a AUCUNE GARANTIE, dans les limites permises par la loi.\v\n"$E_acute"crit par Joe Packar.\n" ;;
 en_*|*)
-printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2023 Free Software Foundation, Inc.\n\
+printf "%csspm  v$SSPM_VER\nCopyright (C) 2021-2025 Free Software Foundation, Inc.\n\
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\v\nWritten by Joe Packar.\n" ;;
@@ -578,14 +578,14 @@ esac
 else
 case "$lang" in
 fr_*)
-printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2023 Joe Packar\n\
+printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2025 Joe Packar\n\
 %2s\e[90m|\e[0m%19s\e[90m|\e[0m\n\
 %2s\e[90m|\e[0m%6s\e[1m\e[1mS%1sS\e[0m%1s\e[90mP%1sM\e[0m%6s\e[90m|\e[0m\t\tCe programme est un logiciel libre;\n\
 %2s\e[90m|%19s|\e[0m\t\tvous pouvez le redistribuer ou le modifier\e[90m\n%3s-------------------\e[0m\
 \t\tvoir les sources pour les conditions de copie.\v\n" ;;
 tr_TR) ;;
 en_*|*)
-printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2023 Joe Packar\n\
+printf "%c\t\t\t\tsspm  v$SSPM_VER\n%3s\e[90m-------------------\e[0m\t\tCopyright (C) 2021-2025 Joe Packar\n\
 %2s\e[90m|\e[0m%19s\e[90m|\e[0m\n\
 %2s\e[90m|\e[0m%6s\e[1m\e[1mS%1sS\e[0m%1s\e[90mP%1sM\e[0m%6s\e[90m|\e[0m\t\tYes you right, sspm is free.\n\
 %2s\e[90m|%19s|\e[0m\t\tyou can redistribute or change it\e[90m\n%3s-------------------\e[0m\
@@ -839,11 +839,11 @@ remarque: si la variable 'tfext' dans le fichier (pkgbuild) est vide,\n\
       Pour plus d'informations, consultez la page d'accueil de sspm\n\
       "$a_grave" l'adresse suivante: https://jpsspm.github.io/sspm/.\n\n\
 \e[1mDROITS D'AUTEUR\e[0m\n\
-            Copyright \xc2\xa9 2021-2023 Free Software Foundation, Inc.\n\
+            Copyright \xc2\xa9 2021-2025 Free Software Foundation, Inc.\n\
             License GPLv3+: GNU GPL version 3 ou ult"$e_acute"rieure <https://gnu.org/licenses/gpl.html>.\n\
             Ce programme est un logiciel libre: vous pouvez le redistribuer ou le modifier.\n\
             Il n'y a AUCUNE GARANTIE, dans la mesure permise par la loi.\v\v\n
-sspm $SSPM_VER%68sAo"$u_circumflex"t 2023%68sSSPM(1)   \n" ;;
+sspm $SSPM_VER%68sJuin 2025%68sSSPM(1)   \n" ;;
 tr_TR) ;;
 en_*|*)
 printf "SSPM(1)\n\n\
@@ -981,11 +981,11 @@ note:%5swhatever build function name build_foo() { commands }, foo_build() { com
       repport bugs at https://github.com/jpsspm/sspm/issues/\n\
       home page: https://jpsspm.github.io/sspm/\n\n\
 \e[1mCOPYRIGHT\e[0m\n\
-         Copyright \xc2\xa9 2021-2023 Free Software Foundation, Inc.\n\
+         Copyright \xc2\xa9 2021-2025 Free Software Foundation, Inc.\n\
          License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>.\n\
          This is free software: you can change and redistribute it.\n\
          There is NO WARRANTY, to the extent permitted by law.\v\v\n
-sspm $SSPM_VER%68sAugust 2023%68sSSPM(1)   \n" ;;
+sspm $SSPM_VER%68sJune 2025%68sSSPM(1)   \n" ;;
 esac
 }
 
@@ -2335,6 +2335,13 @@ local check1_fonction_name="${check1_fonction_name%%*( )}"
 local check2_fonction_name="${check2_fonction_name##*( )}"
 local check2_fonction_name="${check2_fonction_name%%*( )}"
 shopt -u extglob
+## if check_fonction_name contains special characters then try this ways
+if [[ $(printf "$check1_fonction_name"|tr -cd "'\"\n\(\);\{\}" |wc -c) -gt 0 || $(printf "$check2_fonction_name"|tr -cd "'\"\n\(\);\{\}" |wc -c) -gt 0 ]]; then
+local check1_fonction_name="$(grep -F '() {' $TMPFILE)"
+local check1_fonction_name="${check1_fonction_name%%(*}"
+local check2_fonction_name="$(grep -F '() {' $TMPFILE)"
+local check2_fonction_name="${check2_fonction_name%%(*}"
+fi
 local auto_genereted_vars_found="$(sed -n '/^pkgbid=\|^builddate=\|^buildtime=/p' $TMPFILE|wc -w)"
 [[ $auto_genereted_vars_found -gt 0 ]] && sed -i '/^pkgbid=\|^builddate=\|^buildtime=/d' $TMPFILE
 . $TMPFILE
