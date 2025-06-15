@@ -2,13 +2,13 @@
 
          Fix dependencies check var 'LINE' syntax error
              dependencies build           syntax errors
-      
-      
+     
+             
 2022-03-25
 
          Updating var 'B_FUNCTION_CMD'
-      
-      
+         
+         
 2022-05-16
 
         'PKGBDIR'  env var added to allow build directory change
@@ -18,21 +18,21 @@
       
         Fix harmless warning messages about /proc path if you are in 'chroot'
         while tracking broken symbolic links
-      
-      
+        
+        
 2022-05-28
 
        build function : a syntax error fixed with the printf command,
        added : "%b= "  in  (fr - line 1391) and  (en - line 1314)
        
-       
+
 2022-05-29
    
        Fix source files find erros (confusion between a patch and a source file) while building dependencies
        added : ".?z" in find command.
-       for dependencies build, if you can download xz/gz compressed archives that will make things easier 
-
-
+       for dependencies build, if you can download xz/gz compressed archives that will make things easier
+       
+       
 2022-06-02
 
        source file auto-detection improved
@@ -41,19 +41,19 @@
 2022-06-15
 
       major update, like allowing building a non-zstd compressed package
-
-
+      
+      
 2022-06-20
 
      Fix one bug introduced about the '-o' option. changing BDIR to DEST_DIR
-     (fr - line 1795-1803) and  (en - line 1709-1717)  
-
-
+     (fr - line 1795-1803) and  (en - line 1709-1717)
+     
+     
 2022-07-07
 
      Stripping support added
-
-
+     
+     
 2022-07-16
         
      Fix one bug about NCPKG (no compress package) capability
@@ -62,8 +62,8 @@
 2022-08-07
 
      major update, like merging the en and fr version
-     
 
+     
 2022-08-20
 
      dialog added, if bsdtar does not work correctly rather than exiting directly
@@ -83,26 +83,32 @@
 2023-01-05
 
    dependencies build : versions of packages updated
-
-
+   
+   
 2023-07-05
 
     spelling correction
-
-
+    
+    
 2023-07-16
 
    dependencies build : pkg-config or pkgconf can be used
-
-
+   
+   
 2023-08-20
 
-   spelling correction
-   update of pkgbuild_example to allow the creation of pre-named pkgbuild files
-   example: sspm -pe libfoo -o build
-
-
+    spelling correction
+    update of pkgbuild_example to allow the creation of pre-named pkgbuild files
+    example: sspm -pe libfoo -o build
+    
+    
 2023-08-22
 
     fixed bug when building multilib packages (update of the if statement to set the right configuration type)
     var 'sysdirs' updated
+    
+    
+2025-06-15
+
+    some build instructions contain commands with critical special characters like 'sed'
+    add a layer of checking the name of the build function to avoid confusion
