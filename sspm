@@ -2314,8 +2314,8 @@ local B_FUNCTION_CMD="$(sed -ne '/\(^make.*install\)\|\(^DESTDIR.*install\)/,/\(
                         /^##$\|\(^}.*\)\|\(^##}.*\)\|^[[:space:]]\}$/s/^##//g"  < $BDIR/$BUILDFILE > $TMPFILE
                         ( grep -E ^'##install|##make*-ln*|##cp*|##mkdir*' $TMPFILE 1>/dev/null ) && \
                         sed -i '/^##install \|^##make.*-ln.*\|^##mkdir\|^##cp/s/^##//g' $TMPFILE
-                        elif [[ $B_FUNCTION_CMD =~ ^"sed".* && (( $B_FUNCTION_CMD =~ "for".*in || $B_FUNCTION_CMD =~ "ln" ))  ]]; then local CONFIG_TYPE="C"
-                        sed "/\(^sed.*\)\|\(^for.* in .*\)\|\(.*for.* in .*\)\|\(^ln.*\)\|\(.*ln.*\)/,/^[[:space:]]\}$\|\(^}.*\)/ s/^/##/; \
+                        elif [[ $B_FUNCTION_CMD =~ ^"sed".* && $B_FUNCTION_CMD =~ "for".*in ]]; then local CONFIG_TYPE="C"
+                        sed "/\(^sed.*\)\|\(^for.* in .*\)\|\(.*for.* in .*\)/,/^[[:space:]]\}$\|\(^}.*\)/ s/^/##/; \
                         /^##$\|\(^}.*\)\|\(^##}.*\)\|^[[:space:]]\}$/s/^##//g"  < $BDIR/$BUILDFILE > $TMPFILE
                         ( grep -E ^'##install|##make*-ln*|##cp*|##mkdir*' $TMPFILE 1>/dev/null ) && \
                         sed -i '/^##install \|^##make.*-ln.*\|^##mkdir\|^##cp/s/^##//g' $TMPFILE
