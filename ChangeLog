@@ -112,3 +112,8 @@
 
     some build instructions contain commands with critical special characters like 'sed'
     add a layer of checking the name of the build function to avoid confusion
+
+
+2025-06-16
+
+    Updating var 'B_FUNCTION_CMD'
