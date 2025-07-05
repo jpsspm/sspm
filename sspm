@@ -1590,25 +1590,25 @@ if [[ $LIST = y ]]; then
    printf "\n\t\e[100m\e[1mS\e[0m\e[100mimple \e[1mS\e[0m\e[100mcript \e[1mP\e[0m\e[100mackages \e[1mM\e[0m\e[100manager\e[0m\v\n"
    printf "\e[2mthis list is based on given $BUILDFILE file instructions\e[0m\v\n"
    printf "%3s\e[1mpaquets fondamentaux\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP0/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
+   sed -n -e "/^{.*.{$GROUP0/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
    printf "\n%3s\e[1mpaquets additionnels\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP1/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
+   sed -n -e "/^{.*.{$GROUP1/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
    printf "\n%3s\e[1mpaquets optionnels\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP2/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
+   sed -n -e "/^{.*.{$GROUP2/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
    printf "\n%3s\e[1mautres paquets\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP3/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/; $s/$/\n/' ;;
+   sed -n -e "/^{.*.{$GROUP3/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/; $s/$/\n/' ;;
    tr_TR) ;;
    en_*|*)
    printf "\n\t\e[100m\e[1mS\e[0m\e[100mimple \e[1mS\e[0m\e[100mcript \e[1mP\e[0m\e[100mackages \e[1mM\e[0m\e[100manager\e[0m\v\n"
    printf "\e[2mthis list is based on given $BUILDFILE file instructions\e[0m\v\n"
    printf "%3s\e[1mbase packages\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP0/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
+   sed -n -e "/^{.*.{$GROUP0/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
    printf "\n%3s\e[1madditional packages\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP1/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
+   sed -n -e "/^{.*.{$GROUP1/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
    printf "\n%3s\e[1moptional packages\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP2/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
+   sed -n -e "/^{.*.{$GROUP2/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/'
    printf "\n%3s\e[1mother packages\e[0m\v\n"
-   sed -n -e "/^{.*$GROUP3/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/; $s/$/\n/' ;;
+   sed -n -e "/^{.*.{$GROUP3/p"  "$DTBFILE1"|sed 's/).{/ /'|cut -d ' ' -f1|sed 's/^[[:punct:]]/     \xE2\x80\xA2 /; s/}.{/ /; s/}.(/\-/; $s/$/\n/' ;;
    esac 
    else  LINE="$(cat "$SCRIPTFILE"|grep -E "^PKGDTB_DIGIT0|^local PKGDTB_DIGIT0"|cut -d'=' -f2|tr -d '()'|tr -d "\"'")"
    if [ -z "$LINE" ]; then case "$lang" in
