@@ -117,3 +117,8 @@
 2025-06-16
 
     Updating if statement of var 'B_FUNCTION_CMD'
+
+
+2025-07-5
+
+    pkg_infos command 'sed' adjusted when listing packages
