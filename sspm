@@ -3235,7 +3235,7 @@ local fonction_name=""$pkgname"_pth() {    ######################### package $pk
           printf "%s\n" "printf '$COMMENT0 $pkgname\n$COMMENT6 $COMMENT1\n'"  >> $FAKEROOT/realpath
 find . -type d \! -name "." -print0 | while IFS= read -r -d '' line; do
 parentdir_name="$(basename $line)"
-if [[ -n $parentdir_name && ! "${sysdirs[@]}" =~ $parentdir_name ]]; then
+if [[ -n $parentdir_name && ! "${sysdirs[@]}" =~ "$parentdir_name" ]]; then
 printf "%s\n" "printf '  \e[96m$line\e[0m\n'" | sed 's/.\//\//' >> $FAKEROOT/realpath && continue
 else continue; fi; done; printf "%s\n" "printf '$COMMENT6 $COMMENT2\n'" >> $FAKEROOT/realpath
 while IFS= read -r line; do
