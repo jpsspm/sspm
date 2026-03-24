@@ -122,3 +122,10 @@
 2025-07-5
 
     pkg_infos command 'sed' adjusted when listing packages
+
+
+2026-03-24
+
+   fix var EMULATED_TERM (this variable chech if we are on a amulated term
+                          ignore error if we are in a fresh chroot with minimum tools)
+   dependencies build : updating package versions
